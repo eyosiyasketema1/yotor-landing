@@ -72,6 +72,27 @@
     --yotor-tab-fs: 14px;
     --color-muted-50: rgba(0, 0, 0, 0.5);
 
+    /* Focus More section */
+    --color-focus-bg: rgba(230, 247, 248, 0.5);
+    --color-yellow: #f7c602;
+    --focus-heading-fs: 64px;
+    --focus-heading-lh: 75px;
+    --focus-heading-tracking: -3.84px;
+
+    /* Bento section */
+    --bento-card-bg: rgba(0, 0, 0, 0.02);
+    --bento-card-border: rgba(0, 0, 0, 0.03);
+    --bento-card-w: 365px;
+    --bento-card-h-half: 377.5px;
+    --bento-card-h-full: 770px;
+    --bento-gap: 15px;
+    --color-orange: #f08e11;
+    --color-pink: #ed4c5c;
+    --color-dark: #0b3234;
+
+    /* Comparison section */
+    --comparison-handle-color: rgba(255, 255, 255, 0.6);
+
     /* Layout */
     --content-w: 1160px;        /* Standard centered content width (Figma 1440 - 280) */
     --content-pad: 140px;       /* Side padding so content stays centered at 1160px */
@@ -897,6 +918,659 @@
     opacity: 0;
   }
 
+  /* ===================== CTA BAR ===================== */
+  .cta-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border-top: 1px solid var(--color-border-soft);
+    background: var(--color-white);
+  }
+
+  .cta-bar__container {
+    width: 100%;
+    max-width: var(--content-w);
+    height: 185px;
+    padding: var(--sp-20) var(--sp-2) var(--sp-2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-8);
+    border-left: 1px solid var(--color-border-soft);
+    border-right: 1px solid var(--color-border-soft);
+  }
+
+  .cta-bar__text {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: -0.4px;
+    line-height: normal;
+    color: var(--color-muted-50);
+    width: 631px;
+    max-width: 100%;
+  }
+
+  .cta-bar__text-strong {
+    color: var(--color-black);
+  }
+
+  .cta-bar__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    height: 46px;
+    padding: 16px 24px 16px 20px;
+    background: var(--color-yellow);
+    color: var(--color-text-dark);
+    border-radius: var(--r-button);
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.28px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .cta-bar__btn:hover {
+    background: #e6b500;
+  }
+
+  .cta-bar__btn-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  /* ===================== COMPARISON (before/after) ===================== */
+  .comparison {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .comparison__container {
+    width: 100%;
+    max-width: var(--content-w);
+    padding: var(--sp-20) var(--sp-4);
+    display: flex;
+    justify-content: center;
+    border-left: 1px solid var(--color-border-soft);
+    border-right: 1px solid var(--color-border-soft);
+  }
+
+  .comparison__card {
+    position: relative;
+    width: 1128px;
+    max-width: 100%;
+    aspect-ratio: 1128 / 552;
+    border-radius: 20px;
+    overflow: hidden;
+    isolation: isolate;
+    --slider-pos: 50%;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+  }
+
+  .comparison__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+
+  .comparison__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(154.749deg, rgba(0, 0, 0, 0) 65.139%, rgba(0, 0, 0, 0.3) 96.759%),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%);
+  }
+
+  /* New-way wrap is clipped to the LEFT portion of the card based on slider */
+  .comparison__new-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    clip-path: inset(0 calc(100% - var(--slider-pos)) 0 0);
+    -webkit-clip-path: inset(0 calc(100% - var(--slider-pos)) 0 0);
+    pointer-events: none;
+  }
+
+  .comparison__badge {
+    position: absolute;
+    bottom: 32px;
+    z-index: 3;
+    padding: 8px 16px;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.28px;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    pointer-events: none;
+    border-radius: 4px;
+  }
+
+  /* Old-way badge sits centered in the right (old-way) portion */
+  .comparison__badge--old {
+    left: calc((var(--slider-pos) + 100%) / 2);
+    background: var(--color-yotor-primary);
+    color: var(--color-white);
+  }
+
+  /* New-way badge sits centered in the left (new-way) portion */
+  .comparison__badge--new {
+    left: calc(var(--slider-pos) / 2);
+    background: var(--color-yellow);
+    color: var(--color-text-dark);
+  }
+
+  /* Vertical handle (the line) */
+  .comparison__handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--slider-pos);
+    width: 2px;
+    background: var(--comparison-handle-color);
+    transform: translateX(-50%);
+    z-index: 4;
+    cursor: ew-resize;
+  }
+
+  /* Wider invisible drag zone around the line for easier grabbing */
+  .comparison__handle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -20px;
+    right: -20px;
+  }
+
+  /* The yellow circle button in the middle */
+  .comparison__handle-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-yellow);
+    border: none;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    touch-action: none;
+    padding: 0;
+    color: var(--color-text-dark);
+    /* Continuous subtle pulse to invite interaction */
+    animation: compare-pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes compare-pulse {
+    0%, 100% {
+      transform: translate(-50%, -50%) scale(1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18), 0 0 0 0 rgba(247, 198, 2, 0.45);
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.08);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18), 0 0 0 10px rgba(247, 198, 2, 0);
+    }
+  }
+
+  /* Pause the pulse while user is interacting */
+  .comparison__card.is-dragging .comparison__handle-btn,
+  .comparison__handle-btn:hover,
+  .comparison__handle-btn:focus-visible {
+    animation-play-state: paused;
+  }
+
+  .comparison__card.is-dragging .comparison__handle-btn {
+    cursor: grabbing;
+  }
+
+  .comparison__handle-btn:focus-visible {
+    outline: 3px solid rgba(0, 184, 194, 0.5);
+    outline-offset: 4px;
+  }
+
+  .comparison__handle-btn-icon {
+    width: 22px;
+    height: 18px;
+    pointer-events: none;
+    display: block;
+  }
+
+  /* Respect reduced-motion preference: no pulse */
+  @media (prefers-reduced-motion: reduce) {
+    .comparison__handle-btn {
+      animation: none;
+    }
+  }
+
+  /* While dragging, keep grabbing cursor across the whole card */
+  .comparison__card.is-dragging {
+    cursor: grabbing;
+  }
+
+  /* Auto-demo: smooth transitions when the .is-demo class is applied.
+     During normal drag/click these properties stay un-transitioned so
+     the handle tracks the pointer instantly. */
+  .comparison__card.is-demo .comparison__new-wrap,
+  .comparison__card.is-demo .comparison__handle,
+  .comparison__card.is-demo .comparison__badge--old,
+  .comparison__card.is-demo .comparison__badge--new {
+    transition: clip-path 0.7s cubic-bezier(0.45, 0, 0.55, 1),
+      -webkit-clip-path 0.7s cubic-bezier(0.45, 0, 0.55, 1),
+      left 0.7s cubic-bezier(0.45, 0, 0.55, 1);
+  }
+
+  /* Pause the pulse during the demo swing so the motion is clean */
+  .comparison__card.is-demo .comparison__handle-btn {
+    animation-play-state: paused;
+  }
+
+  /* ===================== BENTO SECTION ===================== */
+  .bento {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .bento__container {
+    width: 100%;
+    max-width: var(--content-w);
+    padding: var(--sp-20) var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-8);
+    border-left: 1px solid var(--color-border-soft);
+    border-right: 1px solid var(--color-border-soft);
+  }
+
+  /* Title block (eyebrow + subtitle) */
+  .bento__title-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-2);
+    padding: var(--sp-2) 0;
+    width: 100%;
+  }
+
+  .bento__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    height: 34px;
+    padding: var(--sp-2) var(--sp-4);
+    border-radius: var(--r-pill);
+  }
+
+  .bento__eyebrow-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .bento__eyebrow-text {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--color-yotor-primary);
+    white-space: nowrap;
+  }
+
+  .bento__subtitle-wrap {
+    padding: 0 var(--sp-4);
+    width: 100%;
+  }
+
+  .bento__subtitle {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    color: var(--color-muted);
+    width: 472px;
+    max-width: 100%;
+  }
+
+  /* Feature grid */
+  .bento__grid {
+    display: flex;
+    gap: var(--bento-gap);
+    align-items: flex-start;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .bento__col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    width: var(--bento-card-w);
+    flex-shrink: 0;
+  }
+
+  /* Generic card */
+  .bento-card {
+    position: relative;
+    width: var(--bento-card-w);
+    height: var(--bento-card-h-half);
+    background: var(--bento-card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .bento-card--tall {
+    height: var(--bento-card-h-full);
+    width: var(--bento-card-w);
+  }
+
+  /* Inner details area: icon + text */
+  .bento-card__details {
+    position: absolute;
+    left: 16px;
+    top: 39px;
+    width: 333px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    z-index: 2;
+  }
+
+  .bento-card__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .bento-card__icon--orange { background: var(--color-orange); }
+  .bento-card__icon--pink   { background: var(--color-pink); }
+  .bento-card__icon--dark   { background: var(--color-dark); }
+  .bento-card__icon--teal   { background: var(--color-yotor-primary); }
+
+  .bento-card__icon img {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  .bento-card__text {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    color: var(--color-black);
+  }
+
+  .bento-card__text-muted {
+    color: var(--color-muted-50);
+  }
+
+  /* Decorative illustration anchored bottom-right of the card */
+  .bento-card__illustration {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .bento-card__illustration--overview {
+    right: 24px;
+    bottom: 0;
+    width: 151px;
+    height: 165px;
+    object-fit: contain;
+    object-position: bottom;
+  }
+
+  .bento-card__illustration--security {
+    right: 28px;
+    bottom: 0;
+    width: 143px;
+    height: 176px;
+    object-fit: contain;
+    object-position: bottom;
+  }
+
+  .bento-card__illustration--finance {
+    right: 24px;
+    bottom: 0;
+    width: 161px;
+    height: 169px;
+    object-fit: contain;
+    object-position: bottom;
+  }
+
+  /* Middle column: tall card with phone */
+  .bento-card--phone-card .bento-card__phone {
+    position: absolute;
+    left: 16px;
+    top: 220px;
+    width: 333px;
+    height: auto;
+    object-fit: contain;
+    z-index: 1;
+  }
+
+  /* "Easy to use!" photo card */
+  .bento-card--easy {
+    background: var(--color-dark);
+  }
+
+  .bento-card__photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  /* Swirls SVG is full-card and already contains a 20% black overlay + blurred
+     yellow/cyan gradient blobs — fills the entire card area */
+  .bento-card__swirls {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .bento-card__highlight {
+    position: absolute;
+    left: 24px;
+    bottom: 24px;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    width: 321px;
+  }
+
+  .bento-card__watermark {
+    width: 48px;
+    height: 38px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+
+  .bento-card__big-title {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 37px;
+    line-height: 41px;
+    letter-spacing: -1.85px;
+    color: var(--color-white);
+    margin: 0;
+  }
+
+  /* ===================== FOCUS MORE SECTION ===================== */
+  .focus {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: var(--color-focus-bg);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .focus__container {
+    width: 100%;
+    max-width: var(--content-w);
+    padding: var(--sp-20) var(--sp-4);
+    display: flex;
+    justify-content: center;
+    border-left: 1px solid var(--color-border-soft);
+    border-right: 1px solid var(--color-border-soft);
+    background: var(--color-focus-bg);
+  }
+
+  .focus__card {
+    position: relative;
+    width: 1128px;
+    max-width: 100%;
+    aspect-ratio: 1128 / 552;
+    border-radius: 20px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .focus__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  /* Dark overlay so the white heading stays readable on busy photos */
+  .focus__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background:
+      linear-gradient(154.749deg, rgba(0, 0, 0, 0) 44.842%, rgba(0, 0, 0, 0.3) 96.759%),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%);
+    pointer-events: none;
+  }
+
+  .focus__info {
+    position: absolute;
+    left: 32px;
+    right: 32px;
+    bottom: 32px;
+    z-index: 3;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .focus__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-6);
+    max-width: 728px;
+  }
+
+  .focus__title {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: var(--focus-heading-fs);
+    line-height: var(--focus-heading-lh);
+    letter-spacing: var(--focus-heading-tracking);
+    color: var(--color-white);
+  }
+
+  .focus__title-accent {
+    font-weight: 500;
+    color: var(--color-yotor-primary);
+  }
+
+  .focus__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    height: 46px;
+    padding: 16px 24px 16px 20px;
+    background: var(--color-yellow);
+    color: var(--color-text-dark);
+    border-radius: var(--r-button);
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: var(--tracking-link);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .focus__btn:hover {
+    background: #e6b500;
+  }
+
+  .focus__btn-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--color-text-dark);
+  }
+
+  .focus__watermark {
+    width: 80px;
+    height: 64px;
+    object-fit: contain;
+    opacity: 0.9;
+    flex-shrink: 0;
+    /* Recolor the dark logo to white for the watermark on the dark image */
+    filter: brightness(0) invert(1);
+  }
+
   /* ===================== RESPONSIVE — TABLET (≤1024px) ===================== */
   @media (max-width: 1024px) {
     /* Nav */
@@ -1075,6 +1749,81 @@
 
     .yotor-tab {
       flex-shrink: 0;
+    }
+
+    /* Focus section */
+    :root { --focus-heading-fs: 48px; --focus-heading-lh: 56px; --focus-heading-tracking: -2.4px; }
+
+    .focus__container {
+      padding: 48px 16px;
+    }
+
+    .focus__info {
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+    }
+
+    /* Bento section */
+    .bento__container {
+      padding: 48px 16px;
+    }
+
+    .bento__grid {
+      flex-wrap: wrap;
+    }
+
+    /* CTA bar */
+    .cta-bar__container {
+      flex-direction: column;
+      align-items: flex-start;
+      height: auto;
+      padding: 48px 16px;
+      gap: 24px;
+    }
+
+    .cta-bar__text {
+      width: 100%;
+    }
+
+    /* Comparison */
+    .comparison__container {
+      padding: 48px 16px;
+    }
+  }
+
+  /* ===================== RESPONSIVE — MOBILE (≤768px) ===================== */
+  @media (max-width: 768px) {
+    :root { --focus-heading-fs: 28px; --focus-heading-lh: 34px; --focus-heading-tracking: -1.2px; }
+
+    .focus__card {
+      aspect-ratio: auto;
+      min-height: 420px;
+    }
+
+    .focus__info {
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .focus__watermark {
+      align-self: flex-end;
+    }
+
+    /* Bento section: stack everything vertically */
+    .bento__grid {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Comparison badges shrink */
+    .comparison__badge {
+      bottom: 16px;
+      padding: 6px 12px;
+      font-size: 12px;
     }
   }
 </style>
@@ -1345,6 +2094,183 @@
   </div>
 </section>
 
+<!-- ===================== FOCUS MORE ON MINISTRY ===================== -->
+<section class="focus" aria-label="Focus more on ministry">
+  <div class="focus__container">
+    <div class="focus__card">
+      <img class="focus__bg" src="assets/focus-more-bg.png" alt="Pastor reading scripture on a park bench" onerror="this.style.background='#1f3a2a'; this.removeAttribute('src');" />
+      <div class="focus__overlay" aria-hidden="true"></div>
+
+      <div class="focus__info">
+        <div class="focus__text">
+          <h2 class="focus__title">
+            Focus More on <span class="focus__title-accent">Ministry,</span> Less on Administration
+          </h2>
+          <button class="focus__btn" type="button">
+            <span>Get Started for free</span>
+            <svg class="focus__btn-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M11.0561 3.5077C10.8061 3.2696 10.4105 3.2793 10.1724 3.5292C9.9344 3.7791 9.944 4.1748 10.1939 4.4128L15.4034 9.375H3.125C2.7798 9.375 2.5 9.6548 2.5 10C2.5 10.3452 2.7798 10.625 3.125 10.625H15.4035L10.1939 15.5873C9.944 15.8253 9.9344 16.2209 10.1724 16.4709C10.4105 16.7208 10.8061 16.7304 11.0561 16.4924L17.2385 10.6034C17.3793 10.4694 17.4626 10.2983 17.4884 10.1205C17.496 10.0815 17.5 10.0412 17.5 10C17.5 9.9587 17.496 9.9183 17.4883 9.8793C17.4625 9.7015 17.3792 9.5306 17.2385 9.3966L11.0561 3.5077Z" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+
+        <img class="focus__watermark" src="assets/focus-watermark.svg" alt="" aria-hidden="true" onerror="this.src='assets/yotor-logo.svg'" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BENTO: PEOPLE, RESOURCES, OVERSIGHT ===================== -->
+<section class="bento" aria-label="People, Resources and Oversight">
+  <div class="bento__container">
+
+    <!-- Title block -->
+    <div class="bento__title-block">
+      <div class="bento__eyebrow">
+        <span class="bento__eyebrow-icon" aria-hidden="true">
+          <img src="assets/Rocket.svg" alt="" width="24" height="24" />
+        </span>
+        <span class="bento__eyebrow-text">People, RESOURCES AND OVERSIGHT</span>
+      </div>
+      <div class="bento__subtitle-wrap">
+        <p class="bento__subtitle">Manage people, track church resources, and get a clear overview of everything that matters in one place.</p>
+      </div>
+    </div>
+
+    <!-- Feature grid: 3 columns -->
+    <div class="bento__grid">
+
+      <!-- Column 1: Overview + Easy to use -->
+      <div class="bento__col">
+        <!-- Overview card -->
+        <article class="bento-card">
+          <div class="bento-card__details">
+            <div class="bento-card__icon bento-card__icon--orange">
+              <img src="assets/bento-icon-grid.svg" alt="" width="24" height="24" />
+            </div>
+            <p class="bento-card__text">
+              Get a clear overview
+              <span class="bento-card__text-muted">of everything that matters in one centralized dashboard.</span>
+            </p>
+          </div>
+          <img class="bento-card__illustration bento-card__illustration--overview" src="assets/bento-overview.png" alt="" aria-hidden="true" />
+        </article>
+
+        <!-- Easy to use card -->
+        <article class="bento-card bento-card--easy">
+          <img class="bento-card__photo" src="assets/bento-easy-bg.png" alt="" onerror="this.style.display='none'" />
+          <img class="bento-card__swirls" src="assets/bento-swirls.svg" alt="" aria-hidden="true" />
+          <div class="bento-card__highlight">
+            <img class="bento-card__watermark" src="assets/focus-watermark.svg" alt="" aria-hidden="true" onerror="this.src='assets/yotor-logo.svg'" />
+            <h3 class="bento-card__big-title">Easy to use!</h3>
+          </div>
+        </article>
+      </div>
+
+      <!-- Column 2: Tall phone card -->
+      <article class="bento-card bento-card--tall bento-card--phone-card">
+        <div class="bento-card__details">
+          <div class="bento-card__icon bento-card__icon--pink">
+            <img src="assets/bento-icon-phone.svg" alt="" width="24" height="24" />
+          </div>
+          <p class="bento-card__text">
+            <span class="bento-card__text-muted" style="color: var(--color-black);">Control your entire ecosystem</span>
+            <span class="bento-card__text-muted"> from anywhere. Our mobile first interface ensures you have full access.</span>
+          </p>
+        </div>
+        <img class="bento-card__phone" src="assets/bento-phone.png" alt="Yotor mobile app preview" />
+      </article>
+
+      <!-- Column 3: Security + Finance -->
+      <div class="bento__col">
+        <!-- Security card -->
+        <article class="bento-card">
+          <div class="bento-card__details">
+            <div class="bento-card__icon bento-card__icon--dark">
+              <img src="assets/bento-icon-lock.svg" alt="" width="24" height="24" />
+            </div>
+            <p class="bento-card__text">
+              End-to-end security
+              <span class="bento-card__text-muted">keeps your church data protected through encrypted storage and secure access controls.</span>
+            </p>
+          </div>
+          <img class="bento-card__illustration bento-card__illustration--security" src="assets/bento-security.png" alt="" aria-hidden="true" />
+        </article>
+
+        <!-- Finance card -->
+        <article class="bento-card">
+          <div class="bento-card__details">
+            <div class="bento-card__icon bento-card__icon--teal">
+              <img src="assets/bento-icon-trending.svg" alt="" width="24" height="24" />
+            </div>
+            <p class="bento-card__text">
+              Finance management
+              <span class="bento-card__text-muted">gives your church a clear and organized way to manage income, expenses, and financial reporting.</span>
+            </p>
+          </div>
+          <img class="bento-card__illustration bento-card__illustration--finance" src="assets/bento-finance.png" alt="" aria-hidden="true" />
+        </article>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA BAR ===================== -->
+<section class="cta-bar" aria-label="Get Started">
+  <div class="cta-bar__container">
+    <p class="cta-bar__text">
+      Everything you asked for to
+      <span class="cta-bar__text-strong">manage church operations, communication, administration, finances, member management, teams, HR, assets, and ministry</span>
+      activities in one unified platform.
+    </p>
+    <button class="cta-bar__btn" type="button">
+      <span>Get Started for free</span>
+      <svg class="cta-bar__btn-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M11.0561 3.5077C10.8061 3.2696 10.4105 3.2793 10.1724 3.5292C9.9344 3.7791 9.944 4.1748 10.1939 4.4128L15.4034 9.375H3.125C2.7798 9.375 2.5 9.6548 2.5 10C2.5 10.3452 2.7798 10.625 3.125 10.625H15.4035L10.1939 15.5873C9.944 15.8253 9.9344 16.2209 10.1724 16.4709C10.4105 16.7208 10.8061 16.7304 11.0561 16.4924L17.2385 10.6034C17.3793 10.4694 17.4626 10.2983 17.4884 10.1205C17.496 10.0815 17.5 10.0412 17.5 10C17.5 9.9587 17.496 9.9183 17.4883 9.8793C17.4625 9.7015 17.3792 9.5306 17.2385 9.3966L11.0561 3.5077Z" fill="currentColor"/>
+      </svg>
+    </button>
+  </div>
+</section>
+
+<!-- ===================== COMPARISON (before/after slider) ===================== -->
+<section class="comparison" aria-label="The old way vs the new way">
+  <div class="comparison__container">
+    <div class="comparison__card" id="compareCard">
+      <!-- Base layer: old way image (always full visible underneath) -->
+      <img class="comparison__img" src="assets/the-old-way.png" alt="Stressed pastor at a cluttered desk - the old way" />
+      <div class="comparison__overlay" aria-hidden="true"></div>
+      <span class="comparison__badge comparison__badge--old">The old way</span>
+
+      <!-- Top layer: new way image clipped to the left portion -->
+      <div class="comparison__new-wrap" id="compareNewWrap">
+        <img class="comparison__img" src="assets/the-new-way.png" alt="Organized pastor using Yotor - the new way" />
+        <div class="comparison__overlay" aria-hidden="true"></div>
+        <span class="comparison__badge comparison__badge--new">The new way</span>
+      </div>
+
+      <!-- Draggable handle: vertical line + yellow circle with two-way arrows -->
+      <div class="comparison__handle" id="compareHandle" aria-hidden="true">
+        <button
+          class="comparison__handle-btn"
+          id="compareHandleBtn"
+          type="button"
+          role="slider"
+          aria-label="Drag to compare the old way and the new way"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          aria-valuenow="50"
+        >
+          <svg class="comparison__handle-btn-icon" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M6 4 L2 9 L6 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 4 L20 9 L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <script>
@@ -1366,6 +2292,125 @@
         toggle.setAttribute('aria-expanded', 'false');
       });
     });
+  })();
+
+  // ===== Comparison slider (before/after image reveal) =====
+  (function () {
+    var card = document.getElementById('compareCard');
+    var handle = document.getElementById('compareHandle');
+    var btn = document.getElementById('compareHandleBtn');
+    if (!card || !handle || !btn) return;
+
+    var isDragging = false;
+    var currentPos = 50;
+    var userInteracted = false;
+    var demoPlayed = false;
+    var prefersReduced = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function setPos(percent) {
+      percent = Math.max(0, Math.min(100, percent));
+      currentPos = percent;
+      card.style.setProperty('--slider-pos', percent + '%');
+      btn.setAttribute('aria-valuenow', String(Math.round(percent)));
+    }
+
+    function markInteracted() {
+      userInteracted = true;
+      card.classList.remove('is-demo');
+    }
+
+    function pointerX(e) {
+      if (e.touches && e.touches.length) return e.touches[0].clientX;
+      if (e.changedTouches && e.changedTouches.length) return e.changedTouches[0].clientX;
+      return e.clientX;
+    }
+
+    function updateFromEvent(e) {
+      var rect = card.getBoundingClientRect();
+      var x = pointerX(e) - rect.left;
+      setPos((x / rect.width) * 100);
+    }
+
+    function onMove(e) {
+      if (!isDragging) return;
+      updateFromEvent(e);
+      if (e.cancelable) e.preventDefault();
+    }
+
+    function onEnd() {
+      if (!isDragging) return;
+      isDragging = false;
+      card.classList.remove('is-dragging');
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onEnd);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onEnd);
+      document.removeEventListener('touchcancel', onEnd);
+    }
+
+    function onStart(e) {
+      markInteracted();
+      isDragging = true;
+      card.classList.add('is-dragging');
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onEnd);
+      document.addEventListener('touchmove', onMove, { passive: false });
+      document.addEventListener('touchend', onEnd);
+      document.addEventListener('touchcancel', onEnd);
+      updateFromEvent(e);
+      if (e.cancelable) e.preventDefault();
+    }
+
+    // Drag from the handle (line or button)
+    handle.addEventListener('mousedown', onStart);
+    handle.addEventListener('touchstart', onStart, { passive: false });
+
+    // Click anywhere on the card jumps the slider to that x
+    card.addEventListener('click', function (e) {
+      if (e.target.closest('.comparison__handle')) return;
+      markInteracted();
+      updateFromEvent(e);
+    });
+
+    // Keyboard support on the focused handle button
+    btn.addEventListener('keydown', function (e) {
+      var step = e.shiftKey ? 10 : 5;
+      if (e.key === 'ArrowLeft') { markInteracted(); setPos(currentPos - step); e.preventDefault(); }
+      else if (e.key === 'ArrowRight') { markInteracted(); setPos(currentPos + step); e.preventDefault(); }
+      else if (e.key === 'Home') { markInteracted(); setPos(0); e.preventDefault(); }
+      else if (e.key === 'End') { markInteracted(); setPos(100); e.preventDefault(); }
+    });
+
+    // Auto-demo: when the slider scrolls into view for the first time,
+    // animate once (middle -> 30% -> 70% -> middle) to hint that it's draggable.
+    // Skipped if the user has already interacted, or if reduced-motion is set.
+    function runDemo() {
+      if (demoPlayed || userInteracted || prefersReduced) return;
+      demoPlayed = true;
+      card.classList.add('is-demo');
+      // Small initial pause so visitors notice the slider settled before it moves
+      window.setTimeout(function () { if (!userInteracted) setPos(30); }, 350);
+      window.setTimeout(function () { if (!userInteracted) setPos(70); }, 1150);
+      window.setTimeout(function () { if (!userInteracted) setPos(50); }, 1950);
+      // Remove the transition class after the demo finishes so future
+      // drags/clicks remain instant
+      window.setTimeout(function () { card.classList.remove('is-demo'); }, 2750);
+    }
+
+    if ('IntersectionObserver' in window && !prefersReduced) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting && !demoPlayed && !userInteracted) {
+            runDemo();
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.5 });
+      observer.observe(card);
+    }
+
+    setPos(50);
   })();
 
   // ===== Yotor section: continuous loading-bar carousel =====
