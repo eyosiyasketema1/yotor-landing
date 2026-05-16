@@ -264,14 +264,31 @@
     height: 48px;
   }
 
+  /* Language selector — clickable button that opens a dropdown */
+  .nav__lang-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+
   .nav__lang {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: var(--sp-2);
     padding: var(--sp-2);
     border-radius: var(--r-pill);
-    flex-shrink: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+
+  .nav__lang:hover {
+    background: #f6f6f6;
+  }
+
+  .nav__lang[aria-expanded='true'] {
+    background: #f0f0f0;
   }
 
   .nav__lang-icon {
@@ -292,6 +309,70 @@
     line-height: 1.2;
     color: var(--color-text-dark);
     white-space: nowrap;
+  }
+
+  /* Dropdown menu */
+  .nav__lang-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 180px;
+    background: var(--color-white);
+    border: 1px solid var(--color-border-button);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
+    padding: 6px;
+    list-style: none;
+    margin: 0;
+    z-index: 200;
+    opacity: 0;
+    transform: translateY(-4px);
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+
+  .nav__lang-menu[data-open='true'] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .nav__lang-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-2);
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-foreground, #0a0a0a);
+    transition: background-color 0.15s ease;
+  }
+
+  .nav__lang-option:hover {
+    background: #f6f6f6;
+  }
+
+  .nav__lang-option--selected {
+    color: var(--color-yotor-primary);
+  }
+
+  .nav__lang-option-check {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background-color: var(--color-yotor-primary);
+    -webkit-mask: url('assets/checkmark.svg') no-repeat center / contain;
+            mask: url('assets/checkmark.svg') no-repeat center / contain;
+    visibility: hidden;
+  }
+
+  .nav__lang-option--selected .nav__lang-option-check {
+    visibility: visible;
   }
 
   .nav__btn {
@@ -3943,11 +4024,55 @@
     </div>
 
     <div class="nav__actions">
-      <div class="nav__lang" aria-label="Language: English">
-        <span class="nav__lang-icon" aria-hidden="true">
-          <img src="assets/Globe.svg" alt="" width="20" height="20" />
-        </span>
-        <span class="nav__lang-text">EN</span>
+      <div class="nav__lang-wrap" id="navLangWrap">
+        <button
+          class="nav__lang"
+          type="button"
+          id="navLangBtn"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-label="Change language"
+        >
+          <span class="nav__lang-icon" aria-hidden="true">
+            <img src="assets/Globe.svg" alt="" width="20" height="20" />
+          </span>
+          <span class="nav__lang-text" id="navLangCurrent">EN</span>
+        </button>
+        <ul class="nav__lang-menu" id="navLangMenu" role="listbox" data-open="false" aria-labelledby="navLangBtn">
+          <li
+            class="nav__lang-option nav__lang-option--selected"
+            role="option"
+            tabindex="-1"
+            aria-selected="true"
+            data-lang-code="EN"
+            data-lang-name="English"
+          >
+            <span class="nav__lang-option-name">English</span>
+            <span class="nav__lang-option-check" aria-hidden="true"></span>
+          </li>
+          <li
+            class="nav__lang-option"
+            role="option"
+            tabindex="-1"
+            aria-selected="false"
+            data-lang-code="AM"
+            data-lang-name="Amharic"
+          >
+            <span class="nav__lang-option-name">Amharic</span>
+            <span class="nav__lang-option-check" aria-hidden="true"></span>
+          </li>
+          <li
+            class="nav__lang-option"
+            role="option"
+            tabindex="-1"
+            aria-selected="false"
+            data-lang-code="OM"
+            data-lang-name="Afaan Oromoo"
+          >
+            <span class="nav__lang-option-name">Afaan Oromoo</span>
+            <span class="nav__lang-option-check" aria-hidden="true"></span>
+          </li>
+        </ul>
       </div>
 
       <button class="nav__btn nav__btn--login" type="button">Log in</button>
@@ -5017,6 +5142,60 @@
         nav.setAttribute('data-open', 'false');
         toggle.setAttribute('aria-expanded', 'false');
       });
+    });
+  })();
+
+  // ===== Language selector (Globe / EN dropdown) =====
+  (function () {
+    var wrap = document.getElementById('navLangWrap');
+    var btn = document.getElementById('navLangBtn');
+    var menu = document.getElementById('navLangMenu');
+    var currentLabel = document.getElementById('navLangCurrent');
+    if (!wrap || !btn || !menu || !currentLabel) return;
+
+    var options = menu.querySelectorAll('.nav__lang-option');
+
+    function setOpen(open) {
+      menu.setAttribute('data-open', String(open));
+      btn.setAttribute('aria-expanded', String(open));
+    }
+
+    function selectOption(opt) {
+      options.forEach(function (o) {
+        o.classList.remove('nav__lang-option--selected');
+        o.setAttribute('aria-selected', 'false');
+      });
+      opt.classList.add('nav__lang-option--selected');
+      opt.setAttribute('aria-selected', 'true');
+      currentLabel.textContent = opt.getAttribute('data-lang-code');
+      btn.setAttribute('aria-label', 'Change language — current: ' + opt.getAttribute('data-lang-name'));
+    }
+
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var isOpen = menu.getAttribute('data-open') === 'true';
+      setOpen(!isOpen);
+    });
+
+    options.forEach(function (opt) {
+      opt.addEventListener('click', function (e) {
+        e.stopPropagation();
+        selectOption(opt);
+        setOpen(false);
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function (e) {
+      if (!wrap.contains(e.target)) setOpen(false);
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.getAttribute('data-open') === 'true') {
+        setOpen(false);
+        btn.focus();
+      }
     });
   })();
 
