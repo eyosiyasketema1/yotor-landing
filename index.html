@@ -13,23 +13,40 @@
   :root {
     /* Colors */
     --color-yotor-primary: #00b8c2;
+    --color-yellow: #f7c602;
     --color-black: #04071e;
+    --color-text-dark: #0b3234;
     --color-border-soft: #ecf1f8;
     --color-border-button: #ebebeb;
     --color-muted: #737373;
     --color-primary-a: #1f1f1f;
     --color-primary-b: #ffffff;
-    --color-text-en: #0b3234;
     --color-white: #ffffff;
+    --color-text-50: rgba(0, 0, 0, 0.5);
 
     /* Typography */
     --fs-link: 14px;
+    --fs-trust: 14px;
+    --fs-heading: 56px;
+    --fs-desc: 20px;
+    --fs-quote: 16px;
+    --fs-role: 14px;
     --lh-link: 20px;
+    --lh-heading: 1.01;
+    --lh-desc: 1.35;
+    --lh-trust: 1.37;
+    --lh-quote: 23px;
     --tracking-link: -0.28px;
+    --tracking-trust: -0.14px;
+    --tracking-heading: -0.56px;
+    --tracking-desc: -0.2px;
+    --tracking-quote: -0.32px;
 
     /* Radii */
     --r-button: 8px;
     --r-pill: 1000px;
+    --r-card: 12px;
+    --r-image: 20px;
 
     /* Spacing */
     --sp-1: 4px;
@@ -37,6 +54,9 @@
     --sp-3: 12px;
     --sp-4: 16px;
     --sp-6: 24px;
+    --sp-8: 32px;
+    --sp-12: 48px;
+    --sp-20: 80px;
 
     /* Layout */
     --nav-inner-w: 1160px;
@@ -123,7 +143,6 @@
     width: 48px;
     height: 39px;
     object-fit: contain;
-    display: block;
   }
 
   .nav__links {
@@ -138,7 +157,6 @@
     justify-content: center;
     padding: var(--sp-2) var(--sp-4);
     height: 100%;
-    font-family: 'General Sans', 'Inter', sans-serif;
     font-weight: 500;
     font-size: var(--fs-link);
     line-height: var(--lh-link);
@@ -148,10 +166,7 @@
     transition: color 0.15s ease;
   }
 
-  .nav__link:hover {
-    color: var(--color-yotor-primary);
-  }
-
+  .nav__link:hover,
   .nav__link--active {
     color: var(--color-yotor-primary);
   }
@@ -190,7 +205,7 @@
     font-weight: 500;
     font-size: 14px;
     line-height: 1.2;
-    color: var(--color-text-en);
+    color: var(--color-text-dark);
     white-space: nowrap;
   }
 
@@ -199,14 +214,13 @@
     align-items: center;
     justify-content: center;
     padding: 16px 24px;
-    font-family: 'General Sans', 'Inter', sans-serif;
     font-weight: 500;
     font-size: var(--fs-link);
     line-height: var(--lh-link);
     letter-spacing: var(--tracking-link);
     border-radius: var(--r-button);
     white-space: nowrap;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    transition: background-color 0.15s ease;
   }
 
   .nav__btn--login {
@@ -224,14 +238,12 @@
     height: 46px;
     background: var(--color-yotor-primary);
     color: var(--color-primary-b);
-    border: none;
   }
 
   .nav__btn--cta:hover {
     background: #009ba4;
   }
 
-  /* Hamburger */
   .nav__toggle {
     display: none;
     width: 44px;
@@ -286,8 +298,278 @@
     transform: rotate(-45deg);
   }
 
+  /* ===================== HERO ===================== */
+  .hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: var(--sp-20) 100px;
+    gap: 40px;
+    background: var(--color-white);
+  }
+
+  .hero__intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-12);
+    align-items: flex-start;
+    width: 662px;
+    flex-shrink: 0;
+  }
+
+  .hero__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .hero__title-section {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  /* Trust badge */
+  .hero__trust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    padding: var(--sp-2);
+  }
+
+  .hero__trust-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: var(--color-yotor-primary);
+  }
+
+  .hero__trust-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero__trust-text {
+    font-weight: 400;
+    font-size: var(--fs-trust);
+    line-height: var(--lh-trust);
+    letter-spacing: var(--tracking-trust);
+    color: var(--color-text-dark);
+    white-space: nowrap;
+  }
+
+  /* Main heading */
+  .hero__title-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--sp-2);
+    width: 100%;
+  }
+
+  .hero__title {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: var(--fs-heading);
+    line-height: var(--lh-heading);
+    letter-spacing: var(--tracking-heading);
+    color: var(--color-text-dark);
+    width: 646px;
+    max-width: 100%;
+  }
+
+  .hero__title-accent {
+    color: var(--color-yotor-primary);
+  }
+
+  /* Description */
+  .hero__desc-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--sp-2);
+  }
+
+  .hero__desc {
+    font-weight: 400;
+    font-size: var(--fs-desc);
+    line-height: var(--lh-desc);
+    letter-spacing: var(--tracking-desc);
+    color: var(--color-text-50);
+    width: 572px;
+    max-width: 100%;
+  }
+
+  /* CTAs */
+  .hero__cta-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--sp-2);
+    width: 100%;
+  }
+
+  .hero__cta {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-4);
+    height: 48px;
+    width: 100%;
+  }
+
+  .hero__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    padding: 16px 24px 16px 20px;
+    border-radius: var(--r-button);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: var(--tracking-link);
+    white-space: nowrap;
+    overflow: hidden;
+    transition: background-color 0.15s ease;
+  }
+
+  .hero__btn--primary {
+    height: 46px;
+    background: var(--color-yotor-primary);
+    color: var(--color-primary-b);
+  }
+
+  .hero__btn--primary:hover {
+    background: #009ba4;
+  }
+
+  .hero__btn--secondary {
+    height: 48px;
+    background: var(--color-white);
+    border: 1px solid var(--color-border-button);
+    color: var(--color-primary-a);
+  }
+
+  .hero__btn--secondary:hover {
+    background: #f6f6f6;
+  }
+
+  .hero__btn-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  /* ===================== HERO IMAGE COMPOSITION ===================== */
+  .hero__image-wrap {
+    position: relative;
+    width: 498px;
+    height: 537px;
+    flex-shrink: 0;
+  }
+
+  /* Yellow rounded rectangle behind */
+  .hero__image-bg {
+    position: absolute;
+    top: 117px;
+    left: 0;
+    width: 498px;
+    height: 420px;
+    background: var(--color-yellow);
+    border-radius: var(--r-image);
+    overflow: hidden;
+  }
+
+  /* Textured overlay on yellow card (Figma "Testimonial Image" texture) */
+  .hero__image-bg-texture {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: multiply;
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  /* Pastor image — extends above and below the yellow bg */
+  .hero__pastor {
+    position: absolute;
+    top: 0;
+    left: 132px;
+    width: 359px;
+    height: 536px;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .hero__pastor img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  /* Testimonial card on the pastor image */
+  .hero__testimonial {
+    position: absolute;
+    top: 374px;
+    left: 24px;
+    width: 246px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    align-items: flex-start;
+    justify-content: center;
+    padding: var(--sp-4);
+    border-radius: var(--r-card);
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(100px);
+    z-index: 2;
+  }
+
+  .hero__testimonial-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--color-white);
+    flex-shrink: 0;
+  }
+
+  .hero__testimonial-quotes {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 210px;
+    color: var(--color-white);
+  }
+
+  .hero__testimonial-text {
+    font-weight: 500;
+    font-size: var(--fs-quote);
+    line-height: var(--lh-quote);
+    letter-spacing: var(--tracking-quote);
+    color: var(--color-white);
+  }
+
+  .hero__testimonial-role {
+    font-weight: 400;
+    font-size: var(--fs-role);
+    line-height: var(--lh-quote);
+    letter-spacing: var(--tracking-link);
+    color: var(--color-white);
+    opacity: 0.7;
+  }
+
   /* ===================== RESPONSIVE — TABLET (≤1024px) ===================== */
   @media (max-width: 1024px) {
+    /* Nav */
     .nav__toggle {
       display: inline-flex;
     }
@@ -327,10 +609,61 @@
     .nav__btn--login {
       display: none;
     }
+
+    /* Hero */
+    .hero {
+      padding: var(--sp-12) 40px;
+      flex-direction: column;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .hero__intro {
+      width: 100%;
+      max-width: 662px;
+      align-items: flex-start;
+    }
+
+    .hero__title,
+    .hero__desc {
+      width: 100%;
+    }
+
+    .hero__image-wrap {
+      width: 100%;
+      max-width: 498px;
+      height: auto;
+      aspect-ratio: 498 / 537;
+    }
+
+    .hero__image-bg {
+      top: 21.8%;
+      width: 100%;
+      height: 78.2%;
+    }
+
+    .hero__pastor {
+      top: 0;
+      left: 26.5%;
+      width: 72.1%;
+      height: 99.8%;
+    }
+
+    .hero__testimonial {
+      top: 69.6%;
+      left: 4.8%;
+      width: 49.4%;
+    }
   }
 
   /* ===================== RESPONSIVE — MOBILE (≤768px) ===================== */
   @media (max-width: 768px) {
+    :root {
+      --fs-heading: 36px;
+      --fs-desc: 16px;
+      --tracking-heading: -0.36px;
+    }
+
     .nav__inner {
       padding: 6px 12px;
     }
@@ -348,6 +681,42 @@
     .nav__logo-img {
       width: 44px;
       height: 36px;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 32px 16px;
+    }
+
+    .hero__intro {
+      gap: 24px;
+    }
+
+    .hero__cta {
+      flex-wrap: wrap;
+      height: auto;
+    }
+
+    .hero__btn {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .hero__testimonial {
+      width: 56%;
+    }
+
+    .hero__testimonial-quotes {
+      width: 100%;
+    }
+
+    .hero__testimonial-text {
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .hero__testimonial-role {
+      font-size: 12px;
     }
   }
 </style>
@@ -396,7 +765,73 @@
 </header>
 
 <main>
-  <!-- More sections will be added here as we build them -->
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" aria-label="Hero">
+  <!-- Left: text + CTAs -->
+  <div class="hero__intro">
+    <div class="hero__header">
+      <div class="hero__title-section">
+        <!-- Trust badge -->
+        <div class="hero__trust">
+          <span class="hero__trust-icon" aria-hidden="true">
+            <img src="assets/church.svg" alt="" width="20" height="20" />
+          </span>
+          <p class="hero__trust-text">Trusted by 250+ Churches</p>
+        </div>
+
+        <!-- Main heading -->
+        <div class="hero__title-wrap">
+          <h1 class="hero__title">
+            A Secure and <span class="hero__title-accent">Reliable</span> Solution to Manage Your <span class="hero__title-accent">Church</span>
+          </h1>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="hero__desc-wrap">
+        <p class="hero__desc">The all-in-one platform for modern churches. Manage members, finances, and operations with ease.</p>
+      </div>
+    </div>
+
+    <!-- CTA buttons -->
+    <div class="hero__cta-wrap">
+      <div class="hero__cta">
+        <button class="hero__btn hero__btn--primary" type="button">
+          <span>Get Started for free</span>
+          <img class="hero__btn-icon" src="assets/Arrow Right.svg" alt="" width="20" height="20" aria-hidden="true" />
+        </button>
+
+        <button class="hero__btn hero__btn--secondary" type="button">
+          <span>See how it works</span>
+          <img class="hero__btn-icon" src="assets/Play.svg" alt="" width="20" height="20" aria-hidden="true" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: image composition -->
+  <div class="hero__image-wrap">
+    <div class="hero__image-bg" aria-hidden="true">
+      <img class="hero__image-bg-texture" src="assets/hero-bg-texture.png" alt="" aria-hidden="true" />
+    </div>
+
+    <div class="hero__pastor">
+      <img src="assets/hero-pastor.png" alt="Smiling pastor holding a phone" />
+    </div>
+
+    <div class="hero__testimonial">
+      <span class="hero__testimonial-icon" aria-hidden="true">
+        <img src="assets/Chat.svg" alt="" width="24" height="24" />
+      </span>
+      <div class="hero__testimonial-quotes">
+        <p class="hero__testimonial-text">Yotor helped me to manage all data in my church.</p>
+        <p class="hero__testimonial-role">Church Pastor</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <script>
