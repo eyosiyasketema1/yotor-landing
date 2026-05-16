@@ -562,9 +562,11 @@
   /* Description */
   .hero__desc-wrap {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
     padding: var(--sp-2);
+    gap: 12px;
   }
 
   .hero__desc {
@@ -575,6 +577,14 @@
     color: var(--color-text-50);
     width: 572px;
     max-width: 100%;
+    margin: 0;
+  }
+
+  .hero__desc--credit {
+    font-size: 16px;
+    line-height: 1.45;
+    letter-spacing: -0.16px;
+    color: rgba(0, 0, 0, 0.42);
   }
 
   /* CTAs */
@@ -669,7 +679,7 @@
     pointer-events: none;
   }
 
-  /* Pastor image — extends above and below the yellow bg */
+  /* Pastor image stack — multiple images layered, crossfade between them */
   .hero__pastor {
     position: absolute;
     top: 0;
@@ -680,31 +690,98 @@
     z-index: 1;
   }
 
-  .hero__pastor img {
+  .hero__pastor-img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center top;
     display: block;
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out;
   }
 
-  /* Testimonial card on the pastor image */
+  .hero__pastor-img.is-active {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__pastor-img {
+      transition: none;
+    }
+  }
+
+  /* Testimonial text fades in/out as the photo crossfades */
+  .hero__testimonial-quotes {
+    transition: opacity 0.3s ease;
+  }
+
+  .hero__testimonial-quotes.is-fading {
+    opacity: 0;
+  }
+
+  /* Testimonial card pinned to the bottom-left of the photo with a 16px gap.
+     Padding is 16px on all sides; width is set dynamically per slide. */
   .hero__testimonial {
     position: absolute;
-    top: 374px;
-    left: 24px;
+    left: 16px;
+    bottom: 16px;
     width: 246px;
+    min-height: 139px;
     display: flex;
     flex-direction: column;
     gap: var(--sp-2);
     align-items: flex-start;
     justify-content: center;
-    padding: var(--sp-4);
+    padding: var(--sp-4) var(--sp-4) 20px; /* 16px top/sides, 20px bottom for the dots */
     border-radius: var(--r-card);
     background: rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(100px);
     -webkit-backdrop-filter: blur(100px);
     z-index: 2;
+    transition: width 0.4s ease;
+  }
+
+  /* Slide indicators centered at the bottom of the testimonial card */
+  .hero__testimonial-dots {
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .hero__testimonial-dot {
+    width: 6px;
+    height: 6px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.2s ease,
+                border-radius 0.3s ease;
+  }
+
+  .hero__testimonial-dot:hover {
+    background: rgba(255, 255, 255, 0.7);
+  }
+
+  .hero__testimonial-dot.is-active {
+    width: 18px;
+    border-radius: 4px;
+    background: var(--color-white);
+  }
+
+  .hero__testimonial-dot:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.8);
+    outline-offset: 2px;
   }
 
   .hero__testimonial-icon {
@@ -718,16 +795,29 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
-    width: 210px;
+    width: auto;
     color: var(--color-white);
   }
 
+  /* Quote always displays exactly 2 lines.
+     Height calculation: line-height (23px) × 2 = 46px reserved. */
   .hero__testimonial-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+            line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 46px; /* lock to exactly 2 line-heights */
     font-weight: 500;
     font-size: var(--fs-quote);
     line-height: var(--lh-quote);
     letter-spacing: var(--tracking-quote);
     color: var(--color-white);
+  }
+
+  .hero__testimonial-role {
+    white-space: nowrap;
   }
 
   .hero__testimonial-role {
@@ -4119,7 +4209,7 @@
 
       <!-- Description -->
       <div class="hero__desc-wrap">
-        <p class="hero__desc">The all-in-one platform for modern churches. Manage members, finances, and operations with ease.</p>
+        <p class="hero__desc">An all-in-one church management platform backed by 47 years of ministry experience from Great Commission Ministry Ethiopia.</p>
       </div>
     </div>
 
@@ -4132,7 +4222,7 @@
         </button>
 
         <button class="hero__btn hero__btn--secondary" type="button">
-          <span>See how it works</span>
+          <span>See a 2 min video</span>
           <img class="hero__btn-icon" src="assets/Play.svg" alt="" width="20" height="20" aria-hidden="true" />
         </button>
       </div>
@@ -4145,17 +4235,25 @@
       <img class="hero__image-bg-texture" src="assets/hero-bg-texture.png" alt="" aria-hidden="true" />
     </div>
 
-    <div class="hero__pastor">
-      <img src="assets/hero-pastor.png" alt="Smiling pastor holding a phone" />
+    <div class="hero__pastor" id="heroPastor">
+      <!-- Stacked images, only one visible at a time. Add/swap files to add slides. -->
+      <img class="hero__pastor-img is-active" src="assets/hero-pastor.png" alt="Smiling pastor holding a phone" data-slide="0" />
+      <img class="hero__pastor-img" src="assets/hero-pastor-2.png" alt="Finance coordinator at her desk" data-slide="1" onerror="this.src='assets/testimony-pastor-2.png'" />
+      <img class="hero__pastor-img" src="assets/hero-pastor-3.png" alt="Youth ministry leader smiling" data-slide="2" onerror="this.src='assets/testimony-pastor-3.png'" />
     </div>
 
-    <div class="hero__testimonial">
+    <div class="hero__testimonial" id="heroTestimonial">
       <span class="hero__testimonial-icon" aria-hidden="true">
         <img src="assets/Chat.svg" alt="" width="24" height="24" />
       </span>
-      <div class="hero__testimonial-quotes">
+      <div class="hero__testimonial-quotes" id="heroTestimonialContent">
         <p class="hero__testimonial-text">Yotor helped me to manage all data in my church.</p>
         <p class="hero__testimonial-role">Church Pastor</p>
+      </div>
+      <div class="hero__testimonial-dots" id="heroDots" role="tablist" aria-label="Testimony slides">
+        <button class="hero__testimonial-dot is-active" type="button" data-index="0" role="tab" aria-label="Show slide 1" aria-selected="true"></button>
+        <button class="hero__testimonial-dot" type="button" data-index="1" role="tab" aria-label="Show slide 2" aria-selected="false"></button>
+        <button class="hero__testimonial-dot" type="button" data-index="2" role="tab" aria-label="Show slide 3" aria-selected="false"></button>
       </div>
     </div>
   </div>
@@ -5143,6 +5241,112 @@
         toggle.setAttribute('aria-expanded', 'false');
       });
     });
+  })();
+
+  // ===== Hero photo carousel =====
+  // 3 photos stacked in the same spot; one has .is-active (opacity 1), others 0.
+  // Every 6.5s we move .is-active to the next photo. The testimonial text fades
+  // out → swaps → fades back in in sync with the photo crossfade.
+  (function () {
+    var stack = document.getElementById('heroPastor');
+    var card = document.getElementById('heroTestimonial');
+    var content = document.getElementById('heroTestimonialContent');
+    if (!stack || !card || !content) return;
+
+    var slides = stack.querySelectorAll('.hero__pastor-img');
+    if (slides.length < 2) return; // no carousel needed
+
+    var quotes = [
+      { text: 'Yotor helped me to manage all data in my church.',                    role: 'Church Pastor' },
+      { text: 'Tithes and offerings finally feel organized and transparent.',        role: 'Finance Coordinator' },
+      { text: 'Coordinating our youth ministry teams has never been this simple.',   role: 'Youth Ministry Leader' }
+    ];
+
+    var idx = 0;
+    var DWELL_MS = 4000;
+    var FADE_MS = 300;
+    var timer = null;
+    var paused = false;
+    var prefersReduced = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var textEl = content.querySelector('.hero__testimonial-text');
+    var roleEl = content.querySelector('.hero__testimonial-role');
+
+    // Compute the card width that makes the quote wrap to exactly 2 lines.
+    // Strategy: pick a width slightly larger than the natural width of the
+    // half-the-text point, so wrap happens roughly in the middle.
+    function widthForText(str) {
+      // Rough averages for General Sans Medium at 16px / -0.32px tracking
+      var avgCharPx = 7.1;
+      var paddingX = 32; // .hero__testimonial padding-left + padding-right
+      var halfChars = Math.ceil(str.length / 2);
+      var contentW = halfChars * avgCharPx + 8; // small buffer so words can fit
+      var total = contentW + paddingX;
+      // Clamp to a reasonable range
+      return Math.max(246, Math.min(460, total));
+    }
+
+    var dotsRoot = document.getElementById('heroDots');
+    var dots = dotsRoot ? dotsRoot.querySelectorAll('.hero__testimonial-dot') : [];
+
+    function showSlide(n) {
+      n = ((n % slides.length) + slides.length) % slides.length;
+      slides.forEach(function (s, i) {
+        s.classList.toggle('is-active', i === n);
+      });
+
+      // Sync indicators
+      dots.forEach(function (d, i) {
+        d.classList.toggle('is-active', i === n);
+        d.setAttribute('aria-selected', i === n ? 'true' : 'false');
+      });
+
+      var q = quotes[n] || quotes[0];
+
+      // Resize the card so the new quote will land on 2 lines
+      card.style.width = widthForText(q.text) + 'px';
+
+      // Fade the text out, swap, fade back in
+      content.classList.add('is-fading');
+      window.setTimeout(function () {
+        textEl.textContent = q.text;
+        roleEl.textContent = q.role;
+        content.classList.remove('is-fading');
+      }, FADE_MS);
+
+      idx = n;
+    }
+
+    // Click an indicator → jump to that slide and reset the auto-cycle
+    dots.forEach(function (d) {
+      d.addEventListener('click', function () {
+        var n = parseInt(d.getAttribute('data-index'), 10);
+        if (isNaN(n)) return;
+        showSlide(n);
+        start();
+      });
+    });
+
+    function start() {
+      if (paused || prefersReduced) return;
+      stop();
+      timer = window.setInterval(function () {
+        showSlide(idx + 1);
+      }, DWELL_MS);
+    }
+
+    function stop() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+
+    // Pause on hover over the photo or the testimonial card
+    [stack, card].forEach(function (el) {
+      el.addEventListener('mouseenter', function () { paused = true; stop(); });
+      el.addEventListener('mouseleave', function () { paused = false; start(); });
+    });
+
+    start();
   })();
 
   // ===== Language selector (Globe / EN dropdown) =====
