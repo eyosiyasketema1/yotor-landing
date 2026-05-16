@@ -118,6 +118,20 @@
     --faq-cat-active-bg: #fafafa;
     --faq-accordion-open-bg: #fafafa;
 
+    /* Final CTA banner */
+    --cta-banner-heading-fs: 64px;
+    --cta-banner-heading-lh: 62px;
+    --cta-banner-heading-tracking: -3.84px;
+
+    /* Footer */
+    --footer-mega-fs: 211px;
+    --footer-mega-tracking: -6.33px;
+    --footer-mega-color: #004a4e;
+    --footer-mega-bg: #fafafa;
+    --color-brand-telegram: #229ed9;
+    --color-brand-youtube: #ff0000;
+    --color-brand-facebook: #1877f2;
+
     /* Layout */
     --content-w: 1160px;        /* Standard centered content width (Figma 1440 - 280) */
     --content-pad: 140px;       /* Side padding so content stays centered at 1160px */
@@ -134,9 +148,18 @@
     padding: 0;
   }
 
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 88px; /* offset so the sticky nav (72px) doesn't cover targets */
+  }
+
   html,
   body {
     min-height: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
   }
 
   body {
@@ -1185,6 +1208,373 @@
     .faq-item__chevron {
       transition: none;
     }
+  }
+
+  /* ===================== FOOTER ===================== */
+  .footer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: var(--color-white);
+  }
+
+  /* Top row: white background with all the footer content */
+  .footer__top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: var(--color-white);
+    border-top: 1px solid var(--color-border-soft);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .footer__top-container {
+    width: 100%;
+    max-width: var(--content-w);
+    padding: var(--sp-20) var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-8);
+    border-left: 1px solid var(--color-border-soft);
+    border-right: 1px solid var(--color-border-soft);
+  }
+
+  .footer__row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  /* Left: logo + description + socials */
+  .footer__brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 23px;
+    flex-shrink: 0;
+  }
+
+  /* Footer logo rendered in the Yotor brand cyan via mask-image — the source
+     SVG's alpha shape gets filled with the cyan background color */
+  .footer__logo {
+    display: inline-block;
+    width: 79px;
+    height: 63px;
+    background-color: var(--color-yotor-primary);
+    -webkit-mask: url('assets/yotor-logo.svg') no-repeat center / contain;
+            mask: url('assets/yotor-logo.svg') no-repeat center / contain;
+  }
+
+  .footer__logo img {
+    /* The mask above renders the logo; hide the actual img element */
+    display: none;
+  }
+
+  .footer__brand-block {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+  }
+
+  .footer__desc {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  .footer__desc-title {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: normal;
+    color: var(--color-black);
+    margin: 0;
+  }
+
+  .footer__desc-sub {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: normal;
+    color: var(--color-black);
+    opacity: 0.5;
+    margin: 0;
+  }
+
+  /* Social links */
+  .footer__socials {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  /* Default uses a muted color (instead of opacity), so on hover the brand
+     color displays at full 100% intensity without any dimming. */
+  .footer__social {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--sp-2);
+    color: rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  /* On hover: full brand color, no opacity reduction */
+  .footer__social--telegram:hover { color: var(--color-brand-telegram); }
+  .footer__social--youtube:hover  { color: var(--color-brand-youtube); }
+  .footer__social--facebook:hover { color: var(--color-brand-facebook); }
+
+  .footer__social-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background-color: currentColor;
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+            mask-position: center;
+    -webkit-mask-size: contain;
+            mask-size: contain;
+    transition: background-color 0.2s ease;
+  }
+
+  .footer__social--telegram .footer__social-icon { -webkit-mask-image: url('assets/social-telegram.svg'); mask-image: url('assets/social-telegram.svg'); }
+  .footer__social--youtube .footer__social-icon  { -webkit-mask-image: url('assets/social-youtube.svg');  mask-image: url('assets/social-youtube.svg'); }
+  .footer__social--facebook .footer__social-icon { -webkit-mask-image: url('assets/social-facebook.svg'); mask-image: url('assets/social-facebook.svg'); }
+
+  .footer__social-label {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: normal;
+    white-space: nowrap;
+  }
+
+  /* Right: link groups */
+  .footer__groups {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .footer__group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-8);
+  }
+
+  .footer__group--nav     { width: 154px; }
+  .footer__group--legal   { width: 176px; }
+  .footer__group--contact { width: 193px; }
+  .footer__group--office  { width: 193px; }
+
+  .footer__group-title {
+    padding: 0 var(--sp-2);
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: normal;
+    color: var(--color-black);
+    width: 100%;
+    margin: 0;
+  }
+
+  .footer__list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: var(--sp-2);
+    width: 100%;
+    list-style: none;
+    margin: 0;
+  }
+
+  .footer__list-item,
+  .footer__list a {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: normal;
+    color: var(--color-black);
+    opacity: 0.5;
+    text-decoration: none;
+    transition: opacity 0.2s ease, font-weight 0.2s ease;
+  }
+
+  /* Footer text-link hover: bump to medium weight and 80% opacity */
+  .footer__list a:hover {
+    font-weight: 500;
+    opacity: 0.8;
+  }
+
+  /* Copyright */
+  .footer__copyright {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: normal;
+    color: var(--color-black);
+    opacity: 0.5;
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  /* Bottom row: mega "yotor.church" wordmark */
+  .footer__bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: var(--footer-mega-bg);
+    border-top: 1px solid var(--color-border-soft);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .footer__bottom-container {
+    width: 100%;
+    max-width: var(--content-w);
+    padding: var(--sp-20) var(--sp-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid var(--color-border-soft);
+    border-right: 1px solid var(--color-border-soft);
+    overflow: hidden;
+  }
+
+  .footer__mega {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: var(--footer-mega-fs);
+    line-height: normal;
+    letter-spacing: var(--footer-mega-tracking);
+    color: var(--footer-mega-color);
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  /* ===================== FINAL CTA BANNER ===================== */
+  .cta-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .cta-banner__container {
+    width: 100%;
+    max-width: var(--content-w);
+    padding: var(--sp-20) var(--sp-4);
+    display: flex;
+    justify-content: center;
+    border-left: 1px solid var(--color-border-soft);
+    border-right: 1px solid var(--color-border-soft);
+  }
+
+  .cta-banner__card {
+    position: relative;
+    width: 1128px;
+    max-width: 100%;
+    aspect-ratio: 1128 / 552;
+    border-radius: 20px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .cta-banner__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    z-index: 0;
+  }
+
+  /* Very subtle darkening — only the immediate area behind the text/button
+     gets a slight tint so the photo reads as nearly clean. */
+  .cta-banner__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(234.982deg, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.22) 95%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0) 72%, rgba(0, 0, 0, 0.12) 100%);
+  }
+
+  /* Heading and button are absolutely positioned to match Figma coords.
+     Using percentages of the card so they scale with the responsive aspect ratio. */
+  .cta-banner__heading {
+    position: absolute;
+    left: 40px;
+    bottom: 27.5%;  /* ~152px above the bottom on a 552px card */
+    z-index: 2;
+    width: 611px;
+    max-width: calc(100% - 80px);
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: var(--cta-banner-heading-fs);
+    line-height: var(--cta-banner-heading-lh);
+    letter-spacing: var(--cta-banner-heading-tracking);
+    color: var(--color-white);
+    margin: 0;
+  }
+
+  .cta-banner__heading-accent {
+    color: var(--color-yellow);
+  }
+
+  .cta-banner__btn {
+    position: absolute;
+    left: 40px;
+    bottom: 9.6%; /* ~53px from bottom on a 552px card */
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    height: 48px;
+    width: 317px;
+    max-width: calc(100% - 80px);
+    padding: 16px 24px 16px 20px;
+    border-radius: 8px;
+    background: var(--color-yotor-primary);
+    color: var(--color-white);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.28px;
+    transition: background-color 0.15s ease;
+  }
+
+  .cta-banner__btn:hover {
+    background: #009ba4;
+  }
+
+  .cta-banner__btn-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    background-color: currentColor;
+    -webkit-mask: url('assets/Arrow Right.svg') no-repeat center / contain;
+            mask: url('assets/Arrow Right.svg') no-repeat center / contain;
   }
 
   /* ===================== MOBILE APP DOWNLOAD ===================== */
@@ -2559,8 +2949,7 @@
     z-index: 1;
     pointer-events: none;
     background:
-      linear-gradient(154.749deg, rgba(0, 0, 0, 0) 65.139%, rgba(0, 0, 0, 0.3) 96.759%),
-      linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%);
+      linear-gradient(154.749deg, rgba(0, 0, 0, 0) 65.139%, rgba(0, 0, 0, 0.3) 96.759%);
   }
 
   /* New-way wrap is clipped to the LEFT portion of the card based on slider */
@@ -3005,14 +3394,13 @@
     z-index: 1;
   }
 
-  /* Dark overlay so the white heading stays readable on busy photos */
+  /* Soft corner darkening only — keeps the heading readable without a flat tint */
   .focus__overlay {
     position: absolute;
     inset: 0;
     z-index: 2;
     background:
-      linear-gradient(154.749deg, rgba(0, 0, 0, 0) 44.842%, rgba(0, 0, 0, 0.3) 96.759%),
-      linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%);
+      linear-gradient(154.749deg, rgba(0, 0, 0, 0) 44.842%, rgba(0, 0, 0, 0.3) 96.759%);
     pointer-events: none;
   }
 
@@ -3381,6 +3769,41 @@
     .faqs__categories {
       width: 100%;
     }
+
+    /* Final CTA banner */
+    :root {
+      --cta-banner-heading-fs: 44px;
+      --cta-banner-heading-lh: 48px;
+      --cta-banner-heading-tracking: -2.2px;
+      --footer-mega-fs: clamp(80px, 18vw, 160px);
+      --footer-mega-tracking: -3px;
+    }
+
+    .cta-banner__container {
+      padding: 48px 16px;
+    }
+
+    /* Footer */
+    .footer__top-container,
+    .footer__bottom-container {
+      padding: 48px 16px;
+    }
+
+    .footer__row {
+      flex-direction: column;
+    }
+
+    .footer__groups {
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    .footer__group--nav,
+    .footer__group--legal,
+    .footer__group--contact,
+    .footer__group--office {
+      width: calc(50% - 8px);
+    }
   }
 
     /* Testimony + reviews stay horizontal at all sizes — the testimony
@@ -3463,6 +3886,41 @@
       gap: 16px;
       flex-wrap: wrap;
     }
+
+    /* Final CTA banner — shrink + tighter positioning on mobile */
+    :root {
+      --cta-banner-heading-fs: 28px;
+      --cta-banner-heading-lh: 34px;
+      --cta-banner-heading-tracking: -1.2px;
+      --footer-mega-fs: clamp(48px, 14vw, 96px);
+      --footer-mega-tracking: -1.5px;
+    }
+
+    /* Footer — stack link groups to single column on mobile */
+    .footer__group--nav,
+    .footer__group--legal,
+    .footer__group--contact,
+    .footer__group--office {
+      width: 100%;
+    }
+
+    .cta-banner__card {
+      aspect-ratio: auto;
+      min-height: 380px;
+    }
+
+    .cta-banner__heading {
+      left: 20px;
+      right: 20px;
+      bottom: 38%;
+      max-width: none;
+    }
+
+    .cta-banner__btn {
+      left: 20px;
+      bottom: 24px;
+      width: calc(100% - 40px);
+    }
   }
 </style>
 </head>
@@ -3477,10 +3935,10 @@
       </a>
 
       <nav class="nav__links" id="navLinks" aria-label="Primary">
-        <a href="#" class="nav__link nav__link--active">Home</a>
-        <a href="#" class="nav__link">Product</a>
-        <a href="#" class="nav__link">Pricing</a>
-        <a href="#" class="nav__link">How it works</a>
+        <a href="#home" class="nav__link nav__link--active">Home</a>
+        <a href="#products" class="nav__link">Product</a>
+        <a href="#pricing" class="nav__link">Pricing</a>
+        <a href="#how-it-works" class="nav__link">How it works</a>
       </nav>
     </div>
 
@@ -3512,7 +3970,7 @@
 <main>
 
 <!-- ===================== HERO ===================== -->
-<section class="hero" aria-label="Hero">
+<section class="hero" id="home" aria-label="Hero">
  <div class="hero__container">
   <!-- Left: text + CTAs -->
   <div class="hero__intro">
@@ -3667,7 +4125,7 @@
 </section>
 
 <!-- ===================== YOTOR PROVIDES SECTION ===================== -->
-<section class="yotor-section" aria-label="What Yotor provides">
+<section class="yotor-section" id="products" aria-label="What Yotor provides">
   <div class="yotor-section__container">
     <!-- Intro -->
     <div class="yotor-section__intro">
@@ -3910,7 +4368,7 @@
 </section>
 
 <!-- ===================== TESTIMONY: Pastor video carousel (top) ===================== -->
-<section class="testimony" aria-label="Testimonies from pastors">
+<section class="testimony" id="testimony" aria-label="Testimonies from pastors">
   <div class="testimony__container">
     <div class="testimony__header">
       <div class="testimony__eyebrow">
@@ -4094,7 +4552,7 @@
 </section>
 
 <!-- ===================== HOW IT WORKS ===================== -->
-<section class="how" aria-label="How it works">
+<section class="how" id="how-it-works" aria-label="How it works">
   <img class="how__bg" src="assets/how-it-works-bg.png" alt="" aria-hidden="true" />
   <div class="how__bg-tint" aria-hidden="true"></div>
 
@@ -4149,7 +4607,7 @@
 </section>
 
 <!-- ===================== PRICING ===================== -->
-<section class="pricing" aria-label="Pricing plans">
+<section class="pricing" id="pricing" aria-label="Pricing plans">
   <div class="pricing__container">
 
     <!-- Header -->
@@ -4423,7 +4881,123 @@
   </div>
 </section>
 
+<!-- ===================== FINAL CTA BANNER ===================== -->
+<section class="cta-banner" aria-label="Manage your church with Yotor">
+  <div class="cta-banner__container">
+    <div class="cta-banner__card">
+      <img class="cta-banner__bg" src="assets/cta-bg.png" alt="" aria-hidden="true" />
+      <div class="cta-banner__overlay" aria-hidden="true"></div>
+
+      <h2 class="cta-banner__heading">
+        A better way to <span class="cta-banner__heading-accent">manage</span> your church
+      </h2>
+
+      <a class="cta-banner__btn" href="#" rel="noopener">
+        <span>Yotor.church</span>
+        <span class="cta-banner__btn-icon" aria-hidden="true"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
 </main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer" role="contentinfo">
+
+  <!-- Top row: white bg with all the content -->
+  <div class="footer__top">
+    <div class="footer__top-container">
+
+      <div class="footer__row">
+
+        <!-- Left: logo + brand block + socials -->
+        <div class="footer__brand">
+          <a class="footer__logo" href="#home" aria-label="Yotor home">
+            <img src="assets/yotor-logo.svg" alt="Yotor" width="79" height="63" />
+          </a>
+
+          <div class="footer__brand-block">
+            <div class="footer__desc">
+              <p class="footer__desc-title">Church Management System</p>
+              <p class="footer__desc-sub">Built to Support Churches and Ministry Teams</p>
+            </div>
+
+            <div class="footer__socials">
+              <a class="footer__social footer__social--telegram" href="#" rel="noopener" target="_blank" aria-label="Yotor on Telegram">
+                <span class="footer__social-icon" aria-hidden="true"></span>
+                <span class="footer__social-label">Telegram</span>
+              </a>
+              <a class="footer__social footer__social--youtube" href="#" rel="noopener" target="_blank" aria-label="Yotor on YouTube">
+                <span class="footer__social-icon" aria-hidden="true"></span>
+                <span class="footer__social-label">Youtube</span>
+              </a>
+              <a class="footer__social footer__social--facebook" href="#" rel="noopener" target="_blank" aria-label="Yotor on Facebook">
+                <span class="footer__social-icon" aria-hidden="true"></span>
+                <span class="footer__social-label">Facebook</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: 4 link groups -->
+        <div class="footer__groups">
+
+          <nav class="footer__group footer__group--nav" aria-label="Navigation">
+            <p class="footer__group-title">Navigation</p>
+            <ul class="footer__list">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#pricing">Pricing</a></li>
+              <li><a href="#how-it-works">How it works</a></li>
+              <li><a href="#products">Products</a></li>
+              <li><a href="#testimony">Testimony</a></li>
+            </ul>
+          </nav>
+
+          <nav class="footer__group footer__group--legal" aria-label="Legal">
+            <p class="footer__group-title">Legal</p>
+            <ul class="footer__list">
+              <li><a href="#">Terms &amp; Conditions</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Data Protection</a></li>
+              <li><a href="#">Security</a></li>
+              <li><a href="#">User Agreement</a></li>
+              <li><a href="#">Cookie Policy</a></li>
+            </ul>
+          </nav>
+
+          <div class="footer__group footer__group--contact" aria-label="Contact">
+            <p class="footer__group-title">Contact</p>
+            <ul class="footer__list">
+              <li><a href="mailto:Yotor@gcmethiopia.org">Yotor@gcmethiopia.org</a></li>
+              <li><a href="tel:+251996474747">+251 996 47 47 47</a></li>
+              <li><a href="tel:+251951141414">+251 951 14 14 14</a></li>
+            </ul>
+          </div>
+
+          <div class="footer__group footer__group--office" aria-label="Office">
+            <p class="footer__group-title">Office</p>
+            <ul class="footer__list">
+              <li class="footer__list-item">Gurd Shola, Holy City Center Building 7th Floor</li>
+              <li class="footer__list-item">Addis Ababa, Ethiopia</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <p class="footer__copyright">© 2026 Yotor. All rights reserved. Great Commission Ministry Ethiopia</p>
+    </div>
+  </div>
+
+  <!-- Bottom row: mega "yotor.church" wordmark on light gray bg -->
+  <div class="footer__bottom">
+    <div class="footer__bottom-container">
+      <p class="footer__mega" aria-hidden="true">yotor.church</p>
+    </div>
+  </div>
+
+</footer>
 
 <script>
   (function () {
