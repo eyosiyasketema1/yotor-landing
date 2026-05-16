@@ -93,6 +93,24 @@
     /* Comparison section */
     --comparison-handle-color: rgba(255, 255, 255, 0.6);
 
+    /* Testimony section */
+    --testimony-arrow-bg-active: #e6f7f8;
+    --testimony-arrow-border: #e0e0e0;
+    --review-card-bg: rgba(0, 0, 0, 0.02);
+
+    /* How it works section */
+    --how-bg-tint: #004145;
+    --step-card-bg: #ffffff;
+    --step-card-gray-btn: #e7e7e7;
+
+    /* Pricing section */
+    --plan-card-starter-bg: rgba(0, 0, 0, 0.02);
+    --plan-card-ministry-bg: #fafafa;
+    --plan-card-core-from: #00b8c2;
+    --plan-card-core-to: #18a7af;
+    --plan-badge-bg: #004a4e;
+    --recommended-text: #e3b602;
+
     /* Layout */
     --content-w: 1160px;        /* Standard centered content width (Figma 1440 - 280) */
     --content-pad: 140px;       /* Side padding so content stays centered at 1160px */
@@ -916,6 +934,1107 @@
 
   .yotor-section__preview img.is-swapping {
     opacity: 0;
+  }
+
+  /* ===================== PRICING ===================== */
+  .pricing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .pricing__container {
+    width: 100%;
+    max-width: var(--content-w);
+    padding: var(--sp-20) var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-8);
+    border-left: 1px solid var(--color-border-soft);
+    border-right: 1px solid var(--color-border-soft);
+  }
+
+  /* Header */
+  .pricing__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-2);
+    padding: var(--sp-2) 0;
+    width: 100%;
+  }
+
+  .pricing__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    height: 34px;
+    padding: var(--sp-2) var(--sp-4);
+    border-radius: var(--r-pill);
+  }
+
+  .pricing__eyebrow-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .pricing__eyebrow-icon img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .pricing__eyebrow-text {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--color-yotor-primary);
+    white-space: nowrap;
+  }
+
+  .pricing__subtitle-wrap {
+    padding: 0 var(--sp-4);
+    width: 100%;
+  }
+
+  .pricing__subtitle {
+    width: 472px;
+    max-width: 100%;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    color: var(--color-muted);
+  }
+
+  /* Billing toggle */
+  .pricing__tabs {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+
+  .pricing__tabs-pill {
+    display: inline-flex;
+    background: #f5f5f5;
+    border-radius: 9999px;
+    padding: 3px;
+    height: 40px;
+    align-items: center;
+  }
+
+  .pricing__tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
+    padding: 4px 12px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-foreground, #0a0a0a);
+    border-radius: 9999px;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .pricing__tab--active {
+    background: var(--color-white);
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.1),
+      0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .pricing__discount {
+    background: var(--plan-badge-bg);
+    color: #f9f9ff;
+    padding: 4px 8px;
+    border-radius: 9999px;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    white-space: nowrap;
+    opacity: 1;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .pricing__discount.is-hidden {
+    opacity: 0;
+    transform: translateX(-8px);
+    pointer-events: none;
+  }
+
+  /* Plan cards row */
+  .pricing__cards {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    align-items: stretch;
+  }
+
+  .plan-card {
+    width: 365px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+  }
+
+  .plan-card--starter {
+    background: var(--plan-card-starter-bg);
+    border-color: rgba(0, 0, 0, 0.04);
+  }
+
+  .plan-card--core {
+    background: linear-gradient(to bottom, var(--plan-card-core-from), var(--plan-card-core-to));
+    color: var(--color-white);
+  }
+
+  .plan-card--ministry {
+    background: var(--plan-card-ministry-bg);
+  }
+
+  .plan-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-2);
+    width: 100%;
+  }
+
+  .plan-card__title-wrap {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+
+  .plan-card__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .plan-card__icon img {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  .plan-card__title {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 30px;
+    color: var(--color-black);
+    margin: 0;
+  }
+
+  .plan-card--core .plan-card__title {
+    color: var(--color-white);
+  }
+
+  .plan-card__badge {
+    background: var(--color-white);
+    color: var(--recommended-text);
+    border-radius: 9999px;
+    padding: 4px 12px 6px 13px;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: normal;
+    white-space: nowrap;
+  }
+
+  .plan-card__desc {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.4;
+    color: var(--color-muted-50);
+    margin: 0;
+  }
+
+  .plan-card--core .plan-card__desc {
+    color: var(--color-white);
+  }
+
+  /* Dashed divider */
+  .plan-card__divider {
+    height: 0;
+    border-top: 1.5px dashed rgba(0, 0, 0, 0.18);
+  }
+
+  .plan-card--core .plan-card__divider {
+    border-top-color: rgba(255, 255, 255, 0.45);
+  }
+
+  /* Price */
+  .plan-card__price-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .plan-card__price {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 1.1;
+    color: var(--color-black);
+    margin: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .plan-card__price-unit {
+    font-weight: 400;
+    font-size: 16px;
+    color: inherit;
+  }
+
+  .plan-card--core .plan-card__price {
+    color: var(--color-white);
+  }
+
+  .plan-card__price-note {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.4;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .plan-card--core .plan-card__price-note {
+    color: var(--color-white);
+    opacity: 0.85;
+  }
+
+  /* CTA buttons */
+  .plan-card__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    width: 100%;
+    height: 48px;
+    padding: 16px 24px 16px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.28px;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .plan-card__cta--cyan {
+    background: var(--color-yotor-primary);
+    color: var(--color-white);
+  }
+
+  .plan-card__cta--cyan:hover { background: #009ba4; }
+
+  .plan-card__cta--white {
+    background: var(--color-white);
+    color: var(--color-black);
+  }
+
+  .plan-card__cta--white:hover { background: #f5f5f5; }
+
+  .plan-card__cta--yellow {
+    background: var(--color-yellow);
+    color: var(--color-black);
+  }
+
+  .plan-card__cta--yellow:hover { background: #e6b500; }
+
+  .plan-card__cta-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    background-color: currentColor;
+    -webkit-mask: url('assets/Arrow Right.svg') no-repeat center / contain;
+            mask: url('assets/Arrow Right.svg') no-repeat center / contain;
+  }
+
+  /* Features list */
+  .plan-card__features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .plan-card__features-title {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--color-black);
+    opacity: 0.5;
+    margin: 0;
+  }
+
+  .plan-card--core .plan-card__features-title {
+    color: var(--color-white);
+    opacity: 0.75;
+  }
+
+  .plan-card__feature {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+  }
+
+  .plan-card__feature-check {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    background-color: currentColor;
+    -webkit-mask: url('assets/checkmark.svg') no-repeat center / contain;
+            mask: url('assets/checkmark.svg') no-repeat center / contain;
+  }
+
+  .plan-card__feature-text {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.3;
+    color: var(--color-black);
+  }
+
+  .plan-card--core .plan-card__feature-text {
+    color: var(--color-white);
+  }
+
+  /* ===================== HOW IT WORKS ===================== */
+  .how {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid var(--color-border-soft);
+    overflow: hidden;
+    isolation: isolate; /* contain the mix-blend-mode overlay */
+  }
+
+  /* Background photo + dark teal blend overlay */
+  .how__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .how__bg-tint {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: var(--how-bg-tint);
+    mix-blend-mode: color;
+    pointer-events: none;
+  }
+
+  .how__container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: var(--content-w);
+    padding: var(--sp-20) var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-8);
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  /* Header */
+  .how__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-2);
+    padding: var(--sp-2) 0;
+    width: 100%;
+  }
+
+  .how__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    height: 34px;
+    padding: var(--sp-2) var(--sp-4);
+    border-radius: var(--r-pill);
+  }
+
+  .how__eyebrow-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .how__eyebrow-icon img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .how__eyebrow-text {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--color-yotor-primary);
+    white-space: nowrap;
+  }
+
+  .how__subtitle-wrap {
+    padding: 0 var(--sp-4);
+    width: 100%;
+  }
+
+  .how__subtitle {
+    width: 472px;
+    max-width: 100%;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  /* Steps row */
+  .how__steps {
+    display: flex;
+    gap: 15px;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .step-card {
+    width: 365px;
+    flex-shrink: 0;
+    background: var(--step-card-bg);
+    border-radius: 20px;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .step-card__label {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    color: var(--color-muted-50);
+  }
+
+  .step-card__number {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 96px;
+    line-height: 1;
+    color: var(--color-yotor-primary);
+  }
+
+  .step-card__title {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 1.15;
+    color: var(--color-black);
+    margin: 0;
+  }
+
+  .step-card__desc {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.45;
+    color: var(--color-muted-50);
+    margin: 0;
+    flex: 1 0 auto;
+  }
+
+  /* Step button — uses mask-image so the arrow color follows currentColor */
+  .step-card__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    padding: 16px 24px 16px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.28px;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: background-color 0.2s ease;
+  }
+
+  .step-card__btn--primary {
+    background: var(--color-yotor-primary);
+    color: var(--color-white);
+  }
+
+  .step-card__btn--primary:hover {
+    background: #009ba4;
+  }
+
+  .step-card__btn--gray {
+    background: var(--step-card-gray-btn);
+    color: var(--color-black);
+  }
+
+  .step-card__btn--gray:hover {
+    background: #d8d8d8;
+  }
+
+  /* Mask-image arrow icon: takes the button's text color via currentColor */
+  .step-card__btn-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 8px;
+    flex-shrink: 0;
+    background-color: currentColor;
+    -webkit-mask: url('assets/Arrow Right.svg') no-repeat center / contain;
+            mask: url('assets/Arrow Right.svg') no-repeat center / contain;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s ease;
+  }
+
+  /* Gray buttons hide the arrow until hover, then slide it in */
+  .step-card__btn--gray .step-card__btn-icon {
+    width: 0;
+    margin-left: 0;
+    opacity: 0;
+  }
+
+  .step-card__btn--gray:hover .step-card__btn-icon {
+    width: 20px;
+    margin-left: 8px;
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .step-card__btn-icon {
+      transition: opacity 0.2s ease;
+    }
+  }
+
+  /* ===================== TESTIMONY (top: pastor video carousel) ===================== */
+  .testimony {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .testimony__container {
+    width: 100%;
+    max-width: var(--content-w);
+    padding: var(--sp-20) var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-8);
+    border-left: 1px solid var(--color-border-soft);
+    border-right: 1px solid var(--color-border-soft);
+    /* Clip any card content that overflows the side borders */
+    overflow: hidden;
+  }
+
+  /* Header (eyebrow + subtitle + arrows) */
+  .testimony__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-2);
+    padding: var(--sp-2) 0;
+    width: 100%;
+  }
+
+  .testimony__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    height: 34px;
+    padding: var(--sp-2) var(--sp-4);
+    border-radius: var(--r-pill);
+  }
+
+  .testimony__eyebrow-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    color: var(--color-yotor-primary);
+  }
+
+  .testimony__eyebrow-icon img,
+  .testimony__eyebrow-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .testimony__eyebrow-text {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--color-yotor-primary);
+    white-space: nowrap;
+  }
+
+  .testimony__sub-row {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    width: 100%;
+  }
+
+  .testimony__subtitle-wrap {
+    flex: 1 0 0;
+    padding: 0 var(--sp-4);
+    min-width: 0;
+  }
+
+  .testimony__subtitle {
+    width: 472px;
+    max-width: 100%;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    color: var(--color-black);
+  }
+
+  .testimony__subtitle-muted {
+    color: var(--color-muted-50);
+  }
+
+  /* Nav buttons (used by both testimony parts) */
+  .nav-arrows {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    flex-shrink: 0;
+  }
+
+  .nav-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    border: 1px solid var(--testimony-arrow-border);
+    background: var(--color-white);
+    cursor: pointer;
+    color: var(--color-black);
+    transition:
+      transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.2s ease,
+      border-color 0.2s ease;
+    padding: 0;
+  }
+
+  .nav-arrow:hover {
+    background: #f6f6f6;
+    transform: scale(1.04);
+  }
+
+  .nav-arrow:active {
+    transform: scale(0.98);
+  }
+
+  .nav-arrow--active {
+    background: var(--testimony-arrow-bg-active);
+    border-color: transparent;
+    color: var(--color-yotor-primary);
+  }
+
+  .nav-arrow--active:hover {
+    background: #d0eef0;
+    transform: scale(1.04);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-arrow {
+      transition: background-color 0.2s ease;
+    }
+    .nav-arrow:hover,
+    .nav-arrow:active {
+      transform: none;
+    }
+  }
+
+  .nav-arrow img,
+  .nav-arrow svg {
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+  }
+
+  /* Source arrow asset points RIGHT, so flip the LEFT button to make it point left */
+  .nav-arrow--left svg,
+  .nav-arrow--left img {
+    transform: scaleX(-1);
+  }
+
+  /* Cards row — all 3 cards live here side by side, one has --main class.
+     Clicking a thumb moves the --main class to it; CSS transitions handle
+     the size change so the cards literally grow/shrink in place. */
+  .testimony__cards {
+    display: flex;
+    gap: var(--sp-4);
+    width: 100%;
+    align-items: stretch;
+    --testimony-thumb-w: 234px;
+    --testimony-main-w: 628px;
+  }
+
+  .testimony-card {
+    position: relative;
+    height: 386px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #444;
+    flex: 0 0 var(--testimony-thumb-w);
+    transition:
+      flex-basis 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+      border-radius 0.55s ease;
+  }
+
+  .testimony-card--main {
+    flex-basis: var(--testimony-main-w);
+    border-radius: 10px;
+    cursor: default;
+  }
+
+  .testimony-card__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: filter 0.45s ease, transform 0.6s ease;
+  }
+
+  /* Grayscale tint on inactive thumbnails; turns to color when --main is added */
+  .testimony-card:not(.testimony-card--main) .testimony-card__img {
+    filter: grayscale(1) brightness(0.85);
+  }
+
+  .testimony-card:not(.testimony-card--main):hover .testimony-card__img {
+    filter: grayscale(0.6) brightness(0.95);
+    transform: scale(1.04);
+  }
+
+  /* Overlays (play button, gradient, info) only show on the main card */
+  .testimony-card .testimony-card__gradient,
+  .testimony-card .testimony-card__play,
+  .testimony-card .testimony-card__info {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease 0.15s;
+  }
+
+  .testimony-card--main .testimony-card__gradient,
+  .testimony-card--main .testimony-card__play,
+  .testimony-card--main .testimony-card__info {
+    opacity: 1;
+  }
+
+  .testimony-card--main .testimony-card__play {
+    pointer-events: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .testimony-card,
+    .testimony-card__img,
+    .testimony-card .testimony-card__gradient,
+    .testimony-card .testimony-card__play,
+    .testimony-card .testimony-card__info {
+      transition: none;
+    }
+  }
+
+  /* Bottom gradient mask over the main card */
+  .testimony-card__gradient {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 220px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.95) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Center play button */
+  .testimony-card__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(247, 198, 2, 0.25);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    z-index: 2;
+  }
+
+  .testimony-card__play img,
+  .testimony-card__play svg {
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+  }
+
+  /* Info row at bottom of main card */
+  .testimony-card__info {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 8px 32px 32px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    z-index: 2;
+    width: 593px;
+    max-width: 100%;
+  }
+
+  .testimony-card__logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-white);
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .testimony-card__logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .testimony-card__pastor {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimony-card__name {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: normal;
+    color: #f9f9ff;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .testimony-card__role {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: normal;
+    letter-spacing: -0.28px;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  /* ===================== TESTIMONY (bottom: 4 review cards) ===================== */
+  .reviews {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .reviews__container {
+    width: 100%;
+    max-width: var(--content-w);
+    padding: var(--sp-20) var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-8);
+    border-left: 1px solid var(--color-border-soft);
+    border-right: 1px solid var(--color-border-soft);
+    /* Clip cards that extend past the right edge of the visible area */
+    overflow: hidden;
+  }
+
+  .reviews__header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: var(--sp-2) 0;
+  }
+
+  /* Reviews track slides horizontally. The viewport (parent) is overflow:hidden
+     (set on .reviews__container), and the track translates by -cardWidth per step. */
+  .reviews__cards {
+    display: flex;
+    gap: var(--sp-4);
+    width: max-content;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reviews__cards {
+      transition: none;
+    }
+  }
+
+  .review-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    width: 304px;
+    flex-shrink: 0;
+  }
+
+  .review-card__content {
+    background: var(--review-card-bg);
+    border-radius: 12px;
+    padding: 32px 16px 24px;
+    height: 327px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .review-card__rating {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .review-card__rating img,
+  .review-card__rating svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .review-card__quote {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    color: var(--color-black);
+    margin: 0;
+  }
+
+  .review-card__footer {
+    background: var(--review-card-bg);
+    border-radius: 12px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .review-card__avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .review-card__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .review-card__avatar--cyan   { background: var(--color-yotor-primary); }
+  .review-card__avatar--pink   { background: var(--color-pink); }
+  .review-card__avatar--dark   { background: var(--color-dark); }
+  .review-card__avatar--yellow { background: var(--color-yellow); }
+
+  .review-card__user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 60px;
+    flex: 1 0 0;
+    min-width: 0;
+  }
+
+  .review-card__name {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: normal;
+    color: var(--color-black);
+    margin: 0;
+  }
+
+  .review-card__role-text {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: normal;
+    color: var(--color-muted-50);
+    margin: 0;
   }
 
   /* ===================== CTA BAR =====================
@@ -1792,6 +2911,59 @@
     .comparison__container {
       padding: 48px 16px;
     }
+
+    /* Testimony top + bottom */
+    .testimony__container,
+    .reviews__container {
+      padding: 48px 16px;
+    }
+
+    /* How it works */
+    .how__container {
+      padding: 48px 16px;
+    }
+
+    .how__steps {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .step-card {
+      width: calc(50% - 8px);
+    }
+
+    /* Pricing */
+    .pricing__container {
+      padding: 48px 16px;
+    }
+
+    .pricing__cards {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .plan-card {
+      width: calc(50% - 8px);
+    }
+
+    .testimony__cards {
+      flex-direction: column;
+    }
+
+    .testimony-card,
+    .testimony-card--main,
+    .testimony-card--thumb {
+      width: 100%;
+    }
+
+    .reviews__cards {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .review-card {
+      width: calc(50% - 8px);
+    }
   }
 
   /* ===================== RESPONSIVE — MOBILE (≤768px) ===================== */
@@ -1826,6 +2998,39 @@
       bottom: 16px;
       padding: 6px 12px;
       font-size: 12px;
+    }
+
+    /* Reviews stack to single column on mobile */
+    .review-card {
+      width: 100%;
+    }
+
+    .testimony__sub-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .nav-arrows {
+      align-self: flex-end;
+    }
+
+    /* How it works — stack to single column on mobile */
+    .step-card {
+      width: 100%;
+    }
+
+    .step-card__number {
+      font-size: 72px;
+    }
+
+    .step-card__title {
+      font-size: 24px;
+    }
+
+    /* Pricing — stack to single column */
+    .plan-card {
+      width: 100%;
     }
   }
 </style>
@@ -2273,6 +3478,430 @@
   </div>
 </section>
 
+<!-- ===================== TESTIMONY: Pastor video carousel (top) ===================== -->
+<section class="testimony" aria-label="Testimonies from pastors">
+  <div class="testimony__container">
+    <div class="testimony__header">
+      <div class="testimony__eyebrow">
+        <span class="testimony__eyebrow-icon" aria-hidden="true">
+          <img src="assets/heart.svg" alt="" width="24" height="24"
+               onerror="this.outerHTML='&lt;svg viewBox=\&quot;0 0 24 24\&quot; fill=\&quot;currentColor\&quot;&gt;&lt;path d=\&quot;M12 21s-7-4.5-9.5-9C.5 8 3 4 7 4c2 0 3.5 1 5 3 1.5-2 3-3 5-3 4 0 6.5 4 4.5 8-2.5 4.5-9.5 9-9.5 9z\&quot;/&gt;&lt;/svg&gt;'" />
+        </span>
+        <span class="testimony__eyebrow-text">Testimony</span>
+      </div>
+
+      <div class="testimony__sub-row">
+        <div class="testimony__subtitle-wrap">
+          <p class="testimony__subtitle">
+            950+ Pastors and Ministry teams<span class="testimony__subtitle-muted"> trust Yotor to manage their churches with clarity and confidence.</span>
+          </p>
+        </div>
+
+        <div class="nav-arrows">
+          <button class="nav-arrow nav-arrow--left" type="button" id="testimonyPrev" aria-label="Previous testimony">
+            <img src="assets/arrow-left.svg" alt="" width="24" height="24" />
+          </button>
+          <button class="nav-arrow nav-arrow--right nav-arrow--active" type="button" id="testimonyNext" aria-label="Next testimony">
+            <img src="assets/arrow-left.svg" alt="" width="24" height="24" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimony__cards" id="testimonyCards">
+      <!-- All 3 cards share the same DOM structure. The one with --main is
+           expanded; the others appear as thumbnails. Clicking a thumb moves
+           the --main class, and CSS transitions smoothly resize the cards. -->
+      <article class="testimony-card testimony-card--main" data-pastor-index="0" tabindex="0" role="button" aria-label="Pastor Mengistu Lemma testimony">
+        <img class="testimony-card__img" src="assets/testimony-pastor-main.png" alt="" />
+        <div class="testimony-card__gradient" aria-hidden="true"></div>
+        <button class="testimony-card__play" type="button" aria-label="Play video">
+          <img src="assets/play-small.svg" alt="" width="18" height="18" />
+        </button>
+        <div class="testimony-card__info">
+          <div class="testimony-card__logo">
+            <img src="assets/church-logo-02.png" alt="" />
+          </div>
+          <div class="testimony-card__pastor">
+            <p class="testimony-card__name">PASTOR MENGISTU LEMMA</p>
+            <p class="testimony-card__role">Mulu Wengel Church Leader</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="testimony-card" data-pastor-index="1" tabindex="0" role="button" aria-label="Pastor Lemma Alemu testimony">
+        <img class="testimony-card__img" src="assets/testimony-pastor-2.png" alt="" onerror="this.src='assets/testimony-pastor-main.png'" />
+        <div class="testimony-card__gradient" aria-hidden="true"></div>
+        <button class="testimony-card__play" type="button" aria-label="Play video" tabindex="-1">
+          <img src="assets/play-small.svg" alt="" width="18" height="18" />
+        </button>
+        <div class="testimony-card__info">
+          <div class="testimony-card__logo">
+            <img src="assets/church-logo-01.png" alt="" />
+          </div>
+          <div class="testimony-card__pastor">
+            <p class="testimony-card__name">PASTOR LEMMA ALEMU</p>
+            <p class="testimony-card__role">Gelan Mekane Eyesus Church Leader</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="testimony-card" data-pastor-index="2" tabindex="0" role="button" aria-label="Pastor Yonas Getachew testimony">
+        <img class="testimony-card__img" src="assets/testimony-pastor-3.png" alt="" onerror="this.src='assets/testimony-pastor-main.png'" />
+        <div class="testimony-card__gradient" aria-hidden="true"></div>
+        <button class="testimony-card__play" type="button" aria-label="Play video" tabindex="-1">
+          <img src="assets/play-small.svg" alt="" width="18" height="18" />
+        </button>
+        <div class="testimony-card__info">
+          <div class="testimony-card__logo">
+            <img src="assets/church-logo-03.png" alt="" />
+          </div>
+          <div class="testimony-card__pastor">
+            <p class="testimony-card__name">PASTOR YONAS GETACHEW</p>
+            <p class="testimony-card__role">Bethel Church Leader</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== REVIEWS: 4 testimonial cards (bottom) ===================== -->
+<section class="reviews" aria-label="Customer reviews">
+  <div class="reviews__container">
+    <div class="reviews__header">
+      <div class="nav-arrows">
+        <button class="nav-arrow nav-arrow--left" type="button" id="reviewsPrev" aria-label="Previous reviews">
+          <img src="assets/arrow-left.svg" alt="" width="24" height="24" />
+        </button>
+        <button class="nav-arrow nav-arrow--right nav-arrow--active" type="button" id="reviewsNext" aria-label="Next reviews">
+          <img src="assets/arrow-left.svg" alt="" width="24" height="24" />
+        </button>
+      </div>
+    </div>
+
+    <div class="reviews__cards" id="reviewsCards">
+      <!-- Slots populated by JS based on currentIndex -->
+      <article class="review-card" data-slot="0">
+        <div class="review-card__content">
+          <div class="review-card__rating" aria-label="5 out of 5 stars">
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+          </div>
+          <p class="review-card__quote"></p>
+        </div>
+        <div class="review-card__footer">
+          <div class="review-card__avatar"></div>
+          <div class="review-card__user">
+            <p class="review-card__name"></p>
+            <p class="review-card__role-text"></p>
+          </div>
+        </div>
+      </article>
+      <article class="review-card" data-slot="1">
+        <div class="review-card__content">
+          <div class="review-card__rating" aria-label="5 out of 5 stars">
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+          </div>
+          <p class="review-card__quote"></p>
+        </div>
+        <div class="review-card__footer">
+          <div class="review-card__avatar"></div>
+          <div class="review-card__user">
+            <p class="review-card__name"></p>
+            <p class="review-card__role-text"></p>
+          </div>
+        </div>
+      </article>
+      <article class="review-card" data-slot="2">
+        <div class="review-card__content">
+          <div class="review-card__rating" aria-label="5 out of 5 stars">
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+          </div>
+          <p class="review-card__quote"></p>
+        </div>
+        <div class="review-card__footer">
+          <div class="review-card__avatar"></div>
+          <div class="review-card__user">
+            <p class="review-card__name"></p>
+            <p class="review-card__role-text"></p>
+          </div>
+        </div>
+      </article>
+      <article class="review-card" data-slot="3">
+        <div class="review-card__content">
+          <div class="review-card__rating" aria-label="5 out of 5 stars">
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12" />
+          </div>
+          <p class="review-card__quote"></p>
+        </div>
+        <div class="review-card__footer">
+          <div class="review-card__avatar"></div>
+          <div class="review-card__user">
+            <p class="review-card__name"></p>
+            <p class="review-card__role-text"></p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOW IT WORKS ===================== -->
+<section class="how" aria-label="How it works">
+  <img class="how__bg" src="assets/how-it-works-bg.png" alt="" aria-hidden="true" />
+  <div class="how__bg-tint" aria-hidden="true"></div>
+
+  <div class="how__container">
+    <div class="how__header">
+      <div class="how__eyebrow">
+        <span class="how__eyebrow-icon" aria-hidden="true">
+          <img src="assets/rocket.svg" alt="" width="24" height="24" />
+        </span>
+        <span class="how__eyebrow-text">How it works</span>
+      </div>
+      <div class="how__subtitle-wrap">
+        <p class="how__subtitle">From first Signup to full church management in minutes.</p>
+      </div>
+    </div>
+
+    <div class="how__steps">
+      <article class="step-card">
+        <p class="step-card__label">Step</p>
+        <p class="step-card__number">01</p>
+        <h3 class="step-card__title">Create an account</h3>
+        <p class="step-card__desc">Sign up quickly using email or Google to get started with your secure access.</p>
+        <button class="step-card__btn step-card__btn--primary" type="button">
+          <span>Create account</span>
+          <span class="step-card__btn-icon" aria-hidden="true"></span>
+        </button>
+      </article>
+
+      <article class="step-card">
+        <p class="step-card__label">Step</p>
+        <p class="step-card__number">02</p>
+        <h3 class="step-card__title">Create your church account</h3>
+        <p class="step-card__desc">Set up your church profile, invite team members, and organize your structure in a guide flow.</p>
+        <button class="step-card__btn step-card__btn--gray" type="button">
+          <span>Create Church account</span>
+          <span class="step-card__btn-icon" aria-hidden="true"></span>
+        </button>
+      </article>
+
+      <article class="step-card">
+        <p class="step-card__label">Step</p>
+        <p class="step-card__number">03</p>
+        <h3 class="step-card__title">Start using all features</h3>
+        <p class="step-card__desc">Manage members, teams, finance, messaging, and reports from one unified dashboard.</p>
+        <button class="step-card__btn step-card__btn--gray" type="button">
+          <span>Get Started Now</span>
+          <span class="step-card__btn-icon" aria-hidden="true"></span>
+        </button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PRICING ===================== -->
+<section class="pricing" aria-label="Pricing plans">
+  <div class="pricing__container">
+
+    <!-- Header -->
+    <div class="pricing__header">
+      <div class="pricing__eyebrow">
+        <span class="pricing__eyebrow-icon" aria-hidden="true">
+          <img src="assets/rocket.svg" alt="" width="24" height="24" />
+        </span>
+        <span class="pricing__eyebrow-text">Pricing Details</span>
+      </div>
+      <div class="pricing__subtitle-wrap">
+        <p class="pricing__subtitle">A Comprehensive breakdown of our pricing plans to help you make the best choice.</p>
+      </div>
+    </div>
+
+    <!-- Monthly / Yearly toggle -->
+    <div class="pricing__tabs">
+      <div class="pricing__tabs-pill" role="tablist" aria-label="Billing frequency">
+        <button class="pricing__tab" type="button" role="tab" aria-selected="false" data-billing="monthly">Monthly</button>
+        <button class="pricing__tab pricing__tab--active" type="button" role="tab" aria-selected="true" data-billing="yearly">Yearly</button>
+      </div>
+      <span class="pricing__discount" id="pricingDiscount">20% OFF</span>
+    </div>
+
+    <!-- Plan cards -->
+    <div class="pricing__cards">
+
+      <!-- STARTER -->
+      <article class="plan-card plan-card--starter">
+        <div class="plan-card__header">
+          <div class="plan-card__title-wrap">
+            <span class="plan-card__icon" aria-hidden="true">
+              <img src="assets/pricing-icon-starter.svg" alt="" />
+            </span>
+            <h3 class="plan-card__title">Starter</h3>
+          </div>
+        </div>
+        <p class="plan-card__desc">Essential tools for small fellowships and growing plants.</p>
+        <div class="plan-card__divider" aria-hidden="true"></div>
+        <div class="plan-card__price-block">
+          <p class="plan-card__price" data-price-yearly="Free" data-price-monthly="Free">Free</p>
+          <p class="plan-card__price-note" data-note-yearly="Free forever for up to 50 members" data-note-monthly="Free forever for up to 50 members">Free forever for up to 50 members</p>
+        </div>
+        <button class="plan-card__cta plan-card__cta--cyan" type="button">
+          <span>Get Started Now</span>
+          <span class="plan-card__cta-icon" aria-hidden="true"></span>
+        </button>
+        <div class="plan-card__features">
+          <p class="plan-card__features-title">Starter includes :</p>
+          <div class="plan-card__feature">
+            <span class="plan-card__feature-check" aria-hidden="true"></span>
+            <span class="plan-card__feature-text">Up to 50 Members</span>
+          </div>
+          <div class="plan-card__feature">
+            <span class="plan-card__feature-check" aria-hidden="true"></span>
+            <span class="plan-card__feature-text">Member Directory</span>
+          </div>
+          <div class="plan-card__feature">
+            <span class="plan-card__feature-check" aria-hidden="true"></span>
+            <span class="plan-card__feature-text">Basic Messaging</span>
+          </div>
+          <div class="plan-card__feature">
+            <span class="plan-card__feature-check" aria-hidden="true"></span>
+            <span class="plan-card__feature-text">1 User Account</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- CORE (featured) -->
+      <article class="plan-card plan-card--core">
+        <div class="plan-card__header">
+          <div class="plan-card__title-wrap">
+            <span class="plan-card__icon" aria-hidden="true">
+              <img src="assets/church.svg" alt="" />
+            </span>
+            <h3 class="plan-card__title">Core</h3>
+          </div>
+          <span class="plan-card__badge">Recommended</span>
+        </div>
+        <p class="plan-card__desc">Comprehensive management for established congregations.</p>
+        <div class="plan-card__divider" aria-hidden="true"></div>
+        <div class="plan-card__price-block">
+          <p class="plan-card__price"
+             data-price-yearly='ETB 000<span class="plan-card__price-unit">/month</span>'
+             data-price-monthly='ETB 000<span class="plan-card__price-unit">/month</span>'>
+            ETB 000<span class="plan-card__price-unit">/month</span>
+          </p>
+          <p class="plan-card__price-note"
+             data-note-yearly="Billed annually (ETB 000/year)"
+             data-note-monthly="Billed monthly">
+            Billed annually (ETB 000/year)
+          </p>
+        </div>
+        <button class="plan-card__cta plan-card__cta--white" type="button">
+          <span>Get Started Now</span>
+          <span class="plan-card__cta-icon" aria-hidden="true"></span>
+        </button>
+        <div class="plan-card__features">
+          <p class="plan-card__features-title">Core includes :</p>
+          <div class="plan-card__feature">
+            <span class="plan-card__feature-check" aria-hidden="true"></span>
+            <span class="plan-card__feature-text">Unlimited Members</span>
+          </div>
+          <div class="plan-card__feature">
+            <span class="plan-card__feature-check" aria-hidden="true"></span>
+            <span class="plan-card__feature-text">Attendance Tracking</span>
+          </div>
+          <div class="plan-card__feature">
+            <span class="plan-card__feature-check" aria-hidden="true"></span>
+            <span class="plan-card__feature-text">Finance &amp; Donations</span>
+          </div>
+          <div class="plan-card__feature">
+            <span class="plan-card__feature-check" aria-hidden="true"></span>
+            <span class="plan-card__feature-text">Small Groups &amp; Teams</span>
+          </div>
+          <div class="plan-card__feature">
+            <span class="plan-card__feature-check" aria-hidden="true"></span>
+            <span class="plan-card__feature-text">Mobile App Access</span>
+          </div>
+          <div class="plan-card__feature">
+            <span class="plan-card__feature-check" aria-hidden="true"></span>
+            <span class="plan-card__feature-text">5 User Accounts</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- MINISTRY -->
+      <article class="plan-card plan-card--ministry">
+        <div class="plan-card__header">
+          <div class="plan-card__title-wrap">
+            <span class="plan-card__icon" aria-hidden="true">
+              <img src="assets/pricing-icon-ministry.svg" alt="" />
+            </span>
+            <h3 class="plan-card__title">Ministry</h3>
+          </div>
+        </div>
+        <p class="plan-card__desc">Advanced features for multi-site churches and ministries.</p>
+        <div class="plan-card__divider" aria-hidden="true"></div>
+        <div class="plan-card__price-block">
+          <p class="plan-card__price"
+             data-price-yearly='ETB 000<span class="plan-card__price-unit">/month</span>'
+             data-price-monthly='ETB 000<span class="plan-card__price-unit">/month</span>'>
+            ETB 000<span class="plan-card__price-unit">/month</span>
+          </p>
+          <p class="plan-card__price-note"
+             data-note-yearly="Billed annually (ETB 000/year)"
+             data-note-monthly="Billed monthly">
+            Billed annually (ETB 000/year)
+          </p>
+        </div>
+        <button class="plan-card__cta plan-card__cta--yellow" type="button">
+          <span>Get Started Now</span>
+          <span class="plan-card__cta-icon" aria-hidden="true"></span>
+        </button>
+        <div class="plan-card__features">
+          <p class="plan-card__features-title">Ministry includes :</p>
+          <div class="plan-card__feature">
+            <span class="plan-card__feature-check" aria-hidden="true"></span>
+            <span class="plan-card__feature-text">Everything in Core</span>
+          </div>
+          <div class="plan-card__feature">
+            <span class="plan-card__feature-check" aria-hidden="true"></span>
+            <span class="plan-card__feature-text">Advanced Analytics</span>
+          </div>
+          <div class="plan-card__feature">
+            <span class="plan-card__feature-check" aria-hidden="true"></span>
+            <span class="plan-card__feature-text">Calendar &amp; Event MGMT</span>
+          </div>
+          <div class="plan-card__feature">
+            <span class="plan-card__feature-check" aria-hidden="true"></span>
+            <span class="plan-card__feature-text">Unlimited User Roles</span>
+          </div>
+          <div class="plan-card__feature">
+            <span class="plan-card__feature-check" aria-hidden="true"></span>
+            <span class="plan-card__feature-text">Priority Support</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
 </main>
 
 <script>
@@ -2294,6 +3923,271 @@
         toggle.setAttribute('aria-expanded', 'false');
       });
     });
+  })();
+
+  // ===== Testimony: pastor video carousel =====
+  // Each card lives at a fixed DOM position with its own pastor. We only
+  // move the --main CLASS between cards — the CSS handles the size and
+  // overlay transitions, so cards literally grow/shrink in place.
+  (function () {
+    var cards = document.getElementById('testimonyCards');
+    var prevBtn = document.getElementById('testimonyPrev');
+    var nextBtn = document.getElementById('testimonyNext');
+    if (!cards || !prevBtn || !nextBtn) return;
+
+    var allCards = Array.prototype.slice.call(cards.querySelectorAll('.testimony-card'));
+    if (allCards.length === 0) return;
+
+    function getMainIndex() {
+      for (var i = 0; i < allCards.length; i++) {
+        if (allCards[i].classList.contains('testimony-card--main')) return i;
+      }
+      return 0;
+    }
+
+    function setMain(targetIndex) {
+      targetIndex = ((targetIndex % allCards.length) + allCards.length) % allCards.length;
+      allCards.forEach(function (c, i) {
+        if (i === targetIndex) {
+          c.classList.add('testimony-card--main');
+          c.setAttribute('aria-current', 'true');
+        } else {
+          c.classList.remove('testimony-card--main');
+          c.removeAttribute('aria-current');
+        }
+      });
+    }
+
+    // Click a non-main card → it becomes main (size animates from 234px to ~628px)
+    cards.addEventListener('click', function (e) {
+      var card = e.target.closest('.testimony-card');
+      if (!card) return;
+      // Ignore clicks on the play button so it can do its own thing later
+      if (e.target.closest('.testimony-card__play')) return;
+      var idx = allCards.indexOf(card);
+      if (idx === -1 || card.classList.contains('testimony-card--main')) return;
+      setMain(idx);
+    });
+
+    cards.addEventListener('keydown', function (e) {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      var card = e.target.closest('.testimony-card');
+      if (!card) return;
+      var idx = allCards.indexOf(card);
+      if (idx === -1 || card.classList.contains('testimony-card--main')) return;
+      e.preventDefault();
+      setMain(idx);
+    });
+
+    // Arrows cycle the --main class through the cards
+    prevBtn.addEventListener('click', function () { setMain(getMainIndex() - 1); });
+    nextBtn.addEventListener('click', function () { setMain(getMainIndex() + 1); });
+  })();
+
+  // ===== Reviews: sliding cards carousel =====
+  // Render all reviews as cards in one wide flex track, then translate the
+  // track horizontally to scroll. The container's overflow:hidden clips
+  // anything off-screen; CSS transition makes the slide smooth.
+  (function () {
+    var track = document.getElementById('reviewsCards');
+    var prevBtn = document.getElementById('reviewsPrev');
+    var nextBtn = document.getElementById('reviewsNext');
+    if (!track || !prevBtn || !nextBtn) return;
+
+    var reviews = [
+      {
+        quote: 'Yotor helped us organize our church operations in ways we struggled to do for years. Everything is now easier to manage.',
+        name: 'Pastor Lemma Alemu',
+        role: 'Church Leader',
+        avatar: 'assets/avatar-1.png',
+        color: 'cyan'
+      },
+      {
+        quote: 'From member management to finance tracking, Yotor gave our ministry clarity and structure.',
+        name: 'Eyosiyas Alemu',
+        role: 'Ministry Coordinator',
+        avatar: 'assets/avatar-2.png',
+        color: 'pink'
+      },
+      {
+        quote: 'The dashboard gives us a clear picture of what’s happening across the church at any time.',
+        name: 'Misael Girma',
+        role: 'Youth Ministry Leader',
+        avatar: 'assets/avatar-3.png',
+        color: 'dark'
+      },
+      {
+        quote: 'Yotor helped us organize our church operations in ways we struggled to do for years. Everything is now easier to manage.',
+        name: 'Pastor Lemma Alemu',
+        role: 'Church Leader',
+        avatar: 'assets/avatar-4.png',
+        color: 'yellow'
+      },
+      {
+        quote: 'Sending announcements to our members has never been simpler. One message reaches everyone.',
+        name: 'Sara Bekele',
+        role: 'Communications Lead',
+        avatar: 'assets/avatar-5.png',
+        color: 'cyan'
+      },
+      {
+        quote: 'Setting up Yotor was quick and the team helped us migrate our records without any data loss.',
+        name: 'Pastor Daniel Tesfaye',
+        role: 'Senior Pastor',
+        avatar: 'assets/avatar-6.png',
+        color: 'pink'
+      },
+      {
+        quote: 'Tracking attendance, events, and small groups in one place has freed up so much of our team’s time.',
+        name: 'Mekdes Tadesse',
+        role: 'Operations Manager',
+        avatar: 'assets/avatar-7.png',
+        color: 'dark'
+      }
+    ];
+
+    var CARD_W = 304;
+    var GAP = 16;
+    var STEP = CARD_W + GAP;
+    var TRANSITION_MS = 550;
+
+    function buildCard(r) {
+      var stars = '';
+      for (var i = 0; i < 5; i++) {
+        stars += '<img src="assets/Star.svg" alt="" width="12" height="12">';
+      }
+      var avatarImg = '<img src="' + r.avatar + '" alt="" onerror="this.style.display=\'none\'">';
+
+      var html =
+        '<article class="review-card">' +
+          '<div class="review-card__content">' +
+            '<div class="review-card__rating" aria-label="5 out of 5 stars">' + stars + '</div>' +
+            '<p class="review-card__quote">' + r.quote + '</p>' +
+          '</div>' +
+          '<div class="review-card__footer">' +
+            '<div class="review-card__avatar review-card__avatar--' + r.color + '">' + avatarImg + '</div>' +
+            '<div class="review-card__user">' +
+              '<p class="review-card__name">' + r.name + '</p>' +
+              '<p class="review-card__role-text">' + r.role + '</p>' +
+            '</div>' +
+          '</div>' +
+        '</article>';
+      return html;
+    }
+
+    // Render the reviews TWICE back-to-back. The duplicate copy lets us
+    // animate "past" the last real review, then instantly snap back to
+    // the equivalent position in the first copy — invisible to the user.
+    track.innerHTML = reviews.concat(reviews).map(buildCard).join('');
+
+    var currentIndex = 0;
+    var isAnimating = false;
+
+    function setTransform(useTransition) {
+      if (useTransition === false) {
+        track.style.transition = 'none';
+        // Force layout so the subsequent transition re-applies cleanly
+        void track.offsetWidth;
+      } else {
+        track.style.transition = '';
+      }
+      track.style.transform = 'translate3d(-' + (currentIndex * STEP) + 'px, 0, 0)';
+    }
+
+    function next() {
+      if (isAnimating) return;
+      isAnimating = true;
+      currentIndex += 1;
+      setTransform(true);
+
+      if (currentIndex >= reviews.length) {
+        // Wait for the slide to finish, then snap back to the equivalent
+        // position in the first copy of the list (no transition).
+        window.setTimeout(function () {
+          currentIndex -= reviews.length;
+          setTransform(false);
+          isAnimating = false;
+        }, TRANSITION_MS);
+      } else {
+        window.setTimeout(function () { isAnimating = false; }, TRANSITION_MS);
+      }
+    }
+
+    function prev() {
+      if (isAnimating) return;
+      isAnimating = true;
+
+      // If we're at the start, jump forward to the mirror position in the
+      // duplicated set first (no transition), then animate back from there.
+      if (currentIndex === 0) {
+        currentIndex = reviews.length;
+        setTransform(false);
+        // After the snap, animate back to currentIndex - 1
+        window.requestAnimationFrame(function () {
+          currentIndex -= 1;
+          setTransform(true);
+          window.setTimeout(function () { isAnimating = false; }, TRANSITION_MS);
+        });
+        return;
+      }
+
+      currentIndex -= 1;
+      setTransform(true);
+      window.setTimeout(function () { isAnimating = false; }, TRANSITION_MS);
+    }
+
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+
+    var resizeT;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeT);
+      resizeT = window.setTimeout(function () { setTransform(false); }, 120);
+    });
+
+    setTransform(false);
+  })();
+
+  // ===== Pricing: Monthly / Yearly toggle =====
+  // Each price <p> and price-note <p> carries data-price-{billing} attributes
+  // with the text to show for each billing mode. Clicking a tab swaps the
+  // text + hides the "20% OFF" badge when monthly is selected.
+  (function () {
+    var tabs = document.querySelectorAll('.pricing__tab');
+    var discount = document.getElementById('pricingDiscount');
+    if (!tabs.length) return;
+
+    function setBilling(mode) {
+      tabs.forEach(function (t) {
+        var on = t.getAttribute('data-billing') === mode;
+        t.classList.toggle('pricing__tab--active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+
+      // Swap price + note text on every plan card
+      document.querySelectorAll('.plan-card__price').forEach(function (p) {
+        var v = p.getAttribute('data-price-' + mode);
+        if (v != null) p.innerHTML = v;
+      });
+      document.querySelectorAll('.plan-card__price-note').forEach(function (p) {
+        var v = p.getAttribute('data-note-' + mode);
+        if (v != null) p.textContent = v;
+      });
+
+      // Discount badge only relevant for yearly
+      if (discount) {
+        discount.classList.toggle('is-hidden', mode !== 'yearly');
+      }
+    }
+
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        setBilling(t.getAttribute('data-billing'));
+      });
+    });
+
+    // Yearly is selected by default
+    setBilling('yearly');
   })();
 
   // ===== Comparison slider (before/after image reveal) =====
