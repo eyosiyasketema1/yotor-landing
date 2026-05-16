@@ -58,8 +58,24 @@
     --sp-12: 48px;
     --sp-20: 80px;
 
+    /* Logo strip */
+    --logo-strip-h: 72px;
+    --logo-item-w: 200px;
+    --logo-text-color: rgba(0, 0, 0, 0.5);
+    --fs-logo-text: 13px;
+    --tracking-logo: -0.26px;
+
+    /* Yotor section */
+    --yotor-eyebrow-fs: 16px;
+    --yotor-eyebrow-tracking: 0.8px;
+    --yotor-desc-fs: 20px;
+    --yotor-tab-fs: 14px;
+    --color-muted-50: rgba(0, 0, 0, 0.5);
+
     /* Layout */
-    --nav-inner-w: 1160px;
+    --content-w: 1160px;        /* Standard centered content width (Figma 1440 - 280) */
+    --content-pad: 140px;       /* Side padding so content stays centered at 1160px */
+    --nav-inner-w: var(--content-w);
     --nav-inner-h: 56px;
   }
 
@@ -301,11 +317,17 @@
   /* ===================== HERO ===================== */
   .hero {
     display: flex;
-    align-items: flex-end;
     justify-content: center;
-    padding: var(--sp-20) 100px;
-    gap: 40px;
+    padding: var(--sp-20) var(--content-pad);
     background: var(--color-white);
+  }
+
+  .hero__container {
+    width: 100%;
+    max-width: var(--content-w);
+    display: flex;
+    align-items: flex-end;
+    gap: 0;
   }
 
   .hero__intro {
@@ -567,6 +589,314 @@
     opacity: 0.7;
   }
 
+  /* ===================== LOGO STRIP (marquee) ===================== */
+  .logo-strip {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: var(--color-white);
+    /* Full-width edge-to-edge borders (Figma Line 1 & Line 2 = 1440px wide) */
+    border-top: 1px solid var(--color-border-soft);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .logo-strip__viewport {
+    width: 100%;
+    max-width: var(--nav-inner-w);
+    height: var(--logo-strip-h);
+    padding: var(--sp-2);
+    overflow: hidden;
+    position: relative;
+    /* Vertical lines on left & right form the rectangle the logos slide in/out of */
+    border-left: 1px solid var(--color-border-soft);
+    border-right: 1px solid var(--color-border-soft);
+  }
+
+  .logo-strip__track {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: max-content;
+    animation: logo-marquee 32s linear infinite;
+    will-change: transform;
+  }
+
+  /* Pause on hover for accessibility */
+  .logo-strip__viewport:hover .logo-strip__track {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-strip__track {
+      animation: none;
+    }
+  }
+
+  .logo-strip__item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--sp-2);
+    width: var(--logo-item-w);
+    flex-shrink: 0;
+  }
+
+  .logo-strip__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-2);
+    width: 100%;
+  }
+
+  .logo-strip__icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .logo-strip__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .logo-strip__icon--empty {
+    background: var(--color-border-soft);
+    border-radius: 6px;
+  }
+
+  .logo-strip__name {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: var(--fs-logo-text);
+    line-height: normal;
+    letter-spacing: var(--tracking-logo);
+    color: var(--logo-text-color);
+    flex: 1 0 0;
+    min-width: 0;
+  }
+
+  @keyframes logo-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      /* Move by exactly half the track (one full set of 6 items × 200px = 1200px) */
+      transform: translateX(-1200px);
+    }
+  }
+
+  /* ===================== YOTOR SECTION ===================== */
+  .yotor-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .yotor-section__container {
+    width: 100%;
+    max-width: var(--content-w);
+    padding: var(--sp-20) var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-8);
+    border-left: 1px solid var(--color-border-soft);
+    border-right: 1px solid var(--color-border-soft);
+  }
+
+  /* Intro: eyebrow pill + description */
+  .yotor-section__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-2);
+    padding: var(--sp-2) 0;
+    width: 100%;
+  }
+
+  .yotor-section__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    height: 34px;
+    padding: var(--sp-2) var(--sp-4);
+    border-radius: var(--r-pill);
+  }
+
+  .yotor-section__eyebrow-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .yotor-section__eyebrow-icon img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .yotor-section__eyebrow-text {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: var(--yotor-eyebrow-fs);
+    letter-spacing: var(--yotor-eyebrow-tracking);
+    text-transform: uppercase;
+    color: var(--color-yotor-primary);
+    white-space: nowrap;
+  }
+
+  .yotor-section__desc-wrap {
+    padding: 0 var(--sp-4);
+    width: 100%;
+  }
+
+  .yotor-section__desc {
+    width: 472px;
+    max-width: 100%;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: var(--yotor-desc-fs);
+    line-height: normal;
+    color: var(--color-black);
+    transition: opacity 0.25s ease;
+  }
+
+  .yotor-section__desc.is-swapping {
+    opacity: 0;
+  }
+
+  .yotor-section__desc-muted {
+    color: var(--color-muted-50);
+  }
+
+  /* Features (tabs) */
+  .yotor-section__features {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-2);
+    width: 100%;
+  }
+
+  .yotor-tabs-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: var(--sp-2) 0;
+    width: 100%;
+  }
+
+  .yotor-tabs-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+    width: 100%;
+  }
+
+  .yotor-tabs {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--sp-4);
+    width: 100%;
+    position: relative;
+  }
+
+  .yotor-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: var(--yotor-tab-fs);
+    line-height: 20px;
+    color: var(--color-muted-50);
+    transition: color 0.2s ease, opacity 0.2s ease;
+    white-space: nowrap;
+  }
+
+  /* Icons use mask-image so they recolor with currentColor (cyan when active) */
+  /* Inactive uses --icon (outline), active uses --icon-filled (filled variant) */
+  .yotor-tab__icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    background-color: currentColor;
+    -webkit-mask-image: var(--icon);
+    mask-image: var(--icon);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-position: center;
+    mask-position: center;
+    transition: background-color 0.2s ease;
+  }
+
+  .yotor-tab--active {
+    color: var(--color-yotor-primary);
+  }
+
+  .yotor-tab--active .yotor-tab__icon {
+    -webkit-mask-image: var(--icon-filled);
+    mask-image: var(--icon-filled);
+  }
+
+  /* Divider row (cyan underline under active tab) */
+  .yotor-tabs-divider-row {
+    display: flex;
+    align-items: center;
+    padding: 0 var(--sp-4);
+    width: 100%;
+    position: relative;
+    height: 18px;
+  }
+
+  .yotor-tabs-underline {
+    position: absolute;
+    top: 8px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-yotor-primary);
+    border-radius: 2px;
+    /* Loading-bar growth: anchored on the left, only width animates linearly */
+    will-change: width;
+  }
+
+  /* Dashboard preview */
+  .yotor-section__preview {
+    width: 100%;
+    max-width: 1128px;
+    aspect-ratio: 1128 / 729;
+    border: 0.5px solid var(--color-border-soft);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .yotor-section__preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.25s ease;
+  }
+
+  .yotor-section__preview img.is-swapping {
+    opacity: 0;
+  }
+
   /* ===================== RESPONSIVE — TABLET (≤1024px) ===================== */
   @media (max-width: 1024px) {
     /* Nav */
@@ -613,6 +943,9 @@
     /* Hero */
     .hero {
       padding: var(--sp-12) 40px;
+    }
+
+    .hero__container {
       flex-direction: column;
       align-items: center;
       gap: 48px;
@@ -718,6 +1051,31 @@
     .hero__testimonial-role {
       font-size: 12px;
     }
+
+    /* Logo strip — keep same item size, just faster loop visually OK */
+    .logo-strip__track {
+      animation-duration: 24s;
+    }
+
+    /* Yotor section */
+    .yotor-section__container {
+      padding: 48px 16px;
+    }
+
+    .yotor-tabs {
+      gap: 12px;
+      overflow-x: auto;
+      justify-content: flex-start;
+      scrollbar-width: none;
+    }
+
+    .yotor-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .yotor-tab {
+      flex-shrink: 0;
+    }
   }
 </style>
 </head>
@@ -768,6 +1126,7 @@
 
 <!-- ===================== HERO ===================== -->
 <section class="hero" aria-label="Hero">
+ <div class="hero__container">
   <!-- Left: text + CTAs -->
   <div class="hero__intro">
     <div class="hero__header">
@@ -830,6 +1189,160 @@
       </div>
     </div>
   </div>
+ </div>
+</section>
+
+<!-- ===================== LOGO STRIP (marquee) =====================
+     Renders TWO copies of the 6-item set back-to-back so the marquee
+     loops seamlessly. The animation moves the track left by exactly
+     one set width (1200px), then snaps back to 0.
+================================================================ -->
+<section class="logo-strip" aria-label="Trusted by churches">
+  <div class="logo-strip__viewport">
+    <div class="logo-strip__track" id="logoTrack">
+      <!-- Set 1 -->
+      <div class="logo-strip__item">
+        <div class="logo-strip__inner">
+          <div class="logo-strip__icon"><img src="assets/church-logo-01.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <p class="logo-strip__name">Gelan Mekane Eyesus</p>
+        </div>
+      </div>
+      <div class="logo-strip__item">
+        <div class="logo-strip__inner">
+          <div class="logo-strip__icon"><img src="assets/church-logo-02.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
+        </div>
+      </div>
+      <div class="logo-strip__item">
+        <div class="logo-strip__inner">
+          <div class="logo-strip__icon"><img src="assets/church-logo-03.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
+        </div>
+      </div>
+      <div class="logo-strip__item">
+        <div class="logo-strip__inner">
+          <div class="logo-strip__icon"><img src="assets/church-logo-04.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
+        </div>
+      </div>
+      <div class="logo-strip__item">
+        <div class="logo-strip__inner">
+          <div class="logo-strip__icon"><img src="assets/church-logo-05.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
+        </div>
+      </div>
+      <div class="logo-strip__item">
+        <div class="logo-strip__inner">
+          <div class="logo-strip__icon"><img src="assets/church-logo-06.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
+        </div>
+      </div>
+
+      <!-- Set 2 (duplicate for seamless loop) -->
+      <div class="logo-strip__item" aria-hidden="true">
+        <div class="logo-strip__inner">
+          <div class="logo-strip__icon"><img src="assets/church-logo-01.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <p class="logo-strip__name">Gelan Mekane Eyesus</p>
+        </div>
+      </div>
+      <div class="logo-strip__item" aria-hidden="true">
+        <div class="logo-strip__inner">
+          <div class="logo-strip__icon"><img src="assets/church-logo-02.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
+        </div>
+      </div>
+      <div class="logo-strip__item" aria-hidden="true">
+        <div class="logo-strip__inner">
+          <div class="logo-strip__icon"><img src="assets/church-logo-03.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
+        </div>
+      </div>
+      <div class="logo-strip__item" aria-hidden="true">
+        <div class="logo-strip__inner">
+          <div class="logo-strip__icon"><img src="assets/church-logo-04.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
+        </div>
+      </div>
+      <div class="logo-strip__item" aria-hidden="true">
+        <div class="logo-strip__inner">
+          <div class="logo-strip__icon"><img src="assets/church-logo-05.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
+        </div>
+      </div>
+      <div class="logo-strip__item" aria-hidden="true">
+        <div class="logo-strip__inner">
+          <div class="logo-strip__icon"><img src="assets/church-logo-06.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== YOTOR PROVIDES SECTION ===================== -->
+<section class="yotor-section" aria-label="What Yotor provides">
+  <div class="yotor-section__container">
+    <!-- Intro -->
+    <div class="yotor-section__intro">
+      <div class="yotor-section__eyebrow">
+        <span class="yotor-section__eyebrow-icon" aria-hidden="true">
+          <img src="assets/Rocket.svg" alt="" width="24" height="24" />
+        </span>
+        <span class="yotor-section__eyebrow-text">YOTOR PROVIDES</span>
+      </div>
+
+      <div class="yotor-section__desc-wrap">
+        <p class="yotor-section__desc" id="yotorDesc">
+          Get a clear overview
+          <span class="yotor-section__desc-muted">of church activities, recent updates, upcoming events, and important tasks from one centralized dashboard.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Features (tabs + underline) -->
+    <div class="yotor-section__features">
+      <div class="yotor-tabs-wrap">
+        <div class="yotor-tabs-list">
+          <div class="yotor-tabs" role="tablist" id="yotorTabs">
+            <button class="yotor-tab yotor-tab--active" role="tab" aria-selected="true" data-tab="quickboard" data-image="assets/yotor-dashboard-quickboard.png">
+              <span class="yotor-tab__icon" style="--icon: url('assets/dashboard-quickboard.svg'); --icon-filled: url('assets/dashboard-quickboard-filled.svg')" aria-hidden="true"></span>
+              <span>Quick Board</span>
+            </button>
+            <button class="yotor-tab" role="tab" aria-selected="false" data-tab="member" data-image="assets/yotor-dashboard-member.png">
+              <span class="yotor-tab__icon" style="--icon: url('assets/dashboard-member.svg'); --icon-filled: url('assets/dashboard-member-filled.svg')" aria-hidden="true"></span>
+              <span>Member Management</span>
+            </button>
+            <button class="yotor-tab" role="tab" aria-selected="false" data-tab="team" data-image="assets/yotor-dashboard-team.png">
+              <span class="yotor-tab__icon" style="--icon: url('assets/dashboard-team.svg'); --icon-filled: url('assets/dashboard-team-filled.svg')" aria-hidden="true"></span>
+              <span>Team Management</span>
+            </button>
+            <button class="yotor-tab" role="tab" aria-selected="false" data-tab="message" data-image="assets/yotor-dashboard-message.png">
+              <span class="yotor-tab__icon" style="--icon: url('assets/dashboard-message.svg'); --icon-filled: url('assets/dashboard-message-filled.svg')" aria-hidden="true"></span>
+              <span>Message</span>
+            </button>
+            <button class="yotor-tab" role="tab" aria-selected="false" data-tab="finance" data-image="assets/yotor-dashboard-finance.png">
+              <span class="yotor-tab__icon" style="--icon: url('assets/dashboard-finance.svg'); --icon-filled: url('assets/dashboard-finance-filled.svg')" aria-hidden="true"></span>
+              <span>Finance</span>
+            </button>
+            <button class="yotor-tab" role="tab" aria-selected="false" data-tab="hr" data-image="assets/yotor-dashboard-hr.png">
+              <span class="yotor-tab__icon" style="--icon: url('assets/dashboard-hr.svg'); --icon-filled: url('assets/dashboard-hr-filled.svg')" aria-hidden="true"></span>
+              <span>HR and Asset</span>
+            </button>
+          </div>
+
+          <!-- Underline row (JS positions the bar under the active tab) -->
+          <div class="yotor-tabs-divider-row">
+            <span class="yotor-tabs-underline" id="yotorTabsUnderline" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard preview (swapped per tab) -->
+      <div class="yotor-section__preview">
+        <img id="yotorDashboard" src="assets/yotor-dashboard.png" alt="Yotor dashboard preview" onerror="this.src='assets/yotor-dashboard.png'" />
+      </div>
+    </div>
+  </div>
 </section>
 
 </main>
@@ -852,6 +1365,201 @@
         nav.setAttribute('data-open', 'false');
         toggle.setAttribute('aria-expanded', 'false');
       });
+    });
+  })();
+
+  // ===== Yotor section: continuous loading-bar carousel =====
+  //
+  // The underline is anchored at Quick Board's LEFT edge. Each cycle, its
+  // width grows linearly from 0 to the full width covering all six tabs.
+  // The growth NEVER pauses — it's one smooth, continuous animation.
+  // As the line's right edge crosses each tab boundary, that tab becomes
+  // active (cyan icon + text) and the dashboard image fades to that tab's
+  // preview. At the end of the cycle, the line resets to 0 width and the
+  // loading bar starts over.
+  (function () {
+    var tabsRoot = document.getElementById('yotorTabs');
+    var underline = document.getElementById('yotorTabsUnderline');
+    var dashboard = document.getElementById('yotorDashboard');
+    if (!tabsRoot || !underline || !dashboard) return;
+
+    var tabs = Array.prototype.slice.call(tabsRoot.querySelectorAll('.yotor-tab'));
+    if (tabs.length === 0) return;
+
+    var FALLBACK_IMG = 'assets/yotor-dashboard.png';
+    var CYCLE_MS = 48000;          // time for one full sweep (~8s per tab on avg)
+    var anchorLeft = 0;            // x of QB's left edge, relative to its row
+    var fullWidth = 0;             // total width to cover all 6 tabs
+    var scheduledTimers = [];
+    var resizeDebounce = null;
+    var descEl = document.getElementById('yotorDesc');
+
+    // Each tab's intro: leading phrase rendered in black, rest in muted 50%.
+    var DESCS = {
+      quickboard: {
+        lead: 'Get a clear overview',
+        rest: 'of church activities, recent updates, upcoming events, and important tasks from one centralized dashboard.'
+      },
+      member: {
+        lead: 'Centralized member profiles',
+        rest: 'keep all member information in one place, from personal details and contact info to involvement history.'
+      },
+      team: {
+        lead: 'Manage ministry teams,',
+        rest: 'assign responsibilities, and keep church staff and volunteers organized and connected.'
+      },
+      message: {
+        lead: 'Send announcements, updates,',
+        rest: 'and important communications to members, teams, and ministries with ease.'
+      },
+      finance: {
+        lead: 'Track tithes, offerings, expenses,',
+        rest: 'and financial records with transparency and organized reporting tools.'
+      },
+      hr: {
+        lead: 'Manage church staff, resources, and assets',
+        rest: 'efficiently with organized records, tracking, and oversight tools.'
+      }
+    };
+
+    function swapDescription(tabKey) {
+      if (!descEl) return;
+      var d = DESCS[tabKey];
+      if (!d) return;
+      descEl.classList.add('is-swapping');
+      window.setTimeout(function () {
+        descEl.innerHTML = d.lead +
+          ' <span class="yotor-section__desc-muted">' + d.rest + '</span>';
+        descEl.classList.remove('is-swapping');
+      }, 180);
+    }
+
+    function computeMetrics() {
+      var rowRect = tabsRoot.parentElement.getBoundingClientRect();
+      var firstRect = tabs[0].getBoundingClientRect();
+      var lastRect = tabs[tabs.length - 1].getBoundingClientRect();
+      anchorLeft = firstRect.left - rowRect.left;
+      fullWidth = (lastRect.left - rowRect.left) + lastRect.width - anchorLeft;
+      underline.style.left = anchorLeft + 'px';
+    }
+
+    // Width such that line.right reaches tabs[i].right
+    function widthForTab(i) {
+      var rowRect = tabsRoot.parentElement.getBoundingClientRect();
+      var rect = tabs[i].getBoundingClientRect();
+      return (rect.left - rowRect.left) + rect.width - anchorLeft;
+    }
+
+    function paintActive(i) {
+      tabs.forEach(function (t, idx) {
+        if (idx === i) {
+          t.classList.add('yotor-tab--active');
+          t.setAttribute('aria-selected', 'true');
+        } else {
+          t.classList.remove('yotor-tab--active');
+          t.setAttribute('aria-selected', 'false');
+        }
+      });
+      var img = tabs[i].getAttribute('data-image');
+      if (img) swapImage(img);
+      var key = tabs[i].getAttribute('data-tab');
+      if (key) swapDescription(key);
+    }
+
+    function swapImage(src) {
+      dashboard.classList.add('is-swapping');
+      window.setTimeout(function () {
+        var probe = new Image();
+        probe.onload = function () {
+          dashboard.src = src;
+          dashboard.classList.remove('is-swapping');
+        };
+        probe.onerror = function () {
+          dashboard.src = FALLBACK_IMG;
+          dashboard.classList.remove('is-swapping');
+        };
+        probe.src = src;
+      }, 180);
+    }
+
+    function clearScheduled() {
+      scheduledTimers.forEach(clearTimeout);
+      scheduledTimers = [];
+    }
+
+    // One continuous sweep starting from tab[startIdx]'s left edge.
+    // The growth is linear and never pauses. At each tab boundary the
+    // upcoming tab is painted active. At the end the cycle restarts.
+    function runCycle(startIdx) {
+      clearScheduled();
+      startIdx = ((startIdx % tabs.length) + tabs.length) % tabs.length;
+
+      var startWidth = startIdx === 0 ? 0 : widthForTab(startIdx - 1);
+      var remaining = fullWidth - startWidth;
+      var duration = (remaining / fullWidth) * CYCLE_MS;
+
+      // Snap line to the start position (no transition)
+      underline.style.transition = 'none';
+      underline.style.width = startWidth + 'px';
+      // Force reflow so the upcoming transition actually triggers
+      void underline.offsetWidth;
+
+      window.requestAnimationFrame(function () {
+        // Activate the starting tab
+        paintActive(startIdx);
+
+        // Begin the continuous linear growth toward fullWidth
+        underline.style.transition = 'width ' + duration + 'ms linear';
+        underline.style.width = fullWidth + 'px';
+
+        // Schedule activations at each upcoming tab boundary crossing
+        for (var i = startIdx + 1; i < tabs.length; i++) {
+          (function (idx) {
+            var boundaryWidth = widthForTab(idx - 1); // line.right = tabs[idx].left
+            var t = ((boundaryWidth - startWidth) / fullWidth) * CYCLE_MS;
+            scheduledTimers.push(window.setTimeout(function () {
+              paintActive(idx);
+            }, t));
+          })(i);
+        }
+
+        // At end of cycle, restart from the beginning (no break)
+        scheduledTimers.push(window.setTimeout(function () {
+          runCycle(0);
+        }, duration));
+      });
+    }
+
+    // Manual click: restart the continuous sweep from the clicked tab
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { runCycle(i); });
+    });
+
+    var prefersReduced = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function init() {
+      computeMetrics();
+      if (prefersReduced) {
+        // Static: just show Quick Board, no animation
+        underline.style.transition = 'none';
+        underline.style.width = widthForTab(0) + 'px';
+        paintActive(0);
+        return;
+      }
+      runCycle(0);
+    }
+
+    window.requestAnimationFrame(init);
+    window.addEventListener('load', init);
+
+    // Debounced resize: recompute metrics and restart the sweep
+    window.addEventListener('resize', function () {
+      if (resizeDebounce) clearTimeout(resizeDebounce);
+      resizeDebounce = window.setTimeout(function () {
+        computeMetrics();
+        if (!prefersReduced) runCycle(0);
+      }, 200);
     });
   })();
 </script>
