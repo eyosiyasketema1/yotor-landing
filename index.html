@@ -114,6 +114,10 @@
     /* Mobile app section */
     --mobile-card-bg: #fafafa;
 
+    /* FAQs */
+    --faq-cat-active-bg: #fafafa;
+    --faq-accordion-open-bg: #fafafa;
+
     /* Layout */
     --content-w: 1160px;        /* Standard centered content width (Figma 1440 - 280) */
     --content-pad: 140px;       /* Side padding so content stays centered at 1160px */
@@ -937,6 +941,250 @@
 
   .yotor-section__preview img.is-swapping {
     opacity: 0;
+  }
+
+  /* ===================== FAQS ===================== */
+  .faqs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .faqs__container {
+    width: 100%;
+    max-width: var(--content-w);
+    padding: var(--sp-20) var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-8);
+    border-left: 1px solid var(--color-border-soft);
+    border-right: 1px solid var(--color-border-soft);
+  }
+
+  .faqs__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-2);
+    padding: var(--sp-2) 0;
+    width: 100%;
+  }
+
+  .faqs__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    height: 34px;
+    padding: var(--sp-2) var(--sp-4);
+    border-radius: var(--r-pill);
+  }
+
+  .faqs__eyebrow-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .faqs__eyebrow-icon img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .faqs__eyebrow-text {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--color-yotor-primary);
+    white-space: nowrap;
+  }
+
+  .faqs__title-wrap {
+    padding: 0 var(--sp-4);
+    width: 100%;
+  }
+
+  .faqs__title {
+    width: 472px;
+    max-width: 100%;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    color: var(--color-muted);
+  }
+
+  /* Two-column layout */
+  .faqs__row {
+    display: flex;
+    gap: 40px;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  /* Left column: category nav */
+  .faqs__categories {
+    width: 329px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .faqs__cat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    padding: 10px 24px;
+    background: var(--color-white);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.2s ease, border-radius 0.2s ease;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-foreground, #0a0a0a);
+  }
+
+  .faqs__cat:hover {
+    background: #f5f5f5;
+  }
+
+  .faqs__cat--active {
+    background: var(--faq-cat-active-bg);
+    border-radius: 8px;
+    color: var(--color-primary-a);
+  }
+
+  .faqs__cat-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background-color: currentColor;
+    -webkit-mask-image: var(--cat-icon);
+    mask-image: var(--cat-icon);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-position: center;
+    mask-position: center;
+  }
+
+  .faqs__cat-label {
+    flex: 1 0 0;
+    min-width: 0;
+  }
+
+  .faqs__cat-chevron {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background-color: currentColor;
+    -webkit-mask: url('assets/chevron-right.svg') no-repeat center / contain;
+            mask: url('assets/chevron-right.svg') no-repeat center / contain;
+  }
+
+  /* Right column: accordion */
+  .faqs__accordion {
+    flex: 1 0 0;
+    min-width: 318px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+  }
+
+  .faq-item {
+    width: 100%;
+    background: var(--color-white);
+    border-radius: 8px;
+    padding: 4px 20px;
+    transition: background-color 0.25s ease;
+  }
+
+  .faq-item--open {
+    background: var(--faq-accordion-open-bg);
+  }
+
+  .faq-item__header {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-foreground, #0a0a0a);
+    transition: color 0.25s ease;
+  }
+
+  .faq-item--open .faq-item__header {
+    color: var(--color-yotor-primary);
+  }
+
+  .faq-item__question {
+    flex: 1 0 0;
+    min-width: 0;
+  }
+
+  .faq-item__chevron {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background-color: currentColor;
+    -webkit-mask: url('assets/chevron-right.svg') no-repeat center / contain;
+            mask: url('assets/chevron-right.svg') no-repeat center / contain;
+    transition: transform 0.3s ease, mask-image 0.25s ease;
+  }
+
+  /* When open, swap mask to chevron-down */
+  .faq-item--open .faq-item__chevron {
+    -webkit-mask-image: url('assets/chevron-down.svg');
+            mask-image: url('assets/chevron-down.svg');
+  }
+
+  .faq-item__body {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .faq-item--open .faq-item__body {
+    max-height: 320px;
+  }
+
+  .faq-item__body-inner {
+    padding: 4px 0 16px;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: var(--color-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-item__body {
+      transition: none;
+    }
+    .faq-item__chevron {
+      transition: none;
+    }
   }
 
   /* ===================== MOBILE APP DOWNLOAD ===================== */
@@ -3120,6 +3368,19 @@
       height: auto;
       aspect-ratio: 1 / 1;
     }
+
+    /* FAQs */
+    .faqs__container {
+      padding: 48px 16px;
+    }
+
+    .faqs__row {
+      flex-wrap: wrap;
+    }
+
+    .faqs__categories {
+      width: 100%;
+    }
   }
 
     /* Testimony + reviews stay horizontal at all sizes — the testimony
@@ -4111,6 +4372,57 @@
   </div>
 </section>
 
+<!-- ===================== FAQS ===================== -->
+<section class="faqs" aria-label="Frequently asked questions">
+  <div class="faqs__container">
+
+    <!-- Header -->
+    <div class="faqs__header">
+      <div class="faqs__eyebrow">
+        <span class="faqs__eyebrow-icon" aria-hidden="true">
+          <img src="assets/rocket.svg" alt="" width="24" height="24" />
+        </span>
+        <span class="faqs__eyebrow-text">FAQs</span>
+      </div>
+      <div class="faqs__title-wrap">
+        <p class="faqs__title">Common Questions We Get</p>
+      </div>
+    </div>
+
+    <!-- 2-column row -->
+    <div class="faqs__row">
+
+      <!-- Left: category nav -->
+      <nav class="faqs__categories" id="faqsCategories" aria-label="FAQ categories">
+        <button class="faqs__cat faqs__cat--active" type="button" data-cat="general">
+          <span class="faqs__cat-icon" style="--cat-icon: url('assets/faq-icon-general.svg')" aria-hidden="true"></span>
+          <span class="faqs__cat-label">General Questions</span>
+          <span class="faqs__cat-chevron" aria-hidden="true"></span>
+        </button>
+        <button class="faqs__cat" type="button" data-cat="misc">
+          <span class="faqs__cat-icon" style="--cat-icon: url('assets/faq-icon-misc.svg')" aria-hidden="true"></span>
+          <span class="faqs__cat-label">Miscellaneous</span>
+          <span class="faqs__cat-chevron" aria-hidden="true"></span>
+        </button>
+        <button class="faqs__cat" type="button" data-cat="payment">
+          <span class="faqs__cat-icon" style="--cat-icon: url('assets/faq-icon-payment.svg')" aria-hidden="true"></span>
+          <span class="faqs__cat-label">Payment Information</span>
+          <span class="faqs__cat-chevron" aria-hidden="true"></span>
+        </button>
+        <button class="faqs__cat" type="button" data-cat="support">
+          <span class="faqs__cat-icon" style="--cat-icon: url('assets/faq-icon-support.svg')" aria-hidden="true"></span>
+          <span class="faqs__cat-label">Support team</span>
+          <span class="faqs__cat-chevron" aria-hidden="true"></span>
+        </button>
+      </nav>
+
+      <!-- Right: accordion (JS-populated based on active category) -->
+      <div class="faqs__accordion" id="faqsAccordion"></div>
+    </div>
+
+  </div>
+</section>
+
 </main>
 
 <script>
@@ -4355,6 +4667,110 @@
     });
 
     setTransform(false);
+  })();
+
+  // ===== FAQs: category nav + accordion =====
+  // Clicking a left-column category swaps the right-column accordion content.
+  // Clicking an FAQ item header toggles that item open/closed (max one open at a time).
+  (function () {
+    var nav = document.getElementById('faqsCategories');
+    var accordion = document.getElementById('faqsAccordion');
+    if (!nav || !accordion) return;
+
+    var faqs = {
+      general: [
+        {
+          q: 'What is Yotor?',
+          a: 'Yotor is a church management system designed to help churches manage members, finances, communication, teams, and daily operations from one platform.'
+        },
+        {
+          q: 'Who can use Yotor?',
+          a: 'Yotor is built for churches, ministries, and Christian organizations of any size — from small fellowships to multi-site congregations.'
+        },
+        {
+          q: 'Is Yotor easy to use?',
+          a: 'Yes. Yotor is designed with a clean, intuitive interface so any team member can get started quickly with minimal training.'
+        },
+        {
+          q: 'Can multiple staff members access the system?',
+          a: 'Absolutely. Yotor supports multiple users with role-based access controls, so you can give different team members the right level of access.'
+        },
+        {
+          q: 'Does Yotor support mobile access?',
+          a: 'Yes — Yotor is available on both iOS and Android through our mobile app, plus the full web dashboard.'
+        }
+      ],
+      misc: [
+        { q: 'Can I export my church data?', a: 'Yes — you can export your data at any time in CSV or PDF format.' },
+        { q: 'Is my data backed up?', a: 'All data is backed up automatically every 24 hours to encrypted storage.' },
+        { q: 'Can I integrate Yotor with other tools?', a: 'Yotor offers integrations with common church tools — and an API for custom integrations on higher plans.' },
+        { q: 'What languages does Yotor support?', a: 'Yotor supports English and Amharic out of the box, with more languages on the roadmap.' }
+      ],
+      payment: [
+        { q: 'What payment methods do you accept?', a: 'We accept all major credit cards and local payment methods including Telebirr and CBE Birr.' },
+        { q: 'Can I change plans later?', a: 'Yes — you can upgrade or downgrade your plan at any time from the billing settings.' },
+        { q: 'Do you offer refunds?', a: 'We offer a 14-day money-back guarantee on all paid plans — no questions asked.' },
+        { q: 'Is annual billing cheaper?', a: 'Yes. Annual billing gives you a 20% discount compared to monthly billing.' }
+      ],
+      support: [
+        { q: 'How do I contact support?', a: 'Reach our team via email, phone, or live chat — all listed in your dashboard footer.' },
+        { q: 'What are your support hours?', a: 'Monday through Friday, 8am–6pm Ethiopia time. Priority support plans get 24/7 coverage.' },
+        { q: 'Is there training available?', a: 'Yes — we offer free onboarding sessions for new churches, plus video tutorials in our help center.' },
+        { q: 'How fast do you respond to issues?', a: 'Most tickets get a first response within 4 business hours. Critical issues get same-hour attention.' }
+      ]
+    };
+
+    var activeCat = 'general';
+    var openIndex = 0; // first item open by default
+
+    function renderAccordion() {
+      var items = faqs[activeCat] || [];
+      accordion.innerHTML = items.map(function (it, i) {
+        var openCls = i === openIndex ? ' faq-item--open' : '';
+        return (
+          '<div class="faq-item' + openCls + '" data-faq-index="' + i + '">' +
+            '<button class="faq-item__header" type="button" aria-expanded="' + (i === openIndex) + '">' +
+              '<span class="faq-item__question">' + it.q + '</span>' +
+              '<span class="faq-item__chevron" aria-hidden="true"></span>' +
+            '</button>' +
+            '<div class="faq-item__body" role="region">' +
+              '<div class="faq-item__body-inner">' + it.a + '</div>' +
+            '</div>' +
+          '</div>'
+        );
+      }).join('');
+    }
+
+    function setCategory(cat) {
+      if (!faqs[cat]) return;
+      activeCat = cat;
+      openIndex = 0; // reset to first item when switching categories
+      nav.querySelectorAll('.faqs__cat').forEach(function (btn) {
+        var on = btn.getAttribute('data-cat') === cat;
+        btn.classList.toggle('faqs__cat--active', on);
+      });
+      renderAccordion();
+    }
+
+    // Toggle an FAQ item open/closed
+    accordion.addEventListener('click', function (e) {
+      var item = e.target.closest('.faq-item');
+      if (!item) return;
+      var idx = parseInt(item.getAttribute('data-faq-index'), 10);
+      if (isNaN(idx)) return;
+      openIndex = (openIndex === idx) ? -1 : idx; // click open one closes it
+      renderAccordion();
+    });
+
+    // Click category button
+    nav.addEventListener('click', function (e) {
+      var btn = e.target.closest('.faqs__cat');
+      if (!btn) return;
+      setCategory(btn.getAttribute('data-cat'));
+    });
+
+    // Initial render
+    renderAccordion();
   })();
 
   // ===== Pricing: Monthly / Yearly toggle =====
