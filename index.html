@@ -111,6 +111,9 @@
     --plan-badge-bg: #004a4e;
     --recommended-text: #e3b602;
 
+    /* Mobile app section */
+    --mobile-card-bg: #fafafa;
+
     /* Layout */
     --content-w: 1160px;        /* Standard centered content width (Figma 1440 - 280) */
     --content-pad: 140px;       /* Side padding so content stays centered at 1160px */
@@ -934,6 +937,155 @@
 
   .yotor-section__preview img.is-swapping {
     opacity: 0;
+  }
+
+  /* ===================== MOBILE APP DOWNLOAD ===================== */
+  .mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .mobile__container {
+    width: 100%;
+    max-width: var(--content-w);
+    padding: var(--sp-20) var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-8);
+    border-left: 1px solid var(--color-border-soft);
+    border-right: 1px solid var(--color-border-soft);
+  }
+
+  /* Header */
+  .mobile__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--sp-2) 0;
+    width: 100%;
+  }
+
+  .mobile__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    height: 34px;
+    padding: var(--sp-2) var(--sp-4);
+    border-radius: var(--r-pill);
+  }
+
+  .mobile__eyebrow-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .mobile__eyebrow-icon img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .mobile__eyebrow-text {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--color-yotor-primary);
+    white-space: nowrap;
+  }
+
+  /* Card */
+  .mobile__card {
+    width: 100%;
+    background: var(--mobile-card-bg);
+    border-radius: 16px;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    overflow: hidden;
+  }
+
+  .mobile__copy {
+    flex: 1 0 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 40px 0;
+  }
+
+  .mobile__heading {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 54px;
+    letter-spacing: -1.44px;
+    color: var(--color-black);
+    margin: 0;
+  }
+
+  .mobile__heading-accent {
+    color: var(--color-yotor-primary);
+  }
+
+  .mobile__subheading {
+    width: 348px;
+    max-width: 100%;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.4;
+    letter-spacing: -0.48px;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 0;
+  }
+
+  /* App store badges */
+  .mobile__badges {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .mobile__badge {
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .mobile__badge:hover {
+    transform: translateY(-2px);
+    opacity: 0.92;
+  }
+
+  .mobile__badge img {
+    height: 40px;
+    width: auto;
+    display: block;
+  }
+
+  /* Phone mockup */
+  .mobile__phone {
+    width: 542px;
+    height: 542px;
+    flex-shrink: 0;
+  }
+
+  .mobile__phone img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
   }
 
   /* ===================== PRICING ===================== */
@@ -2946,24 +3098,33 @@
       width: calc(50% - 8px);
     }
 
-    .testimony__cards {
-      flex-direction: column;
+    /* Mobile app section */
+    .mobile__container {
+      padding: 48px 16px;
     }
 
-    .testimony-card,
-    .testimony-card--main,
-    .testimony-card--thumb {
+    .mobile__card {
+      flex-direction: column;
+      padding: 32px;
+      text-align: left;
+    }
+
+    .mobile__copy {
+      padding: 0;
       width: 100%;
     }
 
-    .reviews__cards {
-      flex-wrap: wrap;
-      justify-content: center;
+    .mobile__phone {
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      aspect-ratio: 1 / 1;
     }
+  }
 
-    .review-card {
-      width: calc(50% - 8px);
-    }
+    /* Testimony + reviews stay horizontal at all sizes — the testimony
+       cards keep their flex-basis sizes, and the reviews track keeps its
+       slide carousel (the container already has overflow:hidden). */
   }
 
   /* ===================== RESPONSIVE — MOBILE (≤768px) ===================== */
@@ -3000,11 +3161,8 @@
       font-size: 12px;
     }
 
-    /* Reviews stack to single column on mobile */
-    .review-card {
-      width: 100%;
-    }
-
+    /* Testimony row stays horizontal even on mobile — keep header
+       layout vertical only for breathing room */
     .testimony__sub-row {
       flex-direction: column;
       align-items: flex-start;
@@ -3031,6 +3189,18 @@
     /* Pricing — stack to single column */
     .plan-card {
       width: 100%;
+    }
+
+    /* Mobile app — tighter spacing on mobile */
+    .mobile__heading {
+      font-size: 32px;
+      line-height: 38px;
+      letter-spacing: -0.8px;
+    }
+
+    .mobile__badges {
+      gap: 16px;
+      flex-wrap: wrap;
     }
   }
 </style>
@@ -3898,6 +4068,45 @@
         </div>
       </article>
 
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MOBILE APP DOWNLOAD ===================== -->
+<section class="mobile" aria-label="Mobile app">
+  <div class="mobile__container">
+
+    <!-- Eyebrow -->
+    <div class="mobile__header">
+      <div class="mobile__eyebrow">
+        <span class="mobile__eyebrow-icon" aria-hidden="true">
+          <img src="assets/rocket.svg" alt="" width="24" height="24" />
+        </span>
+        <span class="mobile__eyebrow-text">Mobile App</span>
+      </div>
+    </div>
+
+    <!-- Main card: text + badges (left), phone mockup (right) -->
+    <div class="mobile__card">
+      <div class="mobile__copy">
+        <h2 class="mobile__heading">
+          The Power of Yotor, Right in Your <span class="mobile__heading-accent">Hand</span>
+        </h2>
+        <p class="mobile__subheading">Everything you need to manage your church efficiently—now available on mobile.</p>
+
+        <div class="mobile__badges">
+          <a class="mobile__badge mobile__badge--google" href="#" aria-label="Get it on Google Play" rel="noopener" target="_blank">
+            <img src="assets/badge-google-play.png" alt="Get it on Google Play" width="135" height="40" />
+          </a>
+          <a class="mobile__badge mobile__badge--apple" href="#" aria-label="Download on the App Store" rel="noopener" target="_blank">
+            <img src="assets/badge-app-store.svg" alt="Download on the App Store" width="120" height="40" />
+          </a>
+        </div>
+      </div>
+
+      <div class="mobile__phone">
+        <img src="assets/mobile-app-phone.png" alt="Yotor mobile app shown on a smartphone held in a hand" />
+      </div>
     </div>
   </div>
 </section>
