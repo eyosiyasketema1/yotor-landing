@@ -3362,7 +3362,9 @@
     flex-shrink: 0;
   }
 
-  /* Generic card */
+  /* Generic card.
+     Initial state is hidden (translated 20px down + opacity 0). IntersectionObserver
+     in the JS adds .is-revealed which animates them up into place with a stagger. */
   .bento-card {
     position: relative;
     width: var(--bento-card-w);
@@ -3371,7 +3373,67 @@
     border-radius: 20px;
     overflow: hidden;
     flex-shrink: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.55s ease,
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
   }
+
+  .bento-card.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Icon micro-bounce when its card is hovered */
+  .bento-card__icon {
+    transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .bento-card.is-revealed:hover .bento-card__icon {
+    transform: scale(1.08);
+  }
+
+  /* Decorative illustration gently leans in on hover */
+  .bento-card__illustration {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .bento-card.is-revealed:hover .bento-card__illustration {
+    transform: scale(1.04);
+    transform-origin: bottom right;
+  }
+
+  /* The "Easy to use!" big title gets a tiny scale on hover too */
+  .bento-card__big-title {
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .bento-card--easy.is-revealed:hover .bento-card__big-title {
+    transform: scale(1.03);
+    transform-origin: left bottom;
+  }
+
+  /* Respect users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .bento-card {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    .bento-card.is-revealed:hover .bento-card__icon,
+    .bento-card.is-revealed:hover .bento-card__illustration,
+    .bento-card--easy.is-revealed:hover .bento-card__big-title {
+      transform: none;
+    }
+  }
+
+  /* The illustration positions use position:absolute with explicit anchors,
+     so the transform-origin override above only applies during scale — the
+     translate animation remains driven by the transition above. The original
+     overrides we already set on individual illustrations (translation, size)
+     remain untouched. */
 
   .bento-card--tall {
     height: var(--bento-card-h-full);
@@ -5240,6 +5302,43 @@
         nav.setAttribute('data-open', 'false');
         toggle.setAttribute('aria-expanded', 'false');
       });
+    });
+  })();
+
+  // ===== Bento section: scroll-reveal with stagger =====
+  // When each card enters the viewport, add .is-revealed (which CSS animates
+  // from opacity:0 + translateY(20px) → opacity:1 + translateY(0)).
+  // A small stagger between cards makes the row feel intentional.
+  (function () {
+    var cards = document.querySelectorAll('.bento-card');
+    if (!cards.length) return;
+
+    var prefersReduced = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // No-IO browsers or reduced-motion users → show all cards immediately
+    if (!('IntersectionObserver' in window) || prefersReduced) {
+      cards.forEach(function (c) { c.classList.add('is-revealed'); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var card = entry.target;
+        // Stagger: each card waits a bit longer than the previous one,
+        // based on its DOM order within the grid
+        var delay = parseInt(card.getAttribute('data-stagger') || '0', 10);
+        window.setTimeout(function () {
+          card.classList.add('is-revealed');
+        }, delay);
+        observer.unobserve(card);
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -40px 0px' });
+
+    cards.forEach(function (card, i) {
+      card.setAttribute('data-stagger', String(i * 90));
+      observer.observe(card);
     });
   })();
 
