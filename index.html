@@ -4401,7 +4401,10 @@
       min-height: 420px;
     }
     .cta-banner__heading {
-      bottom: 30%;
+      /* Anchor the heading just above the button: button is at bottom:32px
+         with height:40px, so its top sits at 72px. Heading.bottom = 96px
+         leaves a tight 24px gap between the heading and the button. */
+      bottom: 96px;
       width: 60%;          /* narrow box → text wraps to 2 lines */
       max-width: 240px;
       left: 16px;
