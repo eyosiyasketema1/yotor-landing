@@ -168,6 +168,56 @@
     color: var(--color-black);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Safety net: prevent accidental horizontal scrollbars on iOS Safari
+       when a transform or wide element nudges past the viewport edge */
+    overflow-x: hidden;
+    /* Remove the default blue flash on tap on iOS Safari / Android Chrome */
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Form-control reset — keep buttons looking the same across iOS/macOS/Android */
+  button {
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Inputs (none yet but defensive) */
+  input,
+  textarea,
+  select {
+    -webkit-appearance: none;
+            appearance: none;
+    font-family: inherit;
+  }
+
+  /* Aspect-ratio fallback for Safari 14 and older — degrades gracefully:
+     modern browsers use the aspect-ratio property defined per-element,
+     this @supports block only activates when aspect-ratio is unsupported */
+  @supports not (aspect-ratio: 1 / 1) {
+    .hero__image-wrap,
+    .focus__card,
+    .cta-banner__card,
+    .comparison__card,
+    .mobile__phone,
+    .testimony-card--main,
+    .testimony-card--small1,
+    .testimony-card--small2 {
+      height: auto;
+    }
+  }
+
+  /* Hover-only effects: gate them behind a media query so touch devices don't
+     get stuck in hover state after a tap */
+  @media (hover: none) {
+    .nav__link:hover,
+    .nav__btn:hover,
+    .hero__btn:hover,
+    .footer__social:hover,
+    .footer__list a:hover {
+      /* On touch, suppress sticky-hover transforms; brand colors are fine to keep */
+    }
   }
 
   button {
@@ -3493,7 +3543,8 @@
     right: 0;
     z-index: 1;
     pointer-events: none;
-    user-select: none;
+    -webkit-user-select: none;
+            user-select: none;
   }
 
   .bento-card__illustration--overview {
