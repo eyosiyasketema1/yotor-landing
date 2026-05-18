@@ -4354,7 +4354,8 @@
       overflow: visible;
     }
 
-    /* Focus banner: smaller heading, taller card, smaller button */
+    /* Focus banner: smaller heading, taller card, smaller button.
+       Shift object-position right so the pastor on the bench stays in frame. */
     :root {
       --focus-heading-fs: 22px;
       --focus-heading-lh: 28px;
@@ -4363,6 +4364,9 @@
     .focus__card {
       aspect-ratio: auto;
       min-height: 520px;
+    }
+    .focus__bg {
+      object-position: 78% center;
     }
     .focus__info {
       gap: 16px;
@@ -4377,7 +4381,16 @@
       height: 16px;
     }
 
-    /* Final CTA banner: 2-line title, smaller button, taller card */
+    /* Comparison slider on mobile: taller card, but keep desk visible. */
+    .comparison__card {
+      aspect-ratio: auto;
+      min-height: 280px;
+    }
+    .comparison__img {
+      object-position: center 30%;
+    }
+
+    /* Final CTA banner: force 2-line title, smaller button, taller card */
     :root {
       --cta-banner-heading-fs: 26px;
       --cta-banner-heading-lh: 32px;
@@ -4389,8 +4402,8 @@
     }
     .cta-banner__heading {
       bottom: 30%;
-      width: auto;
-      max-width: calc(100% - 32px);
+      width: 60%;          /* narrow box → text wraps to 2 lines */
+      max-width: 240px;
       left: 16px;
     }
     .cta-banner__btn {
