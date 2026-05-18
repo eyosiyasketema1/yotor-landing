@@ -4342,7 +4342,7 @@
 
     /* Yotor Provides tabs: more breathing room on mobile so tabs don't crowd */
     .yotor-tabs {
-      gap: 40px;
+      gap: 56px;
       padding: 0 16px;
     }
     .yotor-tab {
@@ -6439,6 +6439,19 @@
       if (img) swapImage(img);
       var key = tabs[i].getAttribute('data-tab');
       if (key) swapDescription(key);
+
+      // On narrow screens where the tabs row is horizontally scrollable,
+      // smoothly scroll so the active tab is centered in view.
+      if (tabsRoot.scrollWidth > tabsRoot.clientWidth) {
+        var activeTab = tabs[i];
+        var target = activeTab.offsetLeft - (tabsRoot.clientWidth - activeTab.offsetWidth) / 2;
+        target = Math.max(0, Math.min(target, tabsRoot.scrollWidth - tabsRoot.clientWidth));
+        try {
+          tabsRoot.scrollTo({ left: target, behavior: 'smooth' });
+        } catch (e) {
+          tabsRoot.scrollLeft = target;
+        }
+      }
     }
 
     // Slide-in animation: the new image enters from the right while the
