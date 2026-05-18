@@ -4206,6 +4206,175 @@
       width: calc(100% - 40px);
     }
   }
+
+  /* =====================================================================
+     RESPONSIVE OVERRIDES (final cascade — wins over earlier rules)
+     Real-device testing on BrowserStack revealed a few sections weren't
+     stacking properly on small screens. These rules force a clean
+     single-column layout at tablet/mobile widths.
+     ===================================================================== */
+
+  /* Tablet (≤1024px): card grids → single-column, not 2-column */
+  @media (max-width: 1024px) {
+    .how__steps,
+    .pricing__cards,
+    .bento__grid {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .step-card,
+    .plan-card,
+    .bento-card,
+    .bento-card--tall,
+    .bento__col {
+      width: 100%;
+      max-width: 460px;
+    }
+
+    .bento-card--tall {
+      height: auto;
+      min-height: 520px;
+    }
+
+    /* Mobile App card: stack image below copy */
+    .mobile__card {
+      flex-direction: column;
+      padding: 24px;
+      gap: 24px;
+    }
+
+    .mobile__copy {
+      padding: 0;
+      width: 100%;
+    }
+
+    .mobile__phone {
+      width: 100%;
+      max-width: 360px;
+      height: auto;
+      aspect-ratio: 1 / 1;
+    }
+
+    /* FAQs: stack categories above accordion, both full width */
+    .faqs__row {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .faqs__categories {
+      width: 100%;
+      flex-direction: row;
+      overflow-x: auto;
+      gap: 8px;
+      scrollbar-width: none;
+    }
+    .faqs__categories::-webkit-scrollbar { display: none; }
+
+    .faqs__cat {
+      flex-shrink: 0;
+      width: auto;
+    }
+
+    .faqs__accordion {
+      width: 100%;
+    }
+  }
+
+  /* Mobile (≤768px): tighter spacing, smaller hero/banner headings */
+  @media (max-width: 768px) {
+    /* Hero side-by-side → stack */
+    .hero__container {
+      flex-direction: column;
+      gap: 32px;
+    }
+    .hero__intro,
+    .hero__image-wrap {
+      width: 100%;
+      max-width: 100%;
+    }
+    .hero__image-wrap {
+      aspect-ratio: 498 / 537;
+      height: auto;
+    }
+
+    /* Testimony header row: stack vertically */
+    .testimony__sub-row {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 16px !important;
+    }
+    .nav-arrows {
+      align-self: flex-end !important;
+    }
+
+    /* Logo strip: narrower items on mobile so 3-4 fit per scroll */
+    :root { --logo-item-w: 160px; }
+    @keyframes logo-marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-960px); } /* 6 items × 160px */
+    }
+
+    /* CTA banner heading and Mobile App heading down further */
+    :root {
+      --cta-banner-heading-fs: 24px;
+      --cta-banner-heading-lh: 30px;
+      --cta-banner-heading-tracking: -0.96px;
+    }
+    .mobile__heading {
+      font-size: 28px;
+      line-height: 34px;
+      letter-spacing: -0.7px;
+    }
+
+    /* Yotor section eyebrow + subtitle don't overflow */
+    .yotor-section__desc,
+    .bento__subtitle,
+    .pricing__subtitle,
+    .how__subtitle,
+    .testimony__subtitle {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  /* Extra small (≤480px): footer mega text + nav tightening */
+  @media (max-width: 480px) {
+    :root {
+      --footer-mega-fs: 14vw;
+      --footer-mega-tracking: -0.06em;
+    }
+
+    /* Footer mega text uses calc so it never overflows */
+    .footer__mega {
+      font-size: clamp(40px, 14vw, 80px);
+    }
+
+    /* Nav: hide login button entirely on very small screens (already hidden at 1024) */
+    .nav__btn--cta {
+      font-size: 12px;
+      padding: 8px 12px;
+      height: 36px;
+    }
+
+    /* Hero CTAs go vertical */
+    .hero__cta {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .hero__btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  /* iPhone-narrow (≤390px): final tightenings */
+  @media (max-width: 390px) {
+    .pricing__tabs {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
 </style>
 </head>
 <body>
