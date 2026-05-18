@@ -1191,7 +1191,7 @@
     will-change: width;
   }
 
-  /* Dashboard preview */
+  /* Dashboard preview — two stacked images for the slide animation */
   .yotor-section__preview {
     width: 100%;
     max-width: 1128px;
@@ -1199,18 +1199,24 @@
     border: 0.5px solid var(--color-border-soft);
     border-radius: 16px;
     overflow: hidden;
+    position: relative;
   }
 
-  .yotor-section__preview img {
+  .yotor-section__preview-img {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: opacity 0.25s ease;
+    will-change: transform;
+    /* Transform is controlled inline by JS to enable slide animation */
   }
 
-  .yotor-section__preview img.is-swapping {
-    opacity: 0;
+  @media (prefers-reduced-motion: reduce) {
+    .yotor-section__preview-img {
+      transition: none !important;
+    }
   }
 
   /* ===================== FAQS ===================== */
@@ -4813,9 +4819,10 @@
         </div>
       </div>
 
-      <!-- Dashboard preview (swapped per tab) -->
-      <div class="yotor-section__preview">
-        <img id="yotorDashboard" src="assets/yotor-dashboard.png" alt="Yotor dashboard preview" onerror="this.src='assets/yotor-dashboard.png'"  loading="lazy" decoding="async"  width="1128" height="729" />
+      <!-- Dashboard preview — two stacked images for the slide animation -->
+      <div class="yotor-section__preview" id="yotorPreview">
+        <img id="yotorDashboard" class="yotor-section__preview-img" src="assets/yotor-dashboard.png" alt="Yotor dashboard preview" width="1128" height="729" loading="lazy" decoding="async" onerror="this.src='assets/yotor-dashboard.png'" />
+        <img id="yotorDashboardNext" class="yotor-section__preview-img" src="" alt="" aria-hidden="true" width="1128" height="729" loading="lazy" decoding="async" />
       </div>
     </div>
   </div>
@@ -6434,20 +6441,59 @@
       if (key) swapDescription(key);
     }
 
+    // Slide-in animation: the new image enters from the right while the
+    // current one exits to the left. Two image elements are stacked in the
+    // preview container; we just swap which one is "current" and animate
+    // their transforms simultaneously.
+    var SLIDE_MS = 500;
+    var dashA = document.getElementById('yotorDashboard');
+    var dashB = document.getElementById('yotorDashboardNext');
+    var currentImg = dashA;
+    var nextImg = dashB;
+    var isSliding = false;
+
+    // Initial state
+    if (dashA && dashB) {
+      dashA.style.transform = 'translateX(0)';
+      dashB.style.transform = 'translateX(100%)';
+    }
+
     function swapImage(src) {
-      dashboard.classList.add('is-swapping');
-      window.setTimeout(function () {
-        var probe = new Image();
-        probe.onload = function () {
-          dashboard.src = src;
-          dashboard.classList.remove('is-swapping');
-        };
-        probe.onerror = function () {
-          dashboard.src = FALLBACK_IMG;
-          dashboard.classList.remove('is-swapping');
-        };
-        probe.src = src;
-      }, 180);
+      if (!dashA || !dashB || isSliding) return;
+      isSliding = true;
+
+      // Position the incoming image off-screen-right (no transition), then
+      // load its src. As soon as the new src is decoded we animate both.
+      nextImg.style.transition = 'none';
+      nextImg.style.transform = 'translateX(100%)';
+      void nextImg.offsetWidth;
+
+      var probe = new Image();
+      function startSlide() {
+        nextImg.src = probe.src;
+        window.requestAnimationFrame(function () {
+          currentImg.style.transition = 'transform ' + SLIDE_MS + 'ms cubic-bezier(0.4, 0, 0.2, 1)';
+          nextImg.style.transition    = 'transform ' + SLIDE_MS + 'ms cubic-bezier(0.4, 0, 0.2, 1)';
+          currentImg.style.transform = 'translateX(-100%)';
+          nextImg.style.transform    = 'translateX(0)';
+        });
+
+        // After the animation finishes, prepare for the next swap:
+        // the former current image is now off-screen-left; snap it to
+        // off-screen-right (no transition) so it's ready to enter from
+        // the right next time around.
+        window.setTimeout(function () {
+          currentImg.style.transition = 'none';
+          currentImg.style.transform = 'translateX(100%)';
+          var tmp = currentImg;
+          currentImg = nextImg;
+          nextImg = tmp;
+          isSliding = false;
+        }, SLIDE_MS + 20);
+      }
+      probe.onload = startSlide;
+      probe.onerror = function () { probe.src = FALLBACK_IMG; };
+      probe.src = src;
     }
 
     function clearScheduled() {
