@@ -4334,6 +4334,78 @@
       align-self: flex-end !important;
     }
 
+    /* Testimony video cards: stack vertically, full width to container edges */
+    .testimony__cards {
+      flex-direction: column !important;
+      gap: 16px !important;
+    }
+    .testimony-card,
+    .testimony-card--main {
+      flex: 0 0 auto !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      height: 280px;
+      border-radius: 12px !important;
+    }
+    .testimony-card:not(.testimony-card--main) {
+      height: 200px;
+    }
+    .testimony__container {
+      overflow: visible;
+    }
+
+    /* Focus banner: smaller heading, taller card, smaller button */
+    :root {
+      --focus-heading-fs: 22px;
+      --focus-heading-lh: 28px;
+      --focus-heading-tracking: -0.88px;
+    }
+    .focus__card {
+      aspect-ratio: auto;
+      min-height: 520px;
+    }
+    .focus__info {
+      gap: 16px;
+    }
+    .focus__btn {
+      height: 40px;
+      padding: 10px 18px 10px 14px;
+      font-size: 13px;
+    }
+    .focus__btn-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Final CTA banner: 2-line title, smaller button, taller card */
+    :root {
+      --cta-banner-heading-fs: 26px;
+      --cta-banner-heading-lh: 32px;
+      --cta-banner-heading-tracking: -1.04px;
+    }
+    .cta-banner__card {
+      aspect-ratio: auto;
+      min-height: 420px;
+    }
+    .cta-banner__heading {
+      bottom: 30%;
+      width: auto;
+      max-width: calc(100% - 32px);
+      left: 16px;
+    }
+    .cta-banner__btn {
+      left: 16px;
+      bottom: 32px;
+      height: 40px;
+      width: auto;
+      padding: 10px 18px 10px 14px;
+      font-size: 13px;
+    }
+    .cta-banner__btn-icon {
+      width: 16px;
+      height: 16px;
+    }
+
     /* Logo strip: narrower items on mobile so 3-4 fit per scroll */
     :root { --logo-item-w: 160px; }
     @keyframes logo-marquee {
