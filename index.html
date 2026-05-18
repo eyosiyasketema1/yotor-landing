@@ -4340,7 +4340,9 @@
       align-self: flex-end !important;
     }
 
-    /* Yotor Provides tabs: more breathing room on mobile so tabs don't crowd */
+    /* Yotor Provides tabs: more breathing room on mobile so tabs don't crowd.
+       Also make the tabs strip sticky so the active tab is visible while the
+       user is scrolling through the dashboard image below it. */
     .yotor-tabs {
       gap: 56px;
       padding: 0 16px;
@@ -4350,6 +4352,19 @@
     }
     .yotor-tabs-divider-row {
       padding: 0 16px;
+    }
+
+    /* Pin the tabs strip to the top of the viewport (below the sticky nav)
+       while the Yotor section is in view. So when the user scrolls down to
+       look at the dashboard image, the active tab stays visible above it. */
+    .yotor-tabs-wrap {
+      position: sticky;
+      top: 72px;          /* matches the sticky nav height */
+      z-index: 20;
+      background: var(--color-white);
+      padding-top: 12px;
+      padding-bottom: 8px;
+      box-shadow: 0 6px 12px -8px rgba(0, 0, 0, 0.08);
     }
 
     /* Testimony video cards: stack vertically, full width to container edges */
