@@ -4,10 +4,36 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Yotor — Church Management System</title>
+<meta name="description" content="Yotor is an all-in-one church management platform backed by 47 years of ministry experience from Great Commission Ministry Ethiopia. Manage members, finances, teams, communication, and operations from one place." />
+<meta name="theme-color" content="#00b8c2" />
+
+<!-- Open Graph / social sharing -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Yotor — Church Management System" />
+<meta property="og:description" content="An all-in-one church management platform built for modern churches. Trusted by 250+ churches in Ethiopia and beyond." />
+<meta property="og:url" content="https://eyosiyasketema1.github.io/yotor-landing/" />
+<meta property="og:image" content="https://eyosiyasketema1.github.io/yotor-landing/assets/hero-pastor.png" />
+<meta property="og:site_name" content="Yotor" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Yotor — Church Management System" />
+<meta name="twitter:description" content="An all-in-one church management platform for modern churches." />
+<meta name="twitter:image" content="https://eyosiyasketema1.github.io/yotor-landing/assets/hero-pastor.png" />
+
 <link rel="icon" type="image/svg+xml" href="assets/yotor-logo.svg" />
+
+<!-- Preconnect to font origins so the CSS request happens earlier -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet" />
+
+<!-- Preload the hero LCP image so the browser fetches it as early as possible -->
+<link rel="preload" as="image" href="assets/hero-pastor.png" fetchpriority="high" />
+
+<!-- Font CSS is render-blocking by default — let it load asynchronously via the print/onload pattern -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" /></noscript>
 <style>
   /* ===================== DESIGN TOKENS (from Figma) ===================== */
   :root {
@@ -4384,7 +4410,7 @@
   <div class="nav__inner">
     <div class="nav__group">
       <a href="#" class="nav__logo" aria-label="Yotor home">
-        <img class="nav__logo-img" src="assets/yotor-logo.svg" alt="Yotor logo" width="48" height="39" />
+        <img class="nav__logo-img" src="assets/yotor-logo.svg" alt="Yotor logo" width="48" height="39"  loading="eager" decoding="async" />
       </a>
 
       <nav class="nav__links" id="navLinks" aria-label="Primary">
@@ -4406,7 +4432,7 @@
           aria-label="Change language"
         >
           <span class="nav__lang-icon" aria-hidden="true">
-            <img src="assets/Globe.svg" alt="" width="20" height="20" />
+            <img src="assets/Globe.svg" alt="" width="20" height="20"  loading="eager" decoding="async" />
           </span>
           <span class="nav__lang-text" id="navLangCurrent">EN</span>
         </button>
@@ -4476,7 +4502,7 @@
         <!-- Trust badge -->
         <div class="hero__trust">
           <span class="hero__trust-icon" aria-hidden="true">
-            <img src="assets/church.svg" alt="" width="20" height="20" />
+            <img src="assets/church.svg" alt="" width="20" height="20"  loading="eager" decoding="async" />
           </span>
           <p class="hero__trust-text">Yotor is Trusted by 250+ Churches</p>
         </div>
@@ -4500,12 +4526,12 @@
       <div class="hero__cta">
         <button class="hero__btn hero__btn--primary" type="button">
           <span>Get Started for free</span>
-          <img class="hero__btn-icon" src="assets/Arrow Right.svg" alt="" width="20" height="20" aria-hidden="true" />
+          <img class="hero__btn-icon" src="assets/Arrow Right.svg" alt="" width="20" height="20" aria-hidden="true"  loading="lazy" decoding="async" />
         </button>
 
         <button class="hero__btn hero__btn--secondary" type="button">
           <span>See a 2 min video</span>
-          <img class="hero__btn-icon" src="assets/Play.svg" alt="" width="20" height="20" aria-hidden="true" />
+          <img class="hero__btn-icon" src="assets/Play.svg" alt="" width="20" height="20" aria-hidden="true"  loading="eager" decoding="async" />
         </button>
       </div>
     </div>
@@ -4514,19 +4540,19 @@
   <!-- Right: image composition -->
   <div class="hero__image-wrap">
     <div class="hero__image-bg" aria-hidden="true">
-      <img class="hero__image-bg-texture" src="assets/hero-bg-texture.png" alt="" aria-hidden="true" />
+      <img class="hero__image-bg-texture" src="assets/hero-bg-texture.png" alt="" aria-hidden="true"  loading="eager" decoding="async"  width="498" height="420" />
     </div>
 
     <div class="hero__pastor" id="heroPastor">
       <!-- Stacked images, only one visible at a time. Add/swap files to add slides. -->
-      <img class="hero__pastor-img is-active" src="assets/hero-pastor.png" alt="Smiling pastor holding a phone" data-slide="0" />
-      <img class="hero__pastor-img" src="assets/hero-pastor-2.png" alt="Finance coordinator at her desk" data-slide="1" onerror="this.src='assets/testimony-pastor-2.png'" />
-      <img class="hero__pastor-img" src="assets/hero-pastor-3.png" alt="Youth ministry leader smiling" data-slide="2" onerror="this.src='assets/testimony-pastor-3.png'" />
+      <img class="hero__pastor-img is-active" src="assets/hero-pastor.png" alt="Smiling pastor holding a phone" data-slide="0"  loading="eager" fetchpriority="high" decoding="async"  width="359" height="536" />
+      <img class="hero__pastor-img" src="assets/hero-pastor-2.png" alt="Finance coordinator at her desk" data-slide="1" onerror="this.src='assets/testimony-pastor-2.png'"  loading="eager" decoding="async"  width="359" height="536" />
+      <img class="hero__pastor-img" src="assets/hero-pastor-3.png" alt="Youth ministry leader smiling" data-slide="2" onerror="this.src='assets/testimony-pastor-3.png'"  loading="eager" decoding="async"  width="359" height="536" />
     </div>
 
     <div class="hero__testimonial" id="heroTestimonial">
       <span class="hero__testimonial-icon" aria-hidden="true">
-        <img src="assets/Chat.svg" alt="" width="24" height="24" />
+        <img src="assets/Chat.svg" alt="" width="24" height="24"  loading="eager" decoding="async" />
       </span>
       <div class="hero__testimonial-quotes" id="heroTestimonialContent">
         <p class="hero__testimonial-text">Yotor helped me to manage all data in my church.</p>
@@ -4553,37 +4579,37 @@
       <!-- Set 1 -->
       <div class="logo-strip__item">
         <div class="logo-strip__inner">
-          <div class="logo-strip__icon"><img src="assets/church-logo-01.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <div class="logo-strip__icon"><img src="assets/church-logo-01.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'"  loading="lazy" decoding="async"  width="48" height="48" /></div>
           <p class="logo-strip__name">Gelan Mekane Eyesus</p>
         </div>
       </div>
       <div class="logo-strip__item">
         <div class="logo-strip__inner">
-          <div class="logo-strip__icon"><img src="assets/church-logo-02.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <div class="logo-strip__icon"><img src="assets/church-logo-02.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'"  loading="lazy" decoding="async"  width="48" height="48" /></div>
           <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
         </div>
       </div>
       <div class="logo-strip__item">
         <div class="logo-strip__inner">
-          <div class="logo-strip__icon"><img src="assets/church-logo-03.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <div class="logo-strip__icon"><img src="assets/church-logo-03.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'"  loading="lazy" decoding="async"  width="48" height="48" /></div>
           <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
         </div>
       </div>
       <div class="logo-strip__item">
         <div class="logo-strip__inner">
-          <div class="logo-strip__icon"><img src="assets/church-logo-04.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <div class="logo-strip__icon"><img src="assets/church-logo-04.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'"  loading="lazy" decoding="async"  width="48" height="48" /></div>
           <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
         </div>
       </div>
       <div class="logo-strip__item">
         <div class="logo-strip__inner">
-          <div class="logo-strip__icon"><img src="assets/church-logo-05.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <div class="logo-strip__icon"><img src="assets/church-logo-05.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'"  loading="lazy" decoding="async"  width="48" height="48" /></div>
           <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
         </div>
       </div>
       <div class="logo-strip__item">
         <div class="logo-strip__inner">
-          <div class="logo-strip__icon"><img src="assets/church-logo-06.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <div class="logo-strip__icon"><img src="assets/church-logo-06.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'"  loading="lazy" decoding="async"  width="48" height="48" /></div>
           <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
         </div>
       </div>
@@ -4591,37 +4617,37 @@
       <!-- Set 2 (duplicate for seamless loop) -->
       <div class="logo-strip__item" aria-hidden="true">
         <div class="logo-strip__inner">
-          <div class="logo-strip__icon"><img src="assets/church-logo-01.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <div class="logo-strip__icon"><img src="assets/church-logo-01.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'"  loading="lazy" decoding="async"  width="48" height="48" /></div>
           <p class="logo-strip__name">Gelan Mekane Eyesus</p>
         </div>
       </div>
       <div class="logo-strip__item" aria-hidden="true">
         <div class="logo-strip__inner">
-          <div class="logo-strip__icon"><img src="assets/church-logo-02.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <div class="logo-strip__icon"><img src="assets/church-logo-02.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'"  loading="lazy" decoding="async"  width="48" height="48" /></div>
           <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
         </div>
       </div>
       <div class="logo-strip__item" aria-hidden="true">
         <div class="logo-strip__inner">
-          <div class="logo-strip__icon"><img src="assets/church-logo-03.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <div class="logo-strip__icon"><img src="assets/church-logo-03.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'"  loading="lazy" decoding="async"  width="48" height="48" /></div>
           <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
         </div>
       </div>
       <div class="logo-strip__item" aria-hidden="true">
         <div class="logo-strip__inner">
-          <div class="logo-strip__icon"><img src="assets/church-logo-04.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <div class="logo-strip__icon"><img src="assets/church-logo-04.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'"  loading="lazy" decoding="async"  width="48" height="48" /></div>
           <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
         </div>
       </div>
       <div class="logo-strip__item" aria-hidden="true">
         <div class="logo-strip__inner">
-          <div class="logo-strip__icon"><img src="assets/church-logo-05.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <div class="logo-strip__icon"><img src="assets/church-logo-05.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'"  loading="lazy" decoding="async"  width="48" height="48" /></div>
           <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
         </div>
       </div>
       <div class="logo-strip__item" aria-hidden="true">
         <div class="logo-strip__inner">
-          <div class="logo-strip__icon"><img src="assets/church-logo-06.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'" /></div>
+          <div class="logo-strip__icon"><img src="assets/church-logo-06.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'"  loading="lazy" decoding="async"  width="48" height="48" /></div>
           <p class="logo-strip__name">Keneta hulet Mulu Wengel</p>
         </div>
       </div>
@@ -4636,7 +4662,7 @@
     <div class="yotor-section__intro">
       <div class="yotor-section__eyebrow">
         <span class="yotor-section__eyebrow-icon" aria-hidden="true">
-          <img src="assets/rocket.svg" alt="" width="24" height="24" />
+          <img src="assets/rocket.svg" alt="" width="24" height="24"  loading="lazy" decoding="async" />
         </span>
         <span class="yotor-section__eyebrow-text">YOTOR PROVIDES</span>
       </div>
@@ -4689,7 +4715,7 @@
 
       <!-- Dashboard preview (swapped per tab) -->
       <div class="yotor-section__preview">
-        <img id="yotorDashboard" src="assets/yotor-dashboard.png" alt="Yotor dashboard preview" onerror="this.src='assets/yotor-dashboard.png'" />
+        <img id="yotorDashboard" src="assets/yotor-dashboard.png" alt="Yotor dashboard preview" onerror="this.src='assets/yotor-dashboard.png'"  loading="lazy" decoding="async"  width="1128" height="729" />
       </div>
     </div>
   </div>
@@ -4699,7 +4725,7 @@
 <section class="focus" aria-label="Focus more on ministry">
   <div class="focus__container">
     <div class="focus__card">
-      <img class="focus__bg" src="assets/focus-more-bg.png" alt="Pastor reading scripture on a park bench" onerror="this.style.background='#1f3a2a'; this.removeAttribute('src');" />
+      <img class="focus__bg" src="assets/focus-more-bg.png" alt="Pastor reading scripture on a park bench" onerror="this.style.background='#1f3a2a'; this.removeAttribute('src');"  loading="lazy" decoding="async"  width="1128" height="552" />
       <div class="focus__overlay" aria-hidden="true"></div>
 
       <div class="focus__info">
@@ -4715,7 +4741,7 @@
           </button>
         </div>
 
-        <img class="focus__watermark" src="assets/focus-watermark.svg" alt="" aria-hidden="true" onerror="this.src='assets/yotor-logo.svg'" />
+        <img class="focus__watermark" src="assets/focus-watermark.svg" alt="" aria-hidden="true" onerror="this.src='assets/yotor-logo.svg'"  loading="lazy" decoding="async"  width="80" height="64" />
       </div>
     </div>
   </div>
@@ -4729,7 +4755,7 @@
     <div class="bento__title-block">
       <div class="bento__eyebrow">
         <span class="bento__eyebrow-icon" aria-hidden="true">
-          <img src="assets/rocket.svg" alt="" width="24" height="24" />
+          <img src="assets/rocket.svg" alt="" width="24" height="24"  loading="lazy" decoding="async" />
         </span>
         <span class="bento__eyebrow-text">People, RESOURCES AND OVERSIGHT</span>
       </div>
@@ -4747,22 +4773,22 @@
         <article class="bento-card">
           <div class="bento-card__details">
             <div class="bento-card__icon bento-card__icon--orange">
-              <img src="assets/bento-icon-grid.svg" alt="" width="24" height="24" />
+              <img src="assets/bento-icon-grid.svg" alt="" width="24" height="24"  loading="lazy" decoding="async" />
             </div>
             <p class="bento-card__text">
               Get a clear overview
               <span class="bento-card__text-muted">of everything that matters in one centralized dashboard.</span>
             </p>
           </div>
-          <img class="bento-card__illustration bento-card__illustration--overview" src="assets/bento-overview.png" alt="" aria-hidden="true" />
+          <img class="bento-card__illustration bento-card__illustration--overview" src="assets/bento-overview.png" alt="" aria-hidden="true"  loading="lazy" decoding="async"  width="151" height="165" />
         </article>
 
         <!-- Easy to use card -->
         <article class="bento-card bento-card--easy">
-          <img class="bento-card__photo" src="assets/bento-easy-bg.png" alt="" onerror="this.style.display='none'" />
-          <img class="bento-card__swirls" src="assets/bento-swirls.svg" alt="" aria-hidden="true" />
+          <img class="bento-card__photo" src="assets/bento-easy-bg.png" alt="" onerror="this.style.display='none'"  loading="lazy" decoding="async"  width="365" height="378" />
+          <img class="bento-card__swirls" src="assets/bento-swirls.svg" alt="" aria-hidden="true"  loading="lazy" decoding="async"  width="365" height="378" />
           <div class="bento-card__highlight">
-            <img class="bento-card__watermark" src="assets/focus-watermark.svg" alt="" aria-hidden="true" onerror="this.src='assets/yotor-logo.svg'" />
+            <img class="bento-card__watermark" src="assets/focus-watermark.svg" alt="" aria-hidden="true" onerror="this.src='assets/yotor-logo.svg'"  loading="lazy" decoding="async"  width="80" height="64" />
             <h3 class="bento-card__big-title">Easy to use!</h3>
           </div>
         </article>
@@ -4772,14 +4798,14 @@
       <article class="bento-card bento-card--tall bento-card--phone-card">
         <div class="bento-card__details">
           <div class="bento-card__icon bento-card__icon--pink">
-            <img src="assets/bento-icon-phone.svg" alt="" width="24" height="24" />
+            <img src="assets/bento-icon-phone.svg" alt="" width="24" height="24"  loading="lazy" decoding="async" />
           </div>
           <p class="bento-card__text">
             <span class="bento-card__text-muted" style="color: var(--color-black);">Control your entire ecosystem</span>
             <span class="bento-card__text-muted"> from anywhere. Our mobile first interface ensures you have full access.</span>
           </p>
         </div>
-        <img class="bento-card__phone" src="assets/bento-phone.png" alt="Yotor mobile app preview" />
+        <img class="bento-card__phone" src="assets/bento-phone.png" alt="Yotor mobile app preview"  loading="lazy" decoding="async"  width="333" height="681" />
       </article>
 
       <!-- Column 3: Security + Finance -->
@@ -4788,28 +4814,28 @@
         <article class="bento-card">
           <div class="bento-card__details">
             <div class="bento-card__icon bento-card__icon--dark">
-              <img src="assets/bento-icon-lock.svg" alt="" width="24" height="24" />
+              <img src="assets/bento-icon-lock.svg" alt="" width="24" height="24"  loading="lazy" decoding="async" />
             </div>
             <p class="bento-card__text">
               End-to-end security
               <span class="bento-card__text-muted">keeps your church data protected through encrypted storage and secure access controls.</span>
             </p>
           </div>
-          <img class="bento-card__illustration bento-card__illustration--security" src="assets/bento-security.png" alt="" aria-hidden="true" />
+          <img class="bento-card__illustration bento-card__illustration--security" src="assets/bento-security.png" alt="" aria-hidden="true"  loading="lazy" decoding="async"  width="143" height="176" />
         </article>
 
         <!-- Finance card -->
         <article class="bento-card">
           <div class="bento-card__details">
             <div class="bento-card__icon bento-card__icon--teal">
-              <img src="assets/bento-icon-trending.svg" alt="" width="24" height="24" />
+              <img src="assets/bento-icon-trending.svg" alt="" width="24" height="24"  loading="lazy" decoding="async" />
             </div>
             <p class="bento-card__text">
               Finance management
               <span class="bento-card__text-muted">gives your church a clear and organized way to manage income, expenses, and financial reporting.</span>
             </p>
           </div>
-          <img class="bento-card__illustration bento-card__illustration--finance" src="assets/bento-finance.png" alt="" aria-hidden="true" />
+          <img class="bento-card__illustration bento-card__illustration--finance" src="assets/bento-finance.png" alt="" aria-hidden="true"  loading="lazy" decoding="async"  width="161" height="169" />
         </article>
       </div>
 
@@ -4839,13 +4865,13 @@
   <div class="comparison__container">
     <div class="comparison__card" id="compareCard">
       <!-- Base layer: old way image (always full visible underneath) -->
-      <img class="comparison__img" src="assets/the-old-way.png" alt="Stressed pastor at a cluttered desk - the old way" />
+      <img class="comparison__img" src="assets/the-old-way.png" alt="Stressed pastor at a cluttered desk - the old way"  loading="lazy" decoding="async"  width="1128" height="552" />
       <div class="comparison__overlay" aria-hidden="true"></div>
       <span class="comparison__badge comparison__badge--old">The old way</span>
 
       <!-- Top layer: new way image clipped to the left portion -->
       <div class="comparison__new-wrap" id="compareNewWrap">
-        <img class="comparison__img" src="assets/the-new-way.png" alt="Organized pastor using Yotor - the new way" />
+        <img class="comparison__img" src="assets/the-new-way.png" alt="Organized pastor using Yotor - the new way"  loading="lazy" decoding="async"  width="1128" height="552" />
         <div class="comparison__overlay" aria-hidden="true"></div>
         <span class="comparison__badge comparison__badge--new">The new way</span>
       </div>
@@ -4879,7 +4905,7 @@
       <div class="testimony__eyebrow">
         <span class="testimony__eyebrow-icon" aria-hidden="true">
           <img src="assets/heart.svg" alt="" width="24" height="24"
-               onerror="this.outerHTML='&lt;svg viewBox=\&quot;0 0 24 24\&quot; fill=\&quot;currentColor\&quot;&gt;&lt;path d=\&quot;M12 21s-7-4.5-9.5-9C.5 8 3 4 7 4c2 0 3.5 1 5 3 1.5-2 3-3 5-3 4 0 6.5 4 4.5 8-2.5 4.5-9.5 9-9.5 9z\&quot;/&gt;&lt;/svg&gt;'" />
+               onerror="this.outerHTML='&lt;svg viewBox=\&quot;0 0 24 24\&quot; fill=\&quot;currentColor\&quot;&gt;&lt;path d=\&quot;M12 21s-7-4.5-9.5-9C.5 8 3 4 7 4c2 0 3.5 1 5 3 1.5-2 3-3 5-3 4 0 6.5 4 4.5 8-2.5 4.5-9.5 9-9.5 9z\&quot;/&gt;&lt;/svg&gt;'"  loading="lazy" decoding="async" />
         </span>
         <span class="testimony__eyebrow-text">Testimony</span>
       </div>
@@ -4893,10 +4919,10 @@
 
         <div class="nav-arrows">
           <button class="nav-arrow nav-arrow--left" type="button" id="testimonyPrev" aria-label="Previous testimony">
-            <img src="assets/arrow-left.svg" alt="" width="24" height="24" />
+            <img src="assets/arrow-left.svg" alt="" width="24" height="24"  loading="lazy" decoding="async" />
           </button>
           <button class="nav-arrow nav-arrow--right nav-arrow--active" type="button" id="testimonyNext" aria-label="Next testimony">
-            <img src="assets/arrow-left.svg" alt="" width="24" height="24" />
+            <img src="assets/arrow-left.svg" alt="" width="24" height="24"  loading="lazy" decoding="async" />
           </button>
         </div>
       </div>
@@ -4907,14 +4933,14 @@
            expanded; the others appear as thumbnails. Clicking a thumb moves
            the --main class, and CSS transitions smoothly resize the cards. -->
       <article class="testimony-card testimony-card--main" data-pastor-index="0" tabindex="0" role="button" aria-label="Pastor Mengistu Lemma testimony">
-        <img class="testimony-card__img" src="assets/testimony-pastor-main.png" alt="" />
+        <img class="testimony-card__img" src="assets/testimony-pastor-main.png" alt=""  loading="lazy" decoding="async"  width="628" height="386" />
         <div class="testimony-card__gradient" aria-hidden="true"></div>
         <button class="testimony-card__play" type="button" aria-label="Play video">
-          <img src="assets/play-small.svg" alt="" width="18" height="18" />
+          <img src="assets/play-small.svg" alt="" width="18" height="18"  loading="lazy" decoding="async" />
         </button>
         <div class="testimony-card__info">
           <div class="testimony-card__logo">
-            <img src="assets/church-logo-02.png" alt="" />
+            <img src="assets/church-logo-02.png" alt=""  loading="lazy" decoding="async"  width="48" height="48" />
           </div>
           <div class="testimony-card__pastor">
             <p class="testimony-card__name">PASTOR MENGISTU LEMMA</p>
@@ -4924,14 +4950,14 @@
       </article>
 
       <article class="testimony-card" data-pastor-index="1" tabindex="0" role="button" aria-label="Pastor Lemma Alemu testimony">
-        <img class="testimony-card__img" src="assets/testimony-pastor-2.png" alt="" onerror="this.src='assets/testimony-pastor-main.png'" />
+        <img class="testimony-card__img" src="assets/testimony-pastor-2.png" alt="" onerror="this.src='assets/testimony-pastor-main.png'"  loading="lazy" decoding="async"  width="234" height="386" />
         <div class="testimony-card__gradient" aria-hidden="true"></div>
         <button class="testimony-card__play" type="button" aria-label="Play video" tabindex="-1">
-          <img src="assets/play-small.svg" alt="" width="18" height="18" />
+          <img src="assets/play-small.svg" alt="" width="18" height="18"  loading="lazy" decoding="async" />
         </button>
         <div class="testimony-card__info">
           <div class="testimony-card__logo">
-            <img src="assets/church-logo-01.png" alt="" />
+            <img src="assets/church-logo-01.png" alt=""  loading="lazy" decoding="async"  width="48" height="48" />
           </div>
           <div class="testimony-card__pastor">
             <p class="testimony-card__name">PASTOR LEMMA ALEMU</p>
@@ -4941,14 +4967,14 @@
       </article>
 
       <article class="testimony-card" data-pastor-index="2" tabindex="0" role="button" aria-label="Pastor Yonas Getachew testimony">
-        <img class="testimony-card__img" src="assets/testimony-pastor-3.png" alt="" onerror="this.src='assets/testimony-pastor-main.png'" />
+        <img class="testimony-card__img" src="assets/testimony-pastor-3.png" alt="" onerror="this.src='assets/testimony-pastor-main.png'"  loading="lazy" decoding="async"  width="234" height="386" />
         <div class="testimony-card__gradient" aria-hidden="true"></div>
         <button class="testimony-card__play" type="button" aria-label="Play video" tabindex="-1">
-          <img src="assets/play-small.svg" alt="" width="18" height="18" />
+          <img src="assets/play-small.svg" alt="" width="18" height="18"  loading="lazy" decoding="async" />
         </button>
         <div class="testimony-card__info">
           <div class="testimony-card__logo">
-            <img src="assets/church-logo-03.png" alt="" />
+            <img src="assets/church-logo-03.png" alt=""  loading="lazy" decoding="async"  width="48" height="48" />
           </div>
           <div class="testimony-card__pastor">
             <p class="testimony-card__name">PASTOR YONAS GETACHEW</p>
@@ -4966,10 +4992,10 @@
     <div class="reviews__header">
       <div class="nav-arrows">
         <button class="nav-arrow nav-arrow--left" type="button" id="reviewsPrev" aria-label="Previous reviews">
-          <img src="assets/arrow-left.svg" alt="" width="24" height="24" />
+          <img src="assets/arrow-left.svg" alt="" width="24" height="24"  loading="lazy" decoding="async" />
         </button>
         <button class="nav-arrow nav-arrow--right nav-arrow--active" type="button" id="reviewsNext" aria-label="Next reviews">
-          <img src="assets/arrow-left.svg" alt="" width="24" height="24" />
+          <img src="assets/arrow-left.svg" alt="" width="24" height="24"  loading="lazy" decoding="async" />
         </button>
       </div>
     </div>
@@ -4979,11 +5005,11 @@
       <article class="review-card" data-slot="0">
         <div class="review-card__content">
           <div class="review-card__rating" aria-label="5 out of 5 stars">
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
           </div>
           <p class="review-card__quote"></p>
         </div>
@@ -4998,11 +5024,11 @@
       <article class="review-card" data-slot="1">
         <div class="review-card__content">
           <div class="review-card__rating" aria-label="5 out of 5 stars">
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
           </div>
           <p class="review-card__quote"></p>
         </div>
@@ -5017,11 +5043,11 @@
       <article class="review-card" data-slot="2">
         <div class="review-card__content">
           <div class="review-card__rating" aria-label="5 out of 5 stars">
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
           </div>
           <p class="review-card__quote"></p>
         </div>
@@ -5036,11 +5062,11 @@
       <article class="review-card" data-slot="3">
         <div class="review-card__content">
           <div class="review-card__rating" aria-label="5 out of 5 stars">
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
-            <img src="assets/Star.svg" alt="" width="12" height="12" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
+            <img src="assets/Star.svg" alt="" width="12" height="12"  loading="lazy" decoding="async" />
           </div>
           <p class="review-card__quote"></p>
         </div>
@@ -5058,14 +5084,14 @@
 
 <!-- ===================== HOW IT WORKS ===================== -->
 <section class="how" id="how-it-works" aria-label="How it works">
-  <img class="how__bg" src="assets/how-it-works-bg.png" alt="" aria-hidden="true" />
+  <img class="how__bg" src="assets/how-it-works-bg.png" alt="" aria-hidden="true"  loading="lazy" decoding="async"  width="1460" height="822" />
   <div class="how__bg-tint" aria-hidden="true"></div>
 
   <div class="how__container">
     <div class="how__header">
       <div class="how__eyebrow">
         <span class="how__eyebrow-icon" aria-hidden="true">
-          <img src="assets/rocket.svg" alt="" width="24" height="24" />
+          <img src="assets/rocket.svg" alt="" width="24" height="24"  loading="lazy" decoding="async" />
         </span>
         <span class="how__eyebrow-text">How it works</span>
       </div>
@@ -5119,7 +5145,7 @@
     <div class="pricing__header">
       <div class="pricing__eyebrow">
         <span class="pricing__eyebrow-icon" aria-hidden="true">
-          <img src="assets/rocket.svg" alt="" width="24" height="24" />
+          <img src="assets/rocket.svg" alt="" width="24" height="24"  loading="lazy" decoding="async" />
         </span>
         <span class="pricing__eyebrow-text">Pricing Details</span>
       </div>
@@ -5145,7 +5171,7 @@
         <div class="plan-card__header">
           <div class="plan-card__title-wrap">
             <span class="plan-card__icon" aria-hidden="true">
-              <img src="assets/pricing-icon-starter.svg" alt="" />
+              <img src="assets/pricing-icon-starter.svg" alt="" width="24" height="24" loading="lazy" decoding="async" />
             </span>
             <h3 class="plan-card__title">Starter</h3>
           </div>
@@ -5186,7 +5212,7 @@
         <div class="plan-card__header">
           <div class="plan-card__title-wrap">
             <span class="plan-card__icon" aria-hidden="true">
-              <img src="assets/church.svg" alt="" />
+              <img src="assets/church.svg" alt="" width="24" height="24" loading="eager" decoding="async" />
             </span>
             <h3 class="plan-card__title">Core</h3>
           </div>
@@ -5244,7 +5270,7 @@
         <div class="plan-card__header">
           <div class="plan-card__title-wrap">
             <span class="plan-card__icon" aria-hidden="true">
-              <img src="assets/pricing-icon-ministry.svg" alt="" />
+              <img src="assets/pricing-icon-ministry.svg" alt="" width="24" height="24" loading="lazy" decoding="async" />
             </span>
             <h3 class="plan-card__title">Ministry</h3>
           </div>
@@ -5304,7 +5330,7 @@
     <div class="mobile__header">
       <div class="mobile__eyebrow">
         <span class="mobile__eyebrow-icon" aria-hidden="true">
-          <img src="assets/rocket.svg" alt="" width="24" height="24" />
+          <img src="assets/rocket.svg" alt="" width="24" height="24"  loading="lazy" decoding="async" />
         </span>
         <span class="mobile__eyebrow-text">Mobile App</span>
       </div>
@@ -5320,16 +5346,16 @@
 
         <div class="mobile__badges">
           <a class="mobile__badge mobile__badge--google" href="#" aria-label="Get it on Google Play" rel="noopener" target="_blank">
-            <img src="assets/badge-google-play.png" alt="Get it on Google Play" width="135" height="40" />
+            <img src="assets/badge-google-play.png" alt="Get it on Google Play" width="135" height="40"  loading="lazy" decoding="async" />
           </a>
           <a class="mobile__badge mobile__badge--apple" href="#" aria-label="Download on the App Store" rel="noopener" target="_blank">
-            <img src="assets/badge-app-store.svg" alt="Download on the App Store" width="120" height="40" />
+            <img src="assets/badge-app-store.svg" alt="Download on the App Store" width="120" height="40"  loading="lazy" decoding="async" />
           </a>
         </div>
       </div>
 
       <div class="mobile__phone">
-        <img src="assets/mobile-app-phone.png" alt="Yotor mobile app shown on a smartphone held in a hand" />
+        <img src="assets/mobile-app-phone.png" alt="Yotor mobile app shown on a smartphone held in a hand"  loading="lazy" decoding="async"  width="542" height="542" />
       </div>
     </div>
   </div>
@@ -5343,7 +5369,7 @@
     <div class="faqs__header">
       <div class="faqs__eyebrow">
         <span class="faqs__eyebrow-icon" aria-hidden="true">
-          <img src="assets/rocket.svg" alt="" width="24" height="24" />
+          <img src="assets/rocket.svg" alt="" width="24" height="24"  loading="lazy" decoding="async" />
         </span>
         <span class="faqs__eyebrow-text">FAQs</span>
       </div>
@@ -5390,7 +5416,7 @@
 <section class="cta-banner" aria-label="Manage your church with Yotor">
   <div class="cta-banner__container">
     <div class="cta-banner__card">
-      <img class="cta-banner__bg" src="assets/cta-bg.png" alt="" aria-hidden="true" />
+      <img class="cta-banner__bg" src="assets/cta-bg.png" alt="" aria-hidden="true"  loading="lazy" decoding="async"  width="1128" height="552" />
       <div class="cta-banner__overlay" aria-hidden="true"></div>
 
       <h2 class="cta-banner__heading">
@@ -5419,7 +5445,7 @@
         <!-- Left: logo + brand block + socials -->
         <div class="footer__brand">
           <a class="footer__logo" href="#home" aria-label="Yotor home">
-            <img src="assets/yotor-logo.svg" alt="Yotor" width="79" height="63" />
+            <img src="assets/yotor-logo.svg" alt="Yotor" width="79" height="63"  loading="eager" decoding="async" />
           </a>
 
           <div class="footer__brand-block">
@@ -5851,9 +5877,9 @@
     function buildCard(r) {
       var stars = '';
       for (var i = 0; i < 5; i++) {
-        stars += '<img src="assets/Star.svg" alt="" width="12" height="12">';
+        stars += '<img src="assets/Star.svg" alt="" width="12" height="12" loading="lazy" decoding="async">';
       }
-      var avatarImg = '<img src="' + r.avatar + '" alt="" onerror="this.style.display=\'none\'">';
+      var avatarImg = '<img src="' + r.avatar + '" alt="" width="56" height="56" onerror="this.style.display=\'none\'" loading="lazy" decoding="async">';
 
       var html =
         '<article class="review-card">' +
