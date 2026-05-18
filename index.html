@@ -5712,7 +5712,7 @@
 
   // ===== Hero photo carousel =====
   // 3 photos stacked in the same spot; one has .is-active (opacity 1), others 0.
-  // Every 6.5s we move .is-active to the next photo. The testimonial text fades
+  // Every 3s we move .is-active to the next photo. The testimonial text fades
   // out → swaps → fades back in in sync with the photo crossfade.
   (function () {
     var stack = document.getElementById('heroPastor');
@@ -5730,7 +5730,7 @@
     ];
 
     var idx = 0;
-    var DWELL_MS = 4000;
+    var DWELL_MS = 3000;
     var FADE_MS = 300;
     var timer = null;
     var paused = false;
