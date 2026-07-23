@@ -1004,47 +1004,60 @@
     }
   }
 
-  /* ===================== STATS SECTION ===================== */
-  /* Sits between the logo strip and Yotor Provides. Four cards on one row on
-     desktop, 2×2 on tablet/mobile. Reuses the design tokens (radius, colors,
-     spacing) so it feels of-a-piece with the Bento and Pricing cards. */
+  /* ===================== STATS SECTION =====================
+     Line-only design (no card boxes) matching the Logo strip pattern:
+       - Full-width horizontal border-top + border-bottom form the edges.
+       - Inner container has vertical border-left + border-right to frame
+         the numbers, just like the logo-strip__viewport does.
+       - Thin vertical dividers between each stat so the four numbers read
+         as an evenly-partitioned row. Last item has no divider. */
   .stats {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     background: var(--color-white);
+    border-top: 1px solid var(--color-border-soft);
     border-bottom: 1px solid var(--color-border-soft);
   }
 
   .stats__container {
     width: 100%;
-    max-width: var(--content-w);
-    padding: var(--sp-12) var(--sp-4);
+    max-width: var(--nav-inner-w);
+    padding: 0;
+    /* Vertical lines on left & right form the frame the numbers sit inside
+       — same technique used by .logo-strip__viewport. */
+    border-left: 1px solid var(--color-border-soft);
+    border-right: 1px solid var(--color-border-soft);
   }
 
   .stats__grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: var(--sp-4);
   }
 
-  /* Each card starts hidden and slides up when it enters the viewport.
-     The stagger is applied via inline data-stagger + JS setTimeout. */
+  /* Each stat is a plain column — no background, no radius, no border.
+     Just the number and label centered inside a thin partition. */
   .stats__card {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: var(--sp-2);
-    padding: var(--sp-8) var(--sp-6);
-    background: var(--bento-card-bg);
-    border: 1px solid var(--color-border-soft);
-    border-radius: var(--r-image);
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-1);
+    padding: var(--sp-8) var(--sp-4);
+    text-align: center;
+    /* Thin partition between items */
+    border-right: 1px solid var(--color-border-soft);
     opacity: 0;
     transform: translateY(20px);
     transition:
       opacity 0.55s ease,
       transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: transform, opacity;
+  }
+
+  .stats__card:last-child {
+    border-right: 0;
   }
 
   .stats__card.is-revealed {
@@ -3966,14 +3979,27 @@
       width: 49.4%;
     }
 
-    /* Stats: 4-across → 2×2 on tablet */
-    .stats__container {
-      padding: 48px 24px;
-    }
-
+    /* Stats: 4-across → 2×2 on tablet, still line-only (no boxes).
+       Partition logic: right border on left column of each row, bottom
+       border on the top row only. Rules keyed by :nth-child(2n / +1). */
     .stats__grid {
       grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+    }
+
+    .stats__card {
+      padding: 32px 16px;
+      border-right: 0;
+      border-bottom: 1px solid var(--color-border-soft);
+    }
+
+    /* Left column of every row: keep the vertical divider */
+    .stats__card:nth-child(2n + 1) {
+      border-right: 1px solid var(--color-border-soft);
+    }
+
+    /* Bottom row: no bottom border */
+    .stats__card:nth-last-child(-n + 2) {
+      border-bottom: 0;
     }
   }
 
@@ -4045,31 +4071,23 @@
       animation-duration: 24s;
     }
 
-    /* Stats: keep 2×2, tighter type + padding on mobile */
-    .stats__container {
-      padding: 40px 16px;
-    }
-
-    .stats__grid {
-      gap: 12px;
-    }
-
+    /* Stats: keep 2×2 + line partitions, tighter type on mobile */
     .stats__card {
-      padding: 24px 20px;
-      gap: 6px;
+      padding: 24px 12px;
+      gap: 4px;
     }
 
     .stats__number {
-      font-size: 44px;
-      letter-spacing: -1.32px;
+      font-size: 40px;
+      letter-spacing: -1.2px;
     }
 
     .stats__plus {
-      font-size: 32px;
+      font-size: 28px;
     }
 
     .stats__label {
-      font-size: 14px;
+      font-size: 13px;
     }
 
     /* Yotor section */
