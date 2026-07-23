@@ -1004,6 +1004,85 @@
     }
   }
 
+  /* ===================== STATS SECTION ===================== */
+  /* Sits between the logo strip and Yotor Provides. Four cards on one row on
+     desktop, 2×2 on tablet/mobile. Reuses the design tokens (radius, colors,
+     spacing) so it feels of-a-piece with the Bento and Pricing cards. */
+  .stats {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border-soft);
+  }
+
+  .stats__container {
+    width: 100%;
+    max-width: var(--content-w);
+    padding: var(--sp-12) var(--sp-4);
+  }
+
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-4);
+  }
+
+  /* Each card starts hidden and slides up when it enters the viewport.
+     The stagger is applied via inline data-stagger + JS setTimeout. */
+  .stats__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-2);
+    padding: var(--sp-8) var(--sp-6);
+    background: var(--bento-card-bg);
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--r-image);
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.55s ease,
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+  }
+
+  .stats__card.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .stats__number {
+    font-family: 'Poppins', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: -1.68px;
+    color: var(--color-yotor-primary);
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  .stats__plus {
+    font-size: 40px;
+    color: var(--color-yotor-primary);
+    margin-left: 2px;
+  }
+
+  .stats__label {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: -0.32px;
+    color: var(--color-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stats__card {
+      transition: none;
+    }
+  }
+
   /* ===================== YOTOR SECTION ===================== */
   .yotor-section {
     display: flex;
@@ -3886,6 +3965,16 @@
       left: 4.8%;
       width: 49.4%;
     }
+
+    /* Stats: 4-across → 2×2 on tablet */
+    .stats__container {
+      padding: 48px 24px;
+    }
+
+    .stats__grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
   }
 
   /* ===================== RESPONSIVE — MOBILE (≤768px) ===================== */
@@ -3954,6 +4043,33 @@
     /* Logo strip — keep same item size, just faster loop visually OK */
     .logo-strip__track {
       animation-duration: 24s;
+    }
+
+    /* Stats: keep 2×2, tighter type + padding on mobile */
+    .stats__container {
+      padding: 40px 16px;
+    }
+
+    .stats__grid {
+      gap: 12px;
+    }
+
+    .stats__card {
+      padding: 24px 20px;
+      gap: 6px;
+    }
+
+    .stats__number {
+      font-size: 44px;
+      letter-spacing: -1.32px;
+    }
+
+    .stats__plus {
+      font-size: 32px;
+    }
+
+    .stats__label {
+      font-size: 14px;
     }
 
     /* Yotor section */
@@ -4771,6 +4887,33 @@
           <div class="logo-strip__icon"><img src="assets/church-logo-06.png" alt="" onerror="this.parentElement.classList.add('logo-strip__icon--empty');this.style.display='none'"  loading="lazy" decoding="async"  width="48" height="48" /></div>
           <p class="logo-strip__name">Sample Church Name</p>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STATS SECTION =====================
+     Simple by-the-numbers strip that sits between the trust logos and the
+     Yotor Provides feature carousel. Numbers are placeholders (000+) — swap
+     in real figures the same way the pricing plan prices work. -->
+<section class="stats" aria-label="Yotor by the numbers">
+  <div class="stats__container">
+    <div class="stats__grid">
+      <div class="stats__card" data-stagger="0">
+        <div class="stats__number">000<span class="stats__plus">+</span></div>
+        <div class="stats__label">Local Churches</div>
+      </div>
+      <div class="stats__card" data-stagger="90">
+        <div class="stats__number">000<span class="stats__plus">+</span></div>
+        <div class="stats__label">Denominations</div>
+      </div>
+      <div class="stats__card" data-stagger="180">
+        <div class="stats__number">000<span class="stats__plus">+</span></div>
+        <div class="stats__label">Active Users</div>
+      </div>
+      <div class="stats__card" data-stagger="270">
+        <div class="stats__number">000<span class="stats__plus">+</span></div>
+        <div class="stats__label">Countries</div>
       </div>
     </div>
   </div>
@@ -5708,6 +5851,36 @@
       card.setAttribute('data-stagger', String(i * 90));
       observer.observe(card);
     });
+  })();
+
+  // ===== Stats section: scroll-reveal with stagger =====
+  // Same behavior as the bento observer — each card fades + slides up when it
+  // enters the viewport, using its inline data-stagger attribute for the delay.
+  (function () {
+    var cards = document.querySelectorAll('.stats__card');
+    if (!cards.length) return;
+
+    var prefersReduced = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!('IntersectionObserver' in window) || prefersReduced) {
+      cards.forEach(function (c) { c.classList.add('is-revealed'); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var card = entry.target;
+        var delay = parseInt(card.getAttribute('data-stagger') || '0', 10);
+        window.setTimeout(function () {
+          card.classList.add('is-revealed');
+        }, delay);
+        observer.unobserve(card);
+      });
+    }, { threshold: 0.25, rootMargin: '0px 0px -40px 0px' });
+
+    cards.forEach(function (card) { observer.observe(card); });
   })();
 
   // ===== Hero photo carousel =====
