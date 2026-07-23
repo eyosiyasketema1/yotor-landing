@@ -1005,30 +1005,100 @@
   }
 
   /* ===================== STATS SECTION =====================
-     Line-only design (no card boxes) matching the Logo strip pattern:
-       - Full-width horizontal border-top + border-bottom form the edges.
-       - Inner container has vertical border-left + border-right to frame
-         the numbers, just like the logo-strip__viewport does.
-       - Thin vertical dividers between each stat so the four numbers read
-         as an evenly-partitioned row. Last item has no divider. */
+     Same vertical rhythm as the other sections (80px top/bottom, 16px sides)
+     with an intro block above (eyebrow + bold+muted description, matching
+     .yotor-section__intro) and a line-framed numbers row below.
+
+     The numbers row uses the same "framed rectangle" technique as
+     .logo-strip__viewport — border on all four sides + vertical dividers
+     between each column — so it visually rhymes with the trust logo strip
+     sitting a few sections up. */
   .stats {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
     background: var(--color-white);
-    border-top: 1px solid var(--color-border-soft);
     border-bottom: 1px solid var(--color-border-soft);
   }
 
   .stats__container {
     width: 100%;
-    max-width: var(--nav-inner-w);
-    padding: 0;
-    /* Vertical lines on left & right form the frame the numbers sit inside
-       — same technique used by .logo-strip__viewport. */
-    border-left: 1px solid var(--color-border-soft);
-    border-right: 1px solid var(--color-border-soft);
+    max-width: var(--content-w);
+    padding: var(--sp-20) var(--sp-4);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-8);
+  }
+
+  /* Intro (eyebrow + description) — mirrors .yotor-section__intro */
+  .stats__intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-2);
+    padding: var(--sp-2) 0;
+    width: 100%;
+  }
+
+  .stats__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-2);
+    height: 34px;
+    padding: var(--sp-2) var(--sp-4);
+    border-radius: var(--r-pill);
+  }
+
+  .stats__eyebrow-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  .stats__eyebrow-icon img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .stats__eyebrow-text {
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: var(--yotor-eyebrow-fs);
+    letter-spacing: var(--yotor-eyebrow-tracking);
+    text-transform: uppercase;
+    color: var(--color-yotor-primary);
+    white-space: nowrap;
+  }
+
+  .stats__desc-wrap {
+    padding: 0 var(--sp-4);
+    width: 100%;
+  }
+
+  .stats__desc {
+    width: 640px;
+    max-width: 100%;
+    font-family: 'General Sans', 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: var(--yotor-desc-fs);
+    line-height: normal;
+    color: var(--color-black);
+  }
+
+  .stats__desc-muted {
+    color: var(--color-muted-50);
+  }
+
+  /* Numbers row — line-framed rectangle */
+  .stats__row {
+    width: 100%;
+    border: 1px solid var(--color-border-soft);
+    border-radius: 2px;
+    background: var(--color-white);
+    overflow: hidden;
   }
 
   .stats__grid {
@@ -3982,6 +4052,10 @@
     /* Stats: 4-across → 2×2 on tablet, still line-only (no boxes).
        Partition logic: right border on left column of each row, bottom
        border on the top row only. Rules keyed by :nth-child(2n / +1). */
+    .stats__container {
+      padding: 48px 16px;
+    }
+
     .stats__grid {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -4911,27 +4985,48 @@
 </section>
 
 <!-- ===================== STATS SECTION =====================
-     Simple by-the-numbers strip that sits between the trust logos and the
-     Yotor Provides feature carousel. Numbers are placeholders (000+) — swap
-     in real figures the same way the pricing plan prices work. -->
+     By-the-numbers strip between the trust logos and Yotor Provides.
+     Intro (eyebrow + bold/muted description) matches the .yotor-section
+     pattern; the framed numbers row rhymes with the trust logo strip.
+     Numbers are placeholders (000+) — swap in real figures later. -->
 <section class="stats" aria-label="Yotor by the numbers">
   <div class="stats__container">
-    <div class="stats__grid">
-      <div class="stats__card" data-stagger="0">
-        <div class="stats__number">000<span class="stats__plus">+</span></div>
-        <div class="stats__label">Local Churches</div>
+    <!-- Intro -->
+    <div class="stats__intro">
+      <div class="stats__eyebrow">
+        <span class="stats__eyebrow-icon" aria-hidden="true">
+          <img src="assets/bento-icon-trending.svg" alt="" width="24" height="24" loading="lazy" decoding="async" />
+        </span>
+        <span class="stats__eyebrow-text">OUR IMPACT</span>
       </div>
-      <div class="stats__card" data-stagger="90">
-        <div class="stats__number">000<span class="stats__plus">+</span></div>
-        <div class="stats__label">Denominations</div>
+
+      <div class="stats__desc-wrap">
+        <p class="stats__desc">
+          Trusted by churches across the country
+          <span class="stats__desc-muted">— from small congregations to established ministries, growing every month.</span>
+        </p>
       </div>
-      <div class="stats__card" data-stagger="180">
-        <div class="stats__number">000<span class="stats__plus">+</span></div>
-        <div class="stats__label">Active Users</div>
-      </div>
-      <div class="stats__card" data-stagger="270">
-        <div class="stats__number">000<span class="stats__plus">+</span></div>
-        <div class="stats__label">Countries</div>
+    </div>
+
+    <!-- Numbers row -->
+    <div class="stats__row">
+      <div class="stats__grid">
+        <div class="stats__card" data-stagger="0">
+          <div class="stats__number">000<span class="stats__plus">+</span></div>
+          <div class="stats__label">Local Churches</div>
+        </div>
+        <div class="stats__card" data-stagger="90">
+          <div class="stats__number">000<span class="stats__plus">+</span></div>
+          <div class="stats__label">Denominations</div>
+        </div>
+        <div class="stats__card" data-stagger="180">
+          <div class="stats__number">000<span class="stats__plus">+</span></div>
+          <div class="stats__label">Active Users</div>
+        </div>
+        <div class="stats__card" data-stagger="270">
+          <div class="stats__number">000<span class="stats__plus">+</span></div>
+          <div class="stats__label">Countries</div>
+        </div>
       </div>
     </div>
   </div>
