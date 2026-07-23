@@ -1059,15 +1059,22 @@
     border-radius: var(--r-pill);
   }
 
+  /* Globe icon recolored to the Yotor primary teal via CSS mask, so it matches
+     the eyebrow text color without editing the shared Globe.svg file (which is
+     also used in the hero trust badge and must stay dark there). */
   .stats__eyebrow-icon {
     width: 24px;
     height: 24px;
     flex-shrink: 0;
-  }
-
-  .stats__eyebrow-icon img {
-    width: 100%;
-    height: 100%;
+    background-color: var(--color-yotor-primary);
+    -webkit-mask-image: url('assets/Globe.svg');
+            mask-image: url('assets/Globe.svg');
+    -webkit-mask-size: contain;
+            mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+            mask-position: center;
   }
 
   .stats__eyebrow-text {
@@ -1148,6 +1155,9 @@
     color: var(--color-yotor-primary);
     display: inline-flex;
     align-items: baseline;
+    /* Fixed-width digits so the number doesn't jitter while the count-up
+       animation swaps 0 → 1 → 10 → 100 → … */
+    font-variant-numeric: tabular-nums;
   }
 
   .stats__plus {
@@ -4998,9 +5008,8 @@
     <!-- Intro -->
     <div class="stats__intro">
       <div class="stats__eyebrow">
-        <span class="stats__eyebrow-icon" aria-hidden="true">
-          <img src="assets/Globe.svg" alt="" width="24" height="24" loading="lazy" decoding="async" />
-        </span>
+        <!-- Globe silhouette drawn by CSS mask so it inherits the teal color -->
+        <span class="stats__eyebrow-icon" aria-hidden="true"></span>
         <span class="stats__eyebrow-text">OUR IMPACT</span>
       </div>
 
@@ -5012,23 +5021,25 @@
       </div>
     </div>
 
-    <!-- Numbers row -->
+    <!-- Numbers row.
+         data-target holds the final number; the JS counts up from 0 → target
+         on scroll into view. Swap these values for the real GCME numbers. -->
     <div class="stats__row">
       <div class="stats__grid">
-        <div class="stats__card" data-stagger="0">
-          <div class="stats__number">000<span class="stats__plus">+</span></div>
+        <div class="stats__card" data-stagger="0" data-target="250">
+          <div class="stats__number"><span class="stats__value">0</span><span class="stats__plus">+</span></div>
           <div class="stats__label">Local Churches</div>
         </div>
-        <div class="stats__card" data-stagger="90">
-          <div class="stats__number">000<span class="stats__plus">+</span></div>
+        <div class="stats__card" data-stagger="90" data-target="40">
+          <div class="stats__number"><span class="stats__value">0</span><span class="stats__plus">+</span></div>
           <div class="stats__label">Denominations</div>
         </div>
-        <div class="stats__card" data-stagger="180">
-          <div class="stats__number">000<span class="stats__plus">+</span></div>
+        <div class="stats__card" data-stagger="180" data-target="12000">
+          <div class="stats__number"><span class="stats__value">0</span><span class="stats__plus">+</span></div>
           <div class="stats__label">Active Users</div>
         </div>
-        <div class="stats__card" data-stagger="270">
-          <div class="stats__number">000<span class="stats__plus">+</span></div>
+        <div class="stats__card" data-stagger="270" data-target="8">
+          <div class="stats__number"><span class="stats__value">0</span><span class="stats__plus">+</span></div>
           <div class="stats__label">Countries</div>
         </div>
       </div>
@@ -5970,9 +5981,11 @@
     });
   })();
 
-  // ===== Stats section: scroll-reveal with stagger =====
-  // Same behavior as the bento observer — each card fades + slides up when it
-  // enters the viewport, using its inline data-stagger attribute for the delay.
+  // ===== Stats section: scroll-reveal + count-up =====
+  // When each card enters the viewport it (1) fades+slides in with a per-card
+  // stagger and (2) the number counts from 0 → data-target with an ease-out
+  // curve. Numbers >= 1000 are formatted with a thousands comma via
+  // toLocaleString. Reduced-motion users see the final value immediately.
   (function () {
     var cards = document.querySelectorAll('.stats__card');
     if (!cards.length) return;
@@ -5980,8 +5993,35 @@
     var prefersReduced = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    // Fill in the final value directly on the .stats__value element.
+    function setValue(card, n) {
+      var el = card.querySelector('.stats__value');
+      if (el) el.textContent = Number(n).toLocaleString('en-US');
+    }
+
+    // Count from 0 → target over ~1400ms with an ease-out cubic curve.
+    function animateCount(card) {
+      var target = parseInt(card.getAttribute('data-target') || '0', 10);
+      if (!target) return;
+      var duration = 1400;
+      var startTs = null;
+      function step(t) {
+        if (startTs === null) startTs = t;
+        var p = Math.min((t - startTs) / duration, 1);
+        var eased = 1 - Math.pow(1 - p, 3);   // ease-out cubic
+        setValue(card, Math.floor(target * eased));
+        if (p < 1) window.requestAnimationFrame(step);
+        else setValue(card, target);          // snap to exact final value
+      }
+      window.requestAnimationFrame(step);
+    }
+
+    // No-IO browsers or reduced-motion users → reveal + final value immediately
     if (!('IntersectionObserver' in window) || prefersReduced) {
-      cards.forEach(function (c) { c.classList.add('is-revealed'); });
+      cards.forEach(function (c) {
+        c.classList.add('is-revealed');
+        setValue(c, parseInt(c.getAttribute('data-target') || '0', 10));
+      });
       return;
     }
 
@@ -5992,6 +6032,7 @@
         var delay = parseInt(card.getAttribute('data-stagger') || '0', 10);
         window.setTimeout(function () {
           card.classList.add('is-revealed');
+          animateCount(card);
         }, delay);
         observer.unobserve(card);
       });
