@@ -1114,7 +1114,7 @@
 
   .stats__grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   /* Each stat is a plain column — no background, no radius, no border.
@@ -4063,31 +4063,13 @@
       width: 49.4%;
     }
 
-    /* Stats: 4-across → 2×2 on tablet, still line-only (no boxes).
-       Partition logic: right border on left column of each row, bottom
-       border on the top row only. Rules keyed by :nth-child(2n / +1). */
+    /* Stats: keep 3-across on tablet, tighter padding */
     .stats__container {
       padding: 48px 16px;
     }
 
-    .stats__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
     .stats__card {
       padding: 32px 16px;
-      border-right: 0;
-      border-bottom: 1px solid var(--color-border-soft);
-    }
-
-    /* Left column of every row: keep the vertical divider */
-    .stats__card:nth-child(2n + 1) {
-      border-right: 1px solid var(--color-border-soft);
-    }
-
-    /* Bottom row: no bottom border */
-    .stats__card:nth-last-child(-n + 2) {
-      border-bottom: 0;
     }
   }
 
@@ -4159,23 +4141,34 @@
       animation-duration: 24s;
     }
 
-    /* Stats: keep 2×2 + line partitions, tighter type on mobile */
+    /* Stats: stack to 1 column on mobile with horizontal dividers between
+       stats instead of vertical (numbers wouldn't fit 3-across at 44px). */
+    .stats__grid {
+      grid-template-columns: 1fr;
+    }
+
     .stats__card {
-      padding: 24px 12px;
+      padding: 24px 16px;
       gap: 4px;
+      border-right: 0;
+      border-bottom: 1px solid var(--color-border-soft);
+    }
+
+    .stats__card:last-child {
+      border-bottom: 0;
     }
 
     .stats__number {
-      font-size: 40px;
-      letter-spacing: -1.2px;
+      font-size: 44px;
+      letter-spacing: -1.32px;
     }
 
     .stats__plus {
-      font-size: 28px;
+      font-size: 32px;
     }
 
     .stats__label {
-      font-size: 13px;
+      font-size: 14px;
     }
 
     /* Yotor section */
@@ -5036,11 +5029,7 @@
         </div>
         <div class="stats__card" data-stagger="180" data-target="12000">
           <div class="stats__number"><span class="stats__value">0</span><span class="stats__plus">+</span></div>
-          <div class="stats__label">Active Users</div>
-        </div>
-        <div class="stats__card" data-stagger="270" data-target="8">
-          <div class="stats__number"><span class="stats__value">0</span><span class="stats__plus">+</span></div>
-          <div class="stats__label">Countries</div>
+          <div class="stats__label">Church Leaders</div>
         </div>
       </div>
     </div>

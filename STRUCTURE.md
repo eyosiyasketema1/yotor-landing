@@ -16,9 +16,11 @@ Top-to-bottom order of sections inside the page.
    - 6 church logos scrolling on an infinite loop
 
 4. **Stats** — By-the-numbers strip
-   - 4 cards: Local Churches, Denominations, Active Users, Countries
+   - 3 cards: Local Churches, Denominations, Church Leaders
+   - Teal `OUR IMPACT` eyebrow (masked globe) + bold/muted description
    - Big teal Poppins numbers with `+` suffix, gray General Sans labels
-   - Scroll-reveal stagger (matches Bento). Placeholder numbers (`000+`) until real figures land.
+   - Framed by edge-to-edge horizontal lines + vertical content-width lines
+   - Scroll-reveal stagger + count-up animation (0 → target with ease-out cubic)
 
 5. **Yotor Provides** — `#products`
    - Auto-cycling 6-tab carousel (Quick Board, Member Management, Team Management, Message, Finance, HR and Asset)
@@ -86,7 +88,7 @@ Smooth-scroll targets (used by both the navbar and footer Navigation column):
 |---|---|
 | Navigation | Hamburger toggle on ≤ 1024px |
 | Logo strip | Pause-on-hover marquee, respects `prefers-reduced-motion` |
-| Stats | Scroll-reveal stagger (fade + slide-up) as the row enters the viewport |
+| Stats | Scroll-reveal stagger (fade + slide-up) plus count-up animation (0 → target) on first view |
 | Yotor Provides | Auto-cycling loading bar, click any tab to jump, fade-swap of dashboard image + description |
 | Comparison | Mouse drag, click anywhere on the card, touch, keyboard (arrows / Home / End), auto-demo on first view |
 | Testimony video | Click a thumb to expand it to main size; main shrinks in real time. Left/right arrows rotate through pastors |
