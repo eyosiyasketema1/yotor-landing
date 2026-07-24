@@ -6656,7 +6656,8 @@
     });
 
     // Auto-demo: when the slider scrolls into view for the first time,
-    // animate once (middle -> 30% -> 70% -> middle) to hint that it's draggable.
+    // animate once (start -> 30% -> 75% -> 65%) to hint that it's draggable
+    // and settle with more of the new way visible.
     // Skipped if the user has already interacted, or if reduced-motion is set.
     function runDemo() {
       if (demoPlayed || userInteracted || prefersReduced) return;
@@ -6664,8 +6665,8 @@
       card.classList.add('is-demo');
       // Small initial pause so visitors notice the slider settled before it moves
       window.setTimeout(function () { if (!userInteracted) setPos(30); }, 350);
-      window.setTimeout(function () { if (!userInteracted) setPos(70); }, 1150);
-      window.setTimeout(function () { if (!userInteracted) setPos(50); }, 1950);
+      window.setTimeout(function () { if (!userInteracted) setPos(75); }, 1150);
+      window.setTimeout(function () { if (!userInteracted) setPos(65); }, 1950);
       // Remove the transition class after the demo finishes so future
       // drags/clicks remain instant
       window.setTimeout(function () { card.classList.remove('is-demo'); }, 2750);
@@ -6683,7 +6684,9 @@
       observer.observe(card);
     }
 
-    setPos(50);
+    // Start biased toward the new way — visitors who don't scroll far enough to
+    // trigger the auto-demo still see more of the "after" state at rest.
+    setPos(65);
   })();
 
   // ===== Yotor section: continuous loading-bar carousel =====
