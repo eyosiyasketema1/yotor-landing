@@ -3407,16 +3407,17 @@
     border-radius: 4px;
   }
 
-  /* Old-way badge sits centered in the right (old-way) portion */
+  /* Old-way badge sits centered in the LEFT (old-way) portion.
+     Positions swapped when the layout was flipped so OLD sits on the left. */
   .comparison__badge--old {
-    left: calc((var(--slider-pos) + 100%) / 2);
+    left: calc(var(--slider-pos) / 2);
     background: var(--color-yotor-primary);
     color: var(--color-white);
   }
 
-  /* New-way badge sits centered in the left (new-way) portion */
+  /* New-way badge sits centered in the RIGHT (new-way) portion */
   .comparison__badge--new {
-    left: calc(var(--slider-pos) / 2);
+    left: calc((var(--slider-pos) + 100%) / 2);
     background: var(--color-yellow);
     color: var(--color-text-dark);
   }
@@ -5254,16 +5255,16 @@
 <section class="comparison" aria-label="The old way vs the new way">
   <div class="comparison__container">
     <div class="comparison__card" id="compareCard">
-      <!-- Base layer: old way image (always full visible underneath) -->
-      <img class="comparison__img" src="assets/the-old-way.png" alt="Stressed pastor at a cluttered desk - the old way"  loading="lazy" decoding="async"  width="1128" height="552" />
+      <!-- Base layer: NEW way image (always full visible underneath, sits on the right) -->
+      <img class="comparison__img" src="assets/the-new-way.png" alt="Organized pastor using Yotor - the new way"  loading="lazy" decoding="async"  width="1128" height="552" />
       <div class="comparison__overlay" aria-hidden="true"></div>
-      <span class="comparison__badge comparison__badge--old">The old way</span>
+      <span class="comparison__badge comparison__badge--new">The new way</span>
 
-      <!-- Top layer: new way image clipped to the left portion -->
+      <!-- Top layer: OLD way image clipped to the left portion -->
       <div class="comparison__new-wrap" id="compareNewWrap">
-        <img class="comparison__img" src="assets/the-new-way.png" alt="Organized pastor using Yotor - the new way"  loading="lazy" decoding="async"  width="1128" height="552" />
+        <img class="comparison__img" src="assets/the-old-way.png" alt="Stressed pastor at a cluttered desk - the old way"  loading="lazy" decoding="async"  width="1128" height="552" />
         <div class="comparison__overlay" aria-hidden="true"></div>
-        <span class="comparison__badge comparison__badge--new">The new way</span>
+        <span class="comparison__badge comparison__badge--old">The old way</span>
       </div>
 
       <!-- Draggable handle: vertical line + yellow circle with two-way arrows -->
@@ -7405,17 +7406,20 @@
     });
 
     // Auto-demo: when the slider scrolls into view for the first time,
-    // animate once (start -> 30% -> 75% -> 65%) to hint that it's draggable
-    // and settle with more of the new way visible.
+    // animate once (start -> 70% -> 25% -> 35%) to hint that it's draggable
+    // and settle with more of the new way (right side) visible.
+    // Layout note: after the OLD/NEW swap the slider now clips the OLD image
+    // from the left, so smaller --slider-pos = LESS old on the left = MORE
+    // new on the right. Values mirror the previous 30/75/65 sequence.
     // Skipped if the user has already interacted, or if reduced-motion is set.
     function runDemo() {
       if (demoPlayed || userInteracted || prefersReduced) return;
       demoPlayed = true;
       card.classList.add('is-demo');
       // Small initial pause so visitors notice the slider settled before it moves
-      window.setTimeout(function () { if (!userInteracted) setPos(30); }, 350);
-      window.setTimeout(function () { if (!userInteracted) setPos(75); }, 1150);
-      window.setTimeout(function () { if (!userInteracted) setPos(65); }, 1950);
+      window.setTimeout(function () { if (!userInteracted) setPos(70); }, 350);
+      window.setTimeout(function () { if (!userInteracted) setPos(25); }, 1150);
+      window.setTimeout(function () { if (!userInteracted) setPos(35); }, 1950);
       // Remove the transition class after the demo finishes so future
       // drags/clicks remain instant
       window.setTimeout(function () { card.classList.remove('is-demo'); }, 2750);
@@ -7435,7 +7439,9 @@
 
     // Start biased toward the new way — visitors who don't scroll far enough to
     // trigger the auto-demo still see more of the "after" state at rest.
-    setPos(65);
+    // After the OLD/NEW swap, the OLD image is the top overlay clipped from the
+    // left, so smaller values reveal more of the NEW base underneath.
+    setPos(35);
   })();
 
   // ===== Yotor section: continuous loading-bar carousel =====
