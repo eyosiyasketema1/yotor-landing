@@ -4071,6 +4071,14 @@
     .stats__card {
       padding: 32px 16px;
     }
+
+    /* Footer wordmark: was locked at 211px desktop and getting clipped inside
+       .footer__bottom-container's overflow:hidden at tablet widths. Clamp so
+       it scales cleanly between desktop (211px) and mobile (160px max). */
+    :root {
+      --footer-mega-fs: clamp(120px, 17vw, 190px);
+      --footer-mega-tracking: -4px;
+    }
   }
 
   /* ===================== RESPONSIVE — MOBILE (≤768px) ===================== */
