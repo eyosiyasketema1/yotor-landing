@@ -1019,9 +1019,9 @@
     align-items: center;
     width: 100%;
     background: var(--color-white);
-    /* Full-width edge-to-edge horizontal lines — connects visually with
-       the logo strip above and Yotor Provides below. */
-    border-top: 1px solid var(--color-border-soft);
+    /* Only bottom border — the logo strip's own border-bottom already draws
+       the line above stats, so adding border-top here would stack two 1px
+       lines into a 2px "double line" seam. */
     border-bottom: 1px solid var(--color-border-soft);
   }
 
